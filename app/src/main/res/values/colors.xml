@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#44B05B</color>
+    <color name="colorPrimaryDark">#44B05B</color>
+    <color name="colorAccent">#44B05B</color>
+
+    <color name="black">#000000</color>
+    <color name="transparent_black">#26000000</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#5B5B5B</color>
+    <color name="dark_white">#F2F2F2</color>
+    <color name="unselected_banner_text">#B7B7B7</color>
+    <color name="light_gray">#EDEDED</color>
+
+</resources>

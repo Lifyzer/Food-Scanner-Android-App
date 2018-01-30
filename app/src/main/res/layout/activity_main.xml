@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.foodscan.Activity.MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <!--android:layout_below="@+id/container_toolbar"-->
+
+        <com.foodscan.CustomViews.NonSwipeableViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50.5dp" />
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:be="@+id/tabs"-->
+            <!--android:background="@color/black"/>-->
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_below="@+id/viewpager"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:tabGravity="fill"
+            android:layout_alignParentBottom="true"
+            app:tabMode="fixed" />
+        <!--app:tabIndicatorColor="@android:color/white"-->
+
+    </FrameLayout>
+
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_history"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="@dimen/dp50"-->
+        <!--android:visibility="gone" />-->
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_scan"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="@dimen/dp50" />-->
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_profile"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="@dimen/dp50"-->
+        <!--android:visibility="gone" />-->
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp50"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:weightSum="3">-->
+
+
+        <!--&lt;!&ndash;History&ndash;&gt;-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_history"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/img_history"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:src="@drawable/img_history_not_selected" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txt_history"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/img_history"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/History"-->
+                <!--android:textColor="@color/unselected_banner_text"-->
+                <!--android:textSize="@dimen/sp12"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+        <!--&lt;!&ndash;Scan Food&ndash;&gt;-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_scan_food"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/img_scan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:src="@drawable/img_scan_not_selected" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txt_scan_food"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/img_scan"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/Scan_Food"-->
+                <!--android:textColor="@color/unselected_banner_text"-->
+                <!--android:textSize="@dimen/sp12" />-->
+
+        <!--</RelativeLayout>-->
+
+        <!--&lt;!&ndash;Profile&ndash;&gt;-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_profile"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/img_profile"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:src="@drawable/img_profile_not_selected" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txt_profile"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/img_profile"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/Profile"-->
+                <!--android:textColor="@color/unselected_banner_text"-->
+                <!--android:textSize="@dimen/sp12"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
+
+</RelativeLayout>

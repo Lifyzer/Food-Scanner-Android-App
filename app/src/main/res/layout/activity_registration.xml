@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/rl_parent"
+    tools:context="com.foodscan.Activity.RegistrationActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:src="@drawable/img_back_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="sans"
+                    android:text="@string/Create_Account"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp18"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_toolbar">
+
+                <EditText
+                    android:id="@+id/edt_full_name"
+                    style="@style/EditInputField"
+                    android:layout_marginTop="@dimen/dp30"
+                    android:background="@drawable/tv_button_stroke_gray"
+                    android:hint="@string/Full_name"
+                    android:textColor="@color/gray"
+                    android:textColorHint="@color/light_gray"
+                    android:fontFamily="sans"
+                    android:textStyle="normal"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+
+
+                <EditText
+                    android:id="@+id/edt_email_id"
+                    style="@style/EditInputField"
+                    android:layout_below="@+id/edt_full_name"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:background="@drawable/tv_button_stroke_gray"
+                    android:hint="@string/Email_Id"
+                    android:textColor="@color/gray"
+                    android:textColorHint="@color/light_gray"
+                    android:fontFamily="sans"
+                    android:textStyle="normal"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_password"
+                    style="@style/EditInputField"
+                    android:layout_below="@+id/edt_email_id"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:background="@drawable/tv_button_stroke_gray"
+                    android:hint="@string/Password"
+                    android:textColor="@color/gray"
+                    android:textColorHint="@color/light_gray"
+                    android:fontFamily="sans"
+                    android:textStyle="normal"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionNext"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_confirm_password"
+                    style="@style/EditInputField"
+                    android:layout_below="@+id/edt_password"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:background="@drawable/tv_button_stroke_gray"
+                    android:hint="@string/Confirm_Password"
+                    android:textColor="@color/gray"
+                    android:textColorHint="@color/light_gray"
+                    android:fontFamily="sans"
+                    android:textStyle="normal"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionGo"
+
+                    />
+
+                <TextView
+                    android:id="@+id/txt_terms_and_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edt_confirm_password"
+                    android:layout_marginLeft="@dimen/dp30"
+                    android:layout_marginRight="@dimen/dp30"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:gravity="left"
+                    android:fontFamily="sans"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/sp12"
+                    android:text="@string/Terms_and_condition" />
+
+                <TextView
+                    android:id="@+id/txt_proceed"
+                    style="@style/EditInputField"
+                    android:layout_below="@+id/txt_terms_and_condition"
+                    android:layout_marginTop="@dimen/dp50"
+                    android:background="@drawable/tv_button_green"
+                    android:gravity="center"
+                    android:text="@string/Process" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

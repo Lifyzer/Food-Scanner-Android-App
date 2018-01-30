@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">FoodScan</string>
+    <string name="SCAN_FOOD">SCAN FOOD</string>
+    <string name="Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories">ScanFood is help you to get food details such as Protein, Fat, Calories</string>
+    <string name="Sign_In">Sign In</string>
+    <string name="Create_New_Account">Create New Account</string>
+    <string name="Scanfood_Inc">Scanfood Inc</string>
+    <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose for ScanFood and click to Sign In</string>
+    <string name="Email_Id">Email Id</string>
+    <string name="Password">Password</string>
+    <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
+    <string name="Forgot_Password">Forgot Password</string>
+    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a link to reset your password</string>
+    <string name="Send">Send</string>
+    <string name="First_name">First Name</string>
+    <string name="Last_Name">Last Name</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="Terms_and_condition"><![CDATA[By Creating Account, You are automatically accepting all the Teams & Condition]]></string>
+    <string name="Process">Proceed</string>
+    <string name="History">History</string>
+    <string name="Favourite">Favourite</string>
+    <string name="Scan_Food">Scan Food</string>
+    <string name="Profile">Profile</string>
+    <string name="PERSONAL">PERSONAL</string>
+    <string name="FAVORITE_FOOD">FAVORITE FOOD</string>
+    <string name="Create_Account">Create Account</string>
+    <string name="Full_name">Full Name</string>
+
+
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="ok">OK</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="please_enter_first_name">Please enter first name</string>
+    <string name="please_enter_valid_email">Please enter valid email</string>
+    <string name="password_and_confrirmpass_is_diffrent">Password and Confirm password is diffrent</string>
+    <string name="no_internet_connection">No Internet connection. Please try again later</string>
+    <string name="password_lenght_six_char">Password lenght should be atleast 6 character</string>
+    <string name="Loading_msg">Loading...</string>
+    <string name="OK">OK</string>
+    <string name="Thank_You">Thank You!</string>
+    <string name="You_have_successfully_login">You have successfully registered</string>
+
+</resources>
