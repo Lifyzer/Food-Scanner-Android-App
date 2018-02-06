@@ -9,7 +9,9 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        >
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,6 +73,7 @@
                 />
 
             <TextView
+                android:id="@+id/txt_copy_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -78,6 +81,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:padding="@dimen/dp5"
+                android:textSize="@dimen/sp10"
+                android:layout_marginBottom="@dimen/dp10"
                 />
 
             </RelativeLayout>

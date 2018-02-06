@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.foodscan.R;
+import com.foodscan.WsHelper.model.DTOHistoryData;
 import com.foodscan.WsHelper.model.DTOLoginData;
+import com.foodscan.WsHelper.model.DTOProductDetailsData;
 import com.foodscan.WsHelper.model.DTORefreshTokenData;
 
 import dmax.dialog.SpotsDialog;
@@ -29,7 +31,7 @@ public class WebserviceWrapper {
     boolean displayProgress = false;
     String dialogMessage = "";
 
-    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2;
+    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4;
 
 
     public interface WebserviceResponse {
@@ -63,7 +65,7 @@ public class WebserviceWrapper {
     }
 
     public enum WEB_CALLID {
-        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2);
+        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4);
 
         int callId;
 
@@ -118,6 +120,16 @@ public class WebserviceWrapper {
 
                     case REGISTRATION: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.REGISTRATION, mContext).execute(attribute, DTOLoginData.class, null);
+                    }
+                    break;
+
+                    case PRODUCT_DETAILS: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.GET_PRODUCT_DETAILS, mContext).execute(attribute, DTOProductDetailsData.class, null);
+                    }
+                    break;
+
+                    case HISTORY: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.GET_USER_HISTORY, mContext).execute(attribute, DTOHistoryData.class, null);
                     }
                     break;
 

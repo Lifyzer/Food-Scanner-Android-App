@@ -7,136 +7,138 @@
     android:padding="@dimen/dp10">
 
     <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    swipe:leftEdgeSwipeOffset="0dp"
-    swipe:rightEdgeSwipeOffset="0dp">
-
-    <!--Swipe options-->
-
-    <LinearLayout
-    android:layout_width="@dimen/dp70"
-    android:layout_height="80dp"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:tag="Bottom3"
-    android:weightSum="10"
-    >
-
-    <ImageView
-    android:id="@+id/img_delete"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_weight="5"
-    android:src="@drawable/img_delete" />
-
-
-    <ImageView
-    android:id="@+id/img_favourite"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_weight="5"
-    android:src="@drawable/img_favourite_stroke" />
-
-
-    </LinearLayout>
-
-    <!--Main Layout-->
-
-
-    <android.support.v7.widget.CardView
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp5"
-        app:cardPreventCornerOverlap="true">
+        swipe:leftEdgeSwipeOffset="0dp"
+        swipe:rightEdgeSwipeOffset="0dp">
+
+        <!--Swipe options-->
+
+        <LinearLayout
+            android:layout_width="@dimen/dp70"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="Bottom3"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:src="@drawable/img_delete" />
 
 
-        <RelativeLayout
+            <ImageView
+                android:id="@+id/img_favourite"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:src="@drawable/img_favourite_stroke" />
+
+
+        </LinearLayout>
+
+        <!--Main Layout-->
+
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:padding="@dimen/dp10">
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/dp5"
+            app:cardPreventCornerOverlap="true">
 
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/img_card_view"
-                android:layout_width="@dimen/dp80"
-                android:layout_height="@dimen/dp80"
-                app:cardCornerRadius="@dimen/dp5"
-                app:cardPreventCornerOverlap="true"
-                card_view:cardBackgroundColor="#E4E4E5">
-
-
-                <ImageView
-                    android:id="@+id/img_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:src="@drawable/img_food_placeholder"
-
-                    />
-
-            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp10"
-                android:layout_toRightOf="@+id/img_card_view">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:padding="@dimen/dp10">
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/img_card_view"
+                    android:layout_width="@dimen/dp80"
+                    android:layout_height="@dimen/dp80"
+                    app:cardCornerRadius="@dimen/dp5"
+                    app:cardPreventCornerOverlap="true"
+                    card_view:cardBackgroundColor="#E4E4E5">
+
+
+                    <ImageView
+                        android:id="@+id/img_food"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_food_placeholder_small"
+
+                        />
+
+                </android.support.v7.widget.CardView>
 
                 <RelativeLayout
-                    android:id="@+id/rl_produce_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_toRightOf="@+id/img_card_view">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_produce_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_product_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Grenki"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:id="@+id/txt_created_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:text="14/01/2018"
+                            android:textSize="@dimen/sp12" />
+
+                    </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/txt_product_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Grenki"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sp16" />
+                        android:layout_below="@+id/rl_produce_name"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:text="@string/Natural_Product" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txt_is_healthy"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="14/01/2018"
-                        android:textSize="@dimen/sp12" />
-
+                        android:layout_below="@+id/txt_product_type"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:drawableLeft="@drawable/circle_bg_green_small"
+                        android:drawablePadding="@dimen/dp5"
+                        android:fontFamily="sans"
+                        android:text="@string/Excellent"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp15"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/txt_product_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_produce_name"
-                    android:layout_marginTop="@dimen/dp2"
-                    android:text="Natural Product" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_product_type"
-                    android:layout_marginTop="@dimen/dp10"
-                    android:drawableLeft="@drawable/img_green_dot"
-                    android:drawablePadding="@dimen/dp5"
-                    android:fontFamily="sans"
-                    android:text="Excellent"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/sp15"
-                    android:textStyle="bold" />
 
             </RelativeLayout>
 
 
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
 
     </com.daimajia.swipe.SwipeLayout>

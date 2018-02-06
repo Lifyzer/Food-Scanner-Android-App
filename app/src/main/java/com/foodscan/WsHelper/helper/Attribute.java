@@ -42,6 +42,12 @@ public class Attribute {
     @JsonProperty("last_name")
     private String last_name;
 
+    @JsonProperty("user_id")
+    private String user_id;
+
+    @JsonProperty("product_name")
+    private String product_name;
+
 
 
     // *************************************//
@@ -116,6 +122,26 @@ public class Attribute {
     @JsonProperty("last_name")
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    @JsonProperty("user_id")
+    public String getUser_id() {
+        return user_id;
+    }
+
+    @JsonProperty("user_id")
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    @JsonProperty("product_name")
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    @JsonProperty("product_name")
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
 

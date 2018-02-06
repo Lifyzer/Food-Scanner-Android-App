@@ -65,7 +65,6 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                     wsCallRefreshToken();
                 }
 
-
             }
         }, SPLASH_DURATION_MILI);
     }

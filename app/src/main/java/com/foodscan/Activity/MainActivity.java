@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView img_history, img_scan, img_profile;
     private TextView txt_history, txt_scan_food, txt_profile;
 
-    private boolean needDialog = false;
+    public boolean needDialog = false;
 
     private TabLayout tabLayout;
     public ViewPager viewPager;
@@ -368,23 +368,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if(viewPager.getCurrentItem() == 1){
-
-            if(adapter != null){
-                Fragment fragment = adapter.getItem(1);
-
-                if(fragment instanceof ScanFragment){
-
-                    ScanFragment scanFragment = (ScanFragment)fragment;
-                    return scanFragment.getTouchEvent(event);
-
-                }
-
-            }
-        }
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//
+//        if(viewPager.getCurrentItem() == 1){
+//
+//            if(adapter != null){
+//                Fragment fragment = adapter.getItem(1);
+//
+//                if(fragment instanceof ScanFragment){
+//
+//                    ScanFragment scanFragment = (ScanFragment)fragment;
+//                    return scanFragment.getTouchEvent(event);
+//
+//                }
+//
+//            }
+//        }
+//        return super.onTouchEvent(event);
+//    }
 }

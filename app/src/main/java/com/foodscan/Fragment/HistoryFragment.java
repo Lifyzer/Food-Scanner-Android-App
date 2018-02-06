@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.foodscan.Activity.MainActivity;
 import com.foodscan.R;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
     private View viewFragment;
     private RelativeLayout rl_parent;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public ViewPager viewPager;
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -42,8 +43,8 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         if (viewFragment == null) {
-            viewFragment = inflater.inflate(R.layout.history_fragment, container, false);
 
+            viewFragment = inflater.inflate(R.layout.history_fragment, container, false);
             mContext = getActivity();
 
         }
@@ -58,11 +59,20 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
         if (viewFragment != null) {
 
             setUpControls(viewFragment);
-            initGlobal();
+            //initGlobal();
+
+            if (!isViewShown) {
+                if (((MainActivity) mContext).viewPager.getCurrentItem() == 0) {
+                    if (isLoadingFirstTime) {
+                        initGlobal();
+                        isLoadingFirstTime = false;
+
+                    }
+                }
+            }
+
 
         }
-
-
     }
 
     private void setUpControls(View rootView) {
@@ -71,6 +81,27 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
         tabLayout = rootView.findViewById(R.id.tabs);
         viewPager = rootView.findViewById(R.id.viewpager);
 
+    }
+
+    private boolean isViewShown = false, isLoadingFirstTime = true;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getView() != null) {
+                isViewShown = true;
+                if (isLoadingFirstTime) {
+
+                    initGlobal();
+                    isLoadingFirstTime = false;
+
+                }
+                isLoadingFirstTime = false;
+            } else {
+                isViewShown = false;
+            }
+        }
     }
 
     private void initGlobal() {
@@ -124,9 +155,7 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
 
     }
 
-
     //****** View pager Adapter *******//
-
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

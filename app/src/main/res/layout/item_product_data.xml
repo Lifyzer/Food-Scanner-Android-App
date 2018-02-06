@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_Details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp5"
+        >
+
+        <ImageView
+            android:id="@+id/img_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            android:src="@drawable/img_organic" />
+
+        <RelativeLayout
+            android:id="@+id/rl_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_toRightOf="@+id/img_content">
+
+            <TextView
+                android:id="@+id/txt_content_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Organic"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16" />
+
+
+            <TextView
+                android:id="@+id/txt_content_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_content_name"
+                android:text="Natural Product"
+                android:textSize="@dimen/sp12" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_content_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableRight="@drawable/img_green_dot"
+            android:text="11.6g"
+            android:textSize="@dimen/sp14" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rl_Details"
+        android:background="@color/unselected_banner_text"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp5"/>
+
+</RelativeLayout>

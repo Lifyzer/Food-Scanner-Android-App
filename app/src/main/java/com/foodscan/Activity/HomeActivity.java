@@ -15,7 +15,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private Context mContext;
 
-    private TextView txt_signin, txt_create_new_account;
+    private TextView txt_signin, txt_create_new_account, txt_copy_right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         txt_signin = findViewById(R.id.txt_signin);
         txt_create_new_account = findViewById(R.id.txt_create_new_account);
+        txt_copy_right = findViewById(R.id.txt_copy_right);
 
     }
 
@@ -39,6 +40,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         txt_signin.setOnClickListener(this);
         txt_create_new_account.setOnClickListener(this);
+
+        //txt_copy_right.setText("@2017 ScanFood Inc.");
 
     }
 

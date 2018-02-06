@@ -10,13 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -24,33 +25,52 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foodscan.Activity.MainActivity;
+import com.foodscan.Activity.ProductDetailsActivity;
 import com.foodscan.OCR.CameraSource;
 import com.foodscan.OCR.CameraSourcePreview;
 import com.foodscan.OCR.GraphicOverlay;
 import com.foodscan.OCR.OcrDetectorProcessor;
 import com.foodscan.OCR.OcrGraphic;
 import com.foodscan.R;
+import com.foodscan.Utility.TinyDB;
+import com.foodscan.Utility.UserDefaults;
+import com.foodscan.Utility.Utility;
+import com.foodscan.WsHelper.helper.Attribute;
+import com.foodscan.WsHelper.helper.WebserviceWrapper;
+import com.foodscan.WsHelper.model.DTOProductDetailsData;
+import com.foodscan.WsHelper.model.DTOUser;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.rey.material.app.ThemeManager;
 
 import java.io.IOException;
+
+import io.realm.Realm;
 
 
 /**
  * Created by c157 on 22/01/18.
  */
 
-public class ScanFragment extends Fragment  {
+public class ScanFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = ScanFragment.class.getSimpleName();
 
     private Context mContext;
-    private View viewFragment;
+    private Realm realm;
+    private DTOUser dtoUser;
+    private TinyDB tinyDB;
 
+    private View viewFragment;
     // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
 
@@ -62,6 +82,7 @@ public class ScanFragment extends Fragment  {
     public static final String UseFlash = "UseFlash";
     public static final String TextBlockObject = "String";
 
+    private LinearLayout ll_parent;
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
     private GraphicOverlay<OcrGraphic> mGraphicOverlay;
@@ -74,37 +95,64 @@ public class ScanFragment extends Fragment  {
      * Initializes the UI and creates the detector pipeline.
      */
 
-
+    // Intent request code to handle updating play services if needed.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        //if (viewFragment == null)
-        {
-            viewFragment = inflater.inflate(R.layout.scan_fragment, container, false);
-            mContext = getActivity();
+        // if (viewFragment == null) {
+        viewFragment = inflater.inflate(R.layout.scan_fragment, container, false);
+        mContext = getActivity();
 
-            mPreview = (CameraSourcePreview) viewFragment.findViewById(R.id.preview);
-            mGraphicOverlay = (GraphicOverlay<OcrGraphic>) viewFragment.findViewById(R.id.graphicOverlay);
+        mContext = getActivity();
+        realm = Realm.getDefaultInstance();
+        tinyDB = new TinyDB(mContext);
+        dtoUser = realm.where(DTOUser.class).findFirst();
 
-            // read parameters from the intent used to launch the activity.
-            boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
-            boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
-
-            // Check for the camera permission before accessing the camera.  If the
-            // permission is not granted yet, request permission.
-            int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
-            if (rc == PackageManager.PERMISSION_GRANTED) {
-                createCameraSource(autoFocus, useFlash);
-            } else {
-                requestCameraPermission();
-            }
-
-            gestureDetector = new GestureDetector(mContext, new CaptureGestureListener());
-            scaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleListener());
-
-        }
+        initView(viewFragment);
+        initGlobals();
+        // }
 
         return viewFragment;
+    }
+
+    private void initView(View viewFragment) {
+
+        ll_parent = (LinearLayout) viewFragment.findViewById(R.id.ll_parent);
+        mPreview = (CameraSourcePreview) viewFragment.findViewById(R.id.preview);
+        mGraphicOverlay = (GraphicOverlay<OcrGraphic>) viewFragment.findViewById(R.id.graphicOverlay);
+
+        // read parameters from the intent used to launch the activity.
+        boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
+        boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
+
+        // Check for the camera permission before accessing the camera.  If the
+        // permission is not granted yet, request permission.
+
+
+        int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
+        if (rc == PackageManager.PERMISSION_GRANTED) {
+            createCameraSource(autoFocus, useFlash);
+        } else {
+            requestCameraPermission();
+        }
+
+        gestureDetector = new GestureDetector(mContext, new CaptureGestureListener());
+        scaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleListener());
+
+        //wsCallProductDetails("Quaker Oats");
+    }
+
+    private void initGlobals() {
+        viewFragment.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent e) {
+
+                boolean b = scaleGestureDetector.onTouchEvent(e);
+                boolean c = gestureDetector.onTouchEvent(e);
+                return b || c;
+
+            }
+        });
+
     }
 
     /**
@@ -172,7 +220,7 @@ public class ScanFragment extends Fragment  {
 
         if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                 Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, RC_HANDLE_CAMERA_PERM);
+            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
             return;
         }
 
@@ -191,7 +239,6 @@ public class ScanFragment extends Fragment  {
 //                .setAction(R.string.ok, listener)
 //                .show();
     }
-
 
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -270,10 +317,10 @@ public class ScanFragment extends Fragment  {
         if (graphic != null) {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
-                Intent data = new Intent();
-                data.putExtra(TextBlockObject, text.getValue());
-//                setResult(CommonStatusCodes.SUCCESS, data);
-//                finish();
+
+                //Toast.makeText(mContext, "selected text :" + text.getValue(), Toast.LENGTH_SHORT).show();
+                showTextDialog(text.getValue());
+
             } else {
                 Log.d(TAG, "text data is null");
             }
@@ -281,6 +328,74 @@ public class ScanFragment extends Fragment  {
             Log.d(TAG, "no text detected");
         }
         return text != null;
+    }
+
+    private void showTextDialog(String detectedText) {
+
+        //detectedText = detectedText.replace("\n", "").replace("\r", " ");
+        detectedText = detectedText.replaceAll("[\\t\\n\\r]+", " ");
+
+        final Dialog d = new Dialog(mContext);
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        d.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        d.setContentView(R.layout.dialog_detected_text);
+        d.setCancelable(true);
+        d.setCanceledOnTouchOutside(true);
+
+        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+
+        d.getWindow().getAttributes().windowAnimations = (isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog);//R.style.DialogAnimation
+
+        final EditText edt_detected_text = d.findViewById(R.id.edt_detected_text);
+        edt_detected_text.setText(detectedText);
+
+        edt_detected_text.setSelection(edt_detected_text.getText().length());
+
+        edt_detected_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_detected_text.setCursorVisible(true);
+            }
+        });
+
+        TextView txt_viewproduct = d.findViewById(R.id.txt_viewproduct);
+        txt_viewproduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Utility.validateStringPresence(edt_detected_text)) {
+                    wsCallProductDetails(edt_detected_text.getText().toString());
+                }
+
+                d.dismiss();
+            }
+        });
+
+        d.show();
+    }
+
+    private void displayNoResultDialog(){
+
+        final Dialog d = new Dialog(mContext);
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        d.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        d.setContentView(R.layout.dialog_no_result_found);
+        d.setCancelable(true);
+        d.setCanceledOnTouchOutside(true);
+
+        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+
+        d.getWindow().getAttributes().windowAnimations = (isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog);//R.style.DialogAnimation
+
+        TextView txt_ok = d.findViewById(R.id.txt_ok);
+        txt_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+
+        d.show();
     }
 
 //    @Override
@@ -291,8 +406,6 @@ public class ScanFragment extends Fragment  {
 //
 //        return b || c || super.onTouchEvent(e);
 //    }
-
-
 
 
     /**
@@ -356,7 +469,7 @@ public class ScanFragment extends Fragment  {
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source");
             // We have permission, so create the camerasource
-            boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus,true);
+            boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
             boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
             createCameraSource(autoFocus, useFlash);
             return;
@@ -404,11 +517,76 @@ public class ScanFragment extends Fragment  {
         }
     }
 
-    public boolean getTouchEvent(MotionEvent e)
-    {
+    public boolean getTouchEvent(MotionEvent e) {
         boolean b = scaleGestureDetector.onTouchEvent(e);
         boolean c = gestureDetector.onTouchEvent(e);
         return b || c || getTouchEvent(e);
+    }
+
+    public void wsCallProductDetails(String productName) {
+
+        if (Utility.isNetworkAvailable(mContext)) {
+
+            try {
+
+                String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
+                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+
+                Attribute attribute = new Attribute();
+                attribute.setUser_id(String.valueOf(dtoUser.getId()));
+                attribute.setProduct_name(productName);
+                attribute.setAccess_key(encodeString);
+                attribute.setSecret_key(userToken);
+
+                new WebserviceWrapper(mContext, attribute, ScanFragment.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                        .execute(WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "" + e.getMessage());
+            }
+
+        } else {
+            // noInternetconnection(getString(R.string.no_internet_connection));
+        }
+
+    }
+
+    @Override
+    public void onResponse(int apiCode, Object object, Exception error) {
+
+        if (apiCode == WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode()) {
+
+            if (object != null) {
+                try {
+                    DTOProductDetailsData dtoProductDetailsData = (DTOProductDetailsData) object;
+                    if (dtoProductDetailsData.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
+
+                        if (dtoProductDetailsData.getProduct() != null && dtoProductDetailsData.getProduct().size() > 0) {
+
+                            Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                            intent.putExtra("productDetails", dtoProductDetailsData.getProduct().get(0));
+                            startActivity(intent);
+
+                            //Utility.showLongSnackBar(ll_parent, dtoProductDetailsData.getMessage(), mContext);
+
+
+                        } else {
+                            displayNoResultDialog();
+                            //Utility.showLongSnackBar(ll_parent, dtoProductDetailsData.getMessage(), mContext);
+                        }
+
+                    } else {
+                        Utility.showLongSnackBar(ll_parent, dtoProductDetailsData.getMessage(), mContext);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "" + e.getMessage());
+                }
+            }
+
+        }
+
     }
 
 }

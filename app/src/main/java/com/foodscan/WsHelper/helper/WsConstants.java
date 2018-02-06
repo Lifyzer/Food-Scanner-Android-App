@@ -13,5 +13,7 @@ public class WsConstants {
     public static String REFRESH_TOKEN = "refreshToken";
     public static String LOGIN = "Login";
     public static String REGISTRATION = "Registration";
+    public static String GET_PRODUCT_DETAILS = "getProductDetails";
+    public static String GET_USER_HISTORY = "getUserHistory";
 
 }

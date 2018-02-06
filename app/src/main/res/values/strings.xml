@@ -4,7 +4,7 @@
     <string name="Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories">ScanFood is help you to get food details such as Protein, Fat, Calories</string>
     <string name="Sign_In">Sign In</string>
     <string name="Create_New_Account">Create New Account</string>
-    <string name="Scanfood_Inc">Scanfood Inc</string>
+    <string name="Scanfood_Inc">\u00a9 2017 Scanfood Inc.</string>
     <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose for ScanFood and click to Sign In</string>
     <string name="Email_Id">Email Id</string>
     <string name="Password">Password</string>
@@ -25,6 +25,11 @@
     <string name="FAVORITE_FOOD">FAVORITE FOOD</string>
     <string name="Create_Account">Create Account</string>
     <string name="Full_name">Full Name</string>
+    <string name="Protein">Protein</string>
+    <string name="Fiber">Fiber</string>
+    <string name="Salt">Salt</string>
+    <string name="Excellent">Excellent</string>
+    <string name="Poor">Poor</string>
 
 
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
@@ -38,12 +43,20 @@
     <string name="please_enter_email">Please enter email</string>
     <string name="please_enter_first_name">Please enter first name</string>
     <string name="please_enter_valid_email">Please enter valid email</string>
+
     <string name="password_and_confrirmpass_is_diffrent">Password and Confirm password is diffrent</string>
     <string name="no_internet_connection">No Internet connection. Please try again later</string>
     <string name="password_lenght_six_char">Password lenght should be atleast 6 character</string>
     <string name="Loading_msg">Loading...</string>
+    <string name="Processing_msg">Processing...</string>
     <string name="OK">OK</string>
     <string name="Thank_You">Thank You!</string>
     <string name="You_have_successfully_login">You have successfully registered</string>
+    <string name="Food_Details">Food Details</string>
+    <string name="View_Product">View Product</string>
+    <string name="No_Result">No Result</string>
+    <string name="Sorry_no_product_available_in_database">We are really sorry. In our database this product is not available</string>
+    <string name="Natural_Product">Natural Product</string>
+    <string name="Not_Natural_Product">Not Natural Product</string>
 
 </resources>

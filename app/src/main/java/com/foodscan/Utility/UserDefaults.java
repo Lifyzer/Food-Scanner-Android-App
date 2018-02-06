@@ -16,4 +16,6 @@ public class UserDefaults {
     public static final String FAILE_STATUS = "failed";
     public static final String USER_TOKEN = "usertoken";
 
+    public static final String ENCODE_KEY = "_$(Skill)!_square@#$%_23_06_2017";
+
 }

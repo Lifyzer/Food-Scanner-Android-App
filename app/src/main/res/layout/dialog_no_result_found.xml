@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp5"
+    app:cardPreventCornerOverlap="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20">
+
+        <ImageView
+            android:id="@+id/img_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_smily_sad"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/lbl_no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_sad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp10"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/No_Result"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_no_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp5"
+            android:fontFamily="sans"
+            android:text="@string/Sorry_no_product_available_in_database"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:textSize="@dimen/sp14"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/txt_ok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_below="@+id/txt_no_result"
+            android:layout_marginTop="@dimen/sp20"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans"
+            android:gravity="center"
+            android:text="@string/OK"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18"
+            android:textStyle="normal" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

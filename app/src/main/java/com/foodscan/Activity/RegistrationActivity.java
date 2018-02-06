@@ -110,12 +110,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 attribute.setEmail_id(edt_email_id.getText().toString());
                 attribute.setPassword(edt_password.getText().toString());
                 attribute.setFirst_name(edt_full_name.getText().toString());
-                attribute.setLast_name("");
+                attribute.setLast_name(" ");
                 attribute.setDevice_type(UserDefaults.DEVICE_TYPE);
                 attribute.setSecret_key(tinyDB.getString(UserDefaults.TEMP_TOKEN));
                 attribute.setAccess_key(UserDefaults.DEFAULT_ACCESS_KEY);
 
-                new WebserviceWrapper(mContext, attribute, RegistrationActivity.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                new WebserviceWrapper(mContext, attribute, RegistrationActivity.this, true, getString(R.string.Processing_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.REGISTRATION.getTypeCode());
 
 
