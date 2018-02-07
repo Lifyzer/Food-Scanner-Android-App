@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -70,40 +71,44 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             }
 
             String isOrganic = dtoProduct.getIsOrganic();
-            if (isOrganic != null && isOrganic.length() > 0){
-                if (isOrganic.equals("0")){
+            if (isOrganic != null && isOrganic.length() > 0) {
+                if (isOrganic.equals("0")) {
                     //not Natural product
                     viewHolder.txt_product_type.setText(mContext.getString(R.string.Not_Natural_Product));
 
-                }else if (isOrganic.equals("1")) {
+                } else if (isOrganic.equals("1")) {
                     //Natural product
                     viewHolder.txt_product_type.setText(mContext.getString(R.string.Natural_Product));
                 }
 
             }
 
+            String createdDate = dtoProduct.getCreatedDate();
+            if (createdDate != null && createdDate.length() > 0) {
 
-            String createdDate = dtoProduct.getModifiedDate();
-            if(createdDate != null && createdDate.length() > 0){
-
-                SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
                 String history_date = simpleDate.format(Utility.stringToDate(createdDate, "yyyy-MM-dd hh:mm:ss"));
                 viewHolder.txt_created_date.setText(history_date);
 
             }
 
             String modifiedDate = dtoProduct.getModifiedDate();
-            if(modifiedDate != null && modifiedDate.length() > 0){
+            if (modifiedDate != null && modifiedDate.length() > 0) {
 
-                SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
                 String history_date = simpleDate.format(Utility.stringToDate(modifiedDate, "yyyy-MM-dd hh:mm:ss"));
                 viewHolder.txt_created_date.setText(history_date);
 
             }
 
-
-
-
+            String isFavourite = dtoProduct.getIsFavourite();
+            if (isFavourite != null && isFavourite.length() > 0) {
+                if (isFavourite.equals("1")) {
+                    viewHolder.img_favourite.setImageResource(R.drawable.img_favourite_solid_green);
+                } else {
+                    viewHolder.img_favourite.setImageResource(R.drawable.img_favourite_stroke);
+                }
+            }
         }
 
 
@@ -132,6 +137,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView txt_product_name, txt_is_healthy, txt_product_type, txt_created_date;
+        ImageView img_favourite;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
@@ -140,6 +146,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             txt_is_healthy = itemView.findViewById(R.id.txt_is_healthy);
             txt_product_type = itemView.findViewById(R.id.txt_product_type);
             txt_created_date = itemView.findViewById(R.id.txt_created_date);
+            img_favourite = itemView.findViewById(R.id.img_favourite);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

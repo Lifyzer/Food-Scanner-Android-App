@@ -48,6 +48,12 @@ public class Attribute {
     @JsonProperty("product_name")
     private String product_name;
 
+    @JsonProperty("to_index")
+    private String to_index;
+
+    @JsonProperty("from_index")
+    private String from_index;
+
 
 
     // *************************************//
@@ -142,6 +148,26 @@ public class Attribute {
     @JsonProperty("product_name")
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
+    }
+
+    @JsonProperty("to_index")
+    public String getTo_index() {
+        return to_index;
+    }
+
+    @JsonProperty("to_index")
+    public void setTo_index(String to_index) {
+        this.to_index = to_index;
+    }
+
+    @JsonProperty("from_index")
+    public String getFrom_index() {
+        return from_index;
+    }
+
+    @JsonProperty("from_index")
+    public void setFrom_index(String from_index) {
+        this.from_index = from_index;
     }
 
 

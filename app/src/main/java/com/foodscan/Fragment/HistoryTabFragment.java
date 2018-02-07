@@ -5,11 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,12 +53,19 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     private RelativeLayout rl_parent;
     private RecyclerView rv_history;
     private TextView txt_no_history;
+    private ProgressBar load_more_progressbar;
 
     private HistoryAdapter historyAdapter;
     private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
     private boolean isViewShown = false, isLoadingFirstTime = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount, firstVisibleItemIndex;
+    private LinearLayoutManager mLayoutManager;
 
+    private int offset = 0;
+    public String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+    private boolean mIsLoading = false;
+    private boolean isMoreData = false;
 
     @Nullable
     @Override
@@ -84,14 +93,14 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
             initView();
             initGlobals();
 
-
             HistoryFragment parentFrag = ((HistoryFragment) HistoryTabFragment.this.getParentFragment());
 
             if (!isViewShown) {
-                if (((MainActivity) mContext).viewPager.getCurrentItem() == 0){
+                if (((MainActivity) mContext).viewPager.getCurrentItem() == 0) {
 
                     if (parentFrag.viewPager.getCurrentItem() == 0) {
                         if (isLoadingFirstTime) {
+
                             wsCallGetUSerHistiory(true, false);
                             isLoadingFirstTime = false;
 
@@ -127,14 +136,42 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         rl_parent = viewFragment.findViewById(R.id.rl_parent);
         rv_history = viewFragment.findViewById(R.id.rv_history);
         txt_no_history = viewFragment.findViewById(R.id.txt_no_history);
+        load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
+
+    }
+
+    private void initGlobals() {
+
+        mLayoutManager = new LinearLayoutManager(mContext);
+        rv_history.setLayoutManager(mLayoutManager);
 
         historyAdapter = new HistoryAdapter(mContext, historyArrayList);
         historyAdapter.setMode(Attributes.Mode.Single);
         rv_history.setAdapter(historyAdapter);
 
-    }
 
-    private void initGlobals() {
+        rv_history.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = mLayoutManager.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                int lastInScreen = pastVisiblesItems + visibleItemCount;
+
+                if ((lastInScreen == totalItemCount) && totalItemCount != 0) {
+
+                    if (!mIsLoading) {
+                        if (isMoreData) {
+                            wsCallGetUSerHistiory(false, true);
+                        }
+                    }
+                }
+            }
+        });
+
 
     }
 
@@ -144,15 +181,23 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
             try {
 
+                mIsLoading = true;
+
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
 
+                if (isLoadMore) {
+                    load_more_progressbar.setVisibility(View.VISIBLE);
+                }
+
                 Attribute attribute = new Attribute();
                 attribute.setUser_id(String.valueOf(dtoUser.getId()));
+                attribute.setTo_index(noOfRecords);
+                attribute.setFrom_index(String.valueOf(offset));
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
 
-                new WebserviceWrapper(mContext, attribute, HistoryTabFragment.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                new WebserviceWrapper(mContext, attribute, HistoryTabFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode());
 
             } catch (Exception e) {
@@ -197,6 +242,10 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     public void onResponse(int apiCode, Object object, Exception error) {
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode()) {
+
+            mIsLoading = false;
+            load_more_progressbar.setVisibility(View.GONE);
+
             if (object != null) {
                 try {
 
@@ -205,7 +254,20 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                         if (dtoHistoryData.getHistory() != null && dtoHistoryData.getHistory().size() > 0) {
 
-                            historyArrayList = dtoHistoryData.getHistory();
+                            ArrayList<DTOProduct> tempSelfieArrayList = new ArrayList<>();
+                            tempSelfieArrayList = dtoHistoryData.getHistory();
+
+                            if (tempSelfieArrayList != null) {
+
+                                offset = offset + tempSelfieArrayList.size();
+                                isMoreData = tempSelfieArrayList.size() == UserDefaults.NO_OF_RECORD;
+                                historyArrayList.addAll(tempSelfieArrayList);
+
+                            } else {
+                                isMoreData = false;
+                            }
+
+                            // historyArrayList = dtoHistoryData.getHistory();
 
                             if (historyAdapter != null) {
 

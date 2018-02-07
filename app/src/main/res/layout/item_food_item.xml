@@ -4,7 +4,10 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp10">
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    >
 
     <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe"
@@ -105,8 +108,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="14/01/2018"
                             android:textSize="@dimen/sp12" />
+                        <!--android:text="14/01/2018"-->
 
                     </RelativeLayout>
 

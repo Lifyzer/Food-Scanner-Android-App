@@ -15,6 +15,8 @@ public class UserDefaults {
     public static final String SUCCESS_STATUS = "success";
     public static final String FAILE_STATUS = "failed";
     public static final String USER_TOKEN = "usertoken";
+    public static final String REQ_NO_OF_RECORD = "1";
+    public static final int NO_OF_RECORD = 1;
 
     public static final String ENCODE_KEY = "_$(Skill)!_square@#$%_23_06_2017";
 

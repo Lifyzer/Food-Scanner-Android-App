@@ -108,8 +108,8 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         tinyDB = new TinyDB(mContext);
         dtoUser = realm.where(DTOUser.class).findFirst();
 
-        initView(viewFragment);
-        initGlobals();
+        //initView(viewFragment);
+        //initGlobals();
         // }
 
         return viewFragment;
