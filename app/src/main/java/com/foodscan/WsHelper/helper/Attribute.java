@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-
 /**
  * Created by c166 on 04/11/15.
  * Class to pass attribute value of API.
@@ -54,6 +52,14 @@ public class Attribute {
     @JsonProperty("from_index")
     private String from_index;
 
+    @JsonProperty("history_id")
+    private String history_id;
+
+    @JsonProperty("product_id")
+    private String product_id;
+
+    @JsonProperty("is_favourite")
+    private String is_favourite;
 
 
     // *************************************//
@@ -170,7 +176,35 @@ public class Attribute {
         this.from_index = from_index;
     }
 
+    @JsonProperty("history_id")
+    public String getHistory_id() {
+        return history_id;
+    }
 
+    @JsonProperty("history_id")
+    public void setHistory_id(String history_id) {
+        this.history_id = history_id;
+    }
+
+    @JsonProperty("product_id")
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    @JsonProperty("product_id")
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    @JsonProperty("is_favourite")
+    public String getIs_favourite() {
+        return is_favourite;
+    }
+
+    @JsonProperty("is_favourite")
+    public void setIs_favourite(String is_favourite) {
+        this.is_favourite = is_favourite;
+    }
 
 }
 

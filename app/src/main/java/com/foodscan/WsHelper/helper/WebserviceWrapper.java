@@ -10,6 +10,8 @@ import com.foodscan.WsHelper.model.DTOHistoryData;
 import com.foodscan.WsHelper.model.DTOLoginData;
 import com.foodscan.WsHelper.model.DTOProductDetailsData;
 import com.foodscan.WsHelper.model.DTORefreshTokenData;
+import com.foodscan.WsHelper.model.DTOResponse;
+import com.foodscan.WsHelper.model.DTOUserFavouriteData;
 
 import dmax.dialog.SpotsDialog;
 
@@ -31,7 +33,7 @@ public class WebserviceWrapper {
     boolean displayProgress = false;
     String dialogMessage = "";
 
-    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4;
+    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4, REMOVE_FROM_HISTORY = 5, FAVOURITE = 6, USER_FAVOURITE = 7;
 
 
     public interface WebserviceResponse {
@@ -65,7 +67,7 @@ public class WebserviceWrapper {
     }
 
     public enum WEB_CALLID {
-        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4);
+        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4), REMOVE_FROM_HISTORY(5), FAVOURITE(6), USER_FAVOURITE(7);
 
         int callId;
 
@@ -130,6 +132,21 @@ public class WebserviceWrapper {
 
                     case HISTORY: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.GET_USER_HISTORY, mContext).execute(attribute, DTOHistoryData.class, null);
+                    }
+                    break;
+
+                    case REMOVE_FROM_HISTORY: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.REMOVE_PRODUCT_FROM_HISTORY, mContext).execute(attribute, DTOResponse.class, null);
+                    }
+                    break;
+
+                    case FAVOURITE: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.ADD_TO_FAVOURITE, mContext).execute(attribute, DTOResponse.class, null);
+                    }
+                    break;
+
+                    case USER_FAVOURITE: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.GET_USER_FAVOURITE, mContext).execute(attribute, DTOUserFavouriteData.class, null);
                     }
                     break;
 

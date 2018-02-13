@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.swipe.util.Attributes;
 import com.foodscan.Adapter.FavouriteAdapter;
@@ -37,7 +38,6 @@ public class ProfileFragment extends Fragment {
     private RecyclerView rv_favourite;
     private TextView txt_username, txt_email;
 
-
     private FavouriteAdapter favouriteAdapter;
 
     @Nullable
@@ -51,7 +51,6 @@ public class ProfileFragment extends Fragment {
             realm = Realm.getDefaultInstance();
 
             dtoUser = realm.where(DTOUser.class).findFirst();
-
         }
 
         return viewFragment;
@@ -72,9 +71,9 @@ public class ProfileFragment extends Fragment {
         rl_parent = viewFragment.findViewById(R.id.rl_parent);
         rv_favourite = viewFragment.findViewById(R.id.rv_favourite);
 
-        favouriteAdapter = new FavouriteAdapter(mContext);
-        favouriteAdapter.setMode(Attributes.Mode.Single);
-        rv_favourite.setAdapter(favouriteAdapter);
+//        favouriteAdapter = new FavouriteAdapter(mContext);
+//        favouriteAdapter.setMode(Attributes.Mode.Single);
+//        rv_favourite.setAdapter(favouriteAdapter);
 
         txt_username = viewFragment.findViewById(R.id.txt_username);
         txt_email = viewFragment.findViewById(R.id.txt_email);
@@ -86,6 +85,8 @@ public class ProfileFragment extends Fragment {
         if (dtoUser != null) {
             txt_email.setText(dtoUser.getEmail());
             txt_username.setText(dtoUser.getFirstName() + " " + dtoUser.getLastName());
+        } else {
+            //Toast.makeText(mContext, "Please login", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -1,5 +1,6 @@
 package com.foodscan.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -83,7 +84,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (isInputsValid()) {
                     wsCallLogin();
                 }
-
             }
             break;
 
@@ -197,8 +197,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 realm.copyToRealmOrUpdate(dtoUser);
                                 realm.commitTransaction();
 
-                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                                finish();
+//                              startActivity(new Intent(SignInActivity.this, MainActivity.class));
+//                              finish();
+
+                                setResult(dtoUser);
 
                             }
                         }
@@ -214,6 +216,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
+    }
+
+    private void setResult(DTOUser dtoUser) {
+
+        if (dtoUser != null) {
+            Intent intent = new Intent();
+            intent.putExtra("user_data", dtoUser);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
+
 
     }
+
 }

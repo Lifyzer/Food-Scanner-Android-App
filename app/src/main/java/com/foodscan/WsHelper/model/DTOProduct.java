@@ -66,6 +66,15 @@ public class DTOProduct implements Parcelable {
     private String isTest;
     @JsonProperty("is_favourite")
     private String isFavourite;
+    @JsonProperty("history_id")
+    private String historyId;
+    @JsonProperty("history_created_date")
+    private String historyCreatedDate;
+    @JsonProperty("favourite_id")
+    private String favouriteId;
+    @JsonProperty("favourite_created_date")
+    private String favouriteCreatedDate;
+
 
     protected DTOProduct(Parcel in) {
         if (in.readByte() == 0) {
@@ -97,6 +106,10 @@ public class DTOProduct implements Parcelable {
         isDelete = in.readString();
         isTest = in.readString();
         isFavourite = in.readString();
+        historyId = in.readString();
+        historyCreatedDate = in.readString();
+        favouriteId = in.readString();
+        favouriteCreatedDate = in.readString();
     }
 
     public DTOProduct() {
@@ -134,6 +147,10 @@ public class DTOProduct implements Parcelable {
         dest.writeString(isDelete);
         dest.writeString(isTest);
         dest.writeString(isFavourite);
+        dest.writeString(historyId);
+        dest.writeString(historyCreatedDate);
+        dest.writeString(favouriteId);
+        dest.writeString(favouriteCreatedDate);
     }
 
     @Override
@@ -152,6 +169,16 @@ public class DTOProduct implements Parcelable {
             return new DTOProduct[size];
         }
     };
+
+    @JsonProperty("history_id")
+    public String getHistoryId() {
+        return historyId;
+    }
+
+    @JsonProperty("history_id")
+    public void setHistoryId(String historyId) {
+        this.historyId = historyId;
+    }
 
     @JsonProperty("id")
     public Integer getId() {
@@ -401,6 +428,36 @@ public class DTOProduct implements Parcelable {
     @JsonProperty("is_favourite")
     public void setIsFavourite(String isFavourite) {
         this.isFavourite = isFavourite;
+    }
+
+    @JsonProperty("history_created_date")
+    public String getHistoryCreatedDate() {
+        return historyCreatedDate;
+    }
+
+    @JsonProperty("history_created_date")
+    public void setHistoryCreatedDate(String historyCreatedDate) {
+        this.historyCreatedDate = historyCreatedDate;
+    }
+
+    @JsonProperty("favourite_id")
+    public String getFavouriteId() {
+        return favouriteId;
+    }
+
+    @JsonProperty("favourite_id")
+    public void setFavouriteId(String favouriteId) {
+        this.favouriteId = favouriteId;
+    }
+
+    @JsonProperty("favourite_created_date")
+    public String getFavouriteCreatedDate() {
+        return favouriteCreatedDate;
+    }
+
+    @JsonProperty("favourite_created_date")
+    public void setFavouriteCreatedDate(String favouriteCreatedDate) {
+        this.favouriteCreatedDate = favouriteCreatedDate;
     }
 
 }

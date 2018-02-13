@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.R;
+import com.foodscan.Utility.TinyDB;
+import com.foodscan.Utility.UserDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +32,14 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
     private static final String TAG = HistoryFragment.class.getSimpleName();
 
     private Context mContext;
+    private TinyDB tinyDB;
 
     private View viewFragment;
     private RelativeLayout rl_parent;
     private TabLayout tabLayout;
     public ViewPager viewPager;
 
-    private ViewPagerAdapter viewPagerAdapter;
+    public ViewPagerAdapter viewPagerAdapter;
 
     @Nullable
     @Override
@@ -46,10 +49,16 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
 
             viewFragment = inflater.inflate(R.layout.history_fragment, container, false);
             mContext = getActivity();
+            tinyDB = new TinyDB(mContext);
 
         }
-
         return viewFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Toast.makeText(mContext, "On Resume", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -66,7 +75,9 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
                     if (isLoadingFirstTime) {
                         initGlobal();
                         isLoadingFirstTime = false;
-
+                    } else {
+                        //Refresh
+                        //Toast.makeText(mContext, "On Resume", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -83,7 +94,7 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
 
     }
 
-    private boolean isViewShown = false, isLoadingFirstTime = true;
+    public boolean isViewShown = false, isLoadingFirstTime = true;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -92,9 +103,60 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
             if (getView() != null) {
                 isViewShown = true;
                 if (isLoadingFirstTime) {
-
                     initGlobal();
                     isLoadingFirstTime = false;
+                    if (viewPager != null && viewPagerAdapter != null) {
+
+                        Fragment fragment1 = viewPagerAdapter.getItem(0);
+                        if (fragment1 instanceof HistoryTabFragment) {
+                            ((HistoryTabFragment) fragment1).isLoadingFirstTime = true;
+                        }
+
+                        Fragment fragment2 = viewPagerAdapter.getItem(1);
+                        if (fragment2 instanceof FavouriteTabFragment) {
+                            ((FavouriteTabFragment) fragment2).isLoadingFirstTime = true;
+                        }
+
+                    }
+
+                } else {
+                    //Refresh
+                    if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_HISTORY)) {
+                        //Toast.makeText(mContext, "On Resume", Toast.LENGTH_SHORT).show();
+                        if (viewPager != null) {
+                            if (viewPager.getCurrentItem() == 0) {
+                                if (viewPagerAdapter != null) {
+                                    Fragment fragment = viewPagerAdapter.getItem(0);
+                                    if (fragment instanceof HistoryTabFragment) {
+
+                                        HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment;
+                                        historyTabFragment.refreshData();
+                                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, false);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_FAVOURITE)) {
+                        if (viewPager != null) {
+                            if (viewPager.getCurrentItem() == 1) {
+
+                                if (viewPagerAdapter != null) {
+                                    Fragment fragment = viewPagerAdapter.getItem(1);
+                                    if (fragment instanceof FavouriteTabFragment) {
+
+                                        FavouriteTabFragment favouriteTabFragment = (FavouriteTabFragment) fragment;
+                                        favouriteTabFragment.refreshData();
+                                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
 
                 }
                 isLoadingFirstTime = false;
@@ -182,6 +244,30 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+
+    }
+
+    public void afterLogin() {
+
+        if (viewPager != null && viewPagerAdapter != null) {
+
+            int currentPos = viewPager.getCurrentItem();
+            Fragment fragment = viewPagerAdapter.getItem(currentPos);
+            if (fragment instanceof HistoryTabFragment) {
+
+                HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment;
+                // historyTabFragment.dtoUser = dtoUser;
+                historyTabFragment.wsCallGetUSerHistiory(true, false);
+
+            } else if (fragment instanceof FavouriteTabFragment) {
+
+                FavouriteTabFragment favouriteTabFragment = (FavouriteTabFragment) fragment;
+                favouriteTabFragment.wsCallGetUserFavourite(true, false);
+
+            }
+
+
         }
 
     }

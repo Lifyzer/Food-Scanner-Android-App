@@ -15,5 +15,8 @@ public class WsConstants {
     public static String REGISTRATION = "Registration";
     public static String GET_PRODUCT_DETAILS = "getProductDetails";
     public static String GET_USER_HISTORY = "getUserHistory";
+    public static String REMOVE_PRODUCT_FROM_HISTORY = "removeProductFromHistory";
+    public static String ADD_TO_FAVOURITE = "addToFavourite";
+    public static String GET_USER_FAVOURITE = "getAllUserFavourite";
 
 }

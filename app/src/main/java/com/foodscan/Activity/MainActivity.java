@@ -2,6 +2,7 @@ package com.foodscan.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -25,13 +25,20 @@ import com.foodscan.Fragment.HistoryFragment;
 import com.foodscan.Fragment.ProfileFragment;
 import com.foodscan.Fragment.ScanFragment;
 import com.foodscan.R;
+import com.foodscan.Utility.TinyDB;
+import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
+import com.foodscan.WsHelper.model.DTOUser;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,  ViewPager.OnPageChangeListener {
+import io.realm.Realm;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -43,10 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txt_history, txt_scan_food, txt_profile;
 
     public boolean needDialog = false;
+    private TinyDB tinyDB;
+    private Realm realm;
+    public DTOUser dtoUser;
 
     private TabLayout tabLayout;
     public ViewPager viewPager;
     private ViewPagerAdapter adapter;
+
+    private int LOGIN_REQ_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mContext = MainActivity.this;
+        tinyDB = new TinyDB(mContext);
+        realm = Realm.getDefaultInstance();
+        dtoUser = realm.where(DTOUser.class).findFirst();
 
         initView();
         initGlobals();
@@ -72,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.setSmoothScrollingEnabled(true);
         viewPager.addOnPageChangeListener(MainActivity.this);
 
-        int pos =1;
+        int pos = 1;
         TabLayout.Tab tab = tabLayout.getTabAt(pos);
         tab.select();
         this.viewPager.setCurrentItem(pos);
@@ -285,48 +300,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View tabView2 = tab2.getCustomView();
 
 
-        if(pos == 0){
+        if (pos == 0) {
 
             TextView txt0 = tabView0.findViewById(R.id.tab);
-            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_selected ,0, 0);
+            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_selected, 0, 0);
             txt0.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
 
             TextView txt1 = tabView1.findViewById(R.id.tab);
-            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_not_selected ,0, 0);
+            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_not_selected, 0, 0);
             txt1.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
             TextView txt2 = tabView2.findViewById(R.id.tab);
-            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_not_selected ,0, 0);
+            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_not_selected, 0, 0);
             txt2.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
-        }
-        else if(pos == 1){
+            if (viewPager != null && adapter != null) {
+
+                Fragment fragment = adapter.getItem(position);
+                if (fragment instanceof HistoryFragment) {
+                    HistoryFragment historyFragment = (HistoryFragment) fragment;
+                    if (!tinyDB.getBoolean(UserDefaults.IS_LOGIN)) {
+
+                    }
+
+                }
+            }
+
+
+        } else if (pos == 1) {
 
             TextView txt0 = tabView0.findViewById(R.id.tab);
-            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_not_selected ,0, 0);
+            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_not_selected, 0, 0);
             txt0.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
             TextView txt1 = tabView1.findViewById(R.id.tab);
-            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_selected ,0, 0);
+            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_selected, 0, 0);
             txt1.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
 
             TextView txt2 = tabView2.findViewById(R.id.tab);
-            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_not_selected ,0, 0);
+            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_not_selected, 0, 0);
             txt2.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
-        }
-        else if(pos == 2){
+        } else if (pos == 2) {
 
             TextView txt0 = tabView0.findViewById(R.id.tab);
-            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_not_selected ,0, 0);
+            txt0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_history_not_selected, 0, 0);
             txt0.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
             TextView txt1 = tabView1.findViewById(R.id.tab);
-            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_not_selected ,0, 0);
+            txt1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_scan_not_selected, 0, 0);
             txt1.setTextColor(Utility.getColorWrapper(mContext, R.color.unselected_banner_text));
 
             TextView txt2 = tabView2.findViewById(R.id.tab);
-            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_selected ,0, 0);
+            txt2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_profile_selected, 0, 0);
             txt2.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
 
         }
@@ -387,4 +413,104 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //        return super.onTouchEvent(event);
 //    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LOGIN_REQ_CODE) {
+
+            if (data != null) {
+
+                if (data.hasExtra("user_data")) {
+
+                    dtoUser = data.getParcelableExtra("user_data");
+                    if (dtoUser != null) {
+
+                        int currentIndex = viewPager.getCurrentItem();
+
+                        Fragment fragment = adapter.getItem(currentIndex);
+
+                        if (currentIndex == 0) {
+
+                            if (fragment instanceof HistoryFragment) {
+                                HistoryFragment historyFragment = (HistoryFragment) fragment;
+                                historyFragment.afterLogin();
+                            }
+
+                        } else if (currentIndex == 1) {
+
+                            if (fragment instanceof ScanFragment) {
+                                ScanFragment scanFragment = (ScanFragment) fragment;
+                                //scanFragment.dtoUser = dtoUser;
+                                scanFragment.wsCallProductDetails();
+                            }
+
+                        } else if (currentIndex == 2) {
+
+
+                        }
+
+                        try {
+                            Fragment fragment1 = adapter.getItem(0);
+                            if (fragment1 instanceof HistoryFragment && currentIndex != 0) {
+
+                                HistoryFragment historyFragment = (HistoryFragment) fragment1;
+                                historyFragment.isLoadingFirstTime = true;
+
+                            }
+
+
+                            Fragment fragment2 = adapter.getItem(1);
+                            if (fragment2 instanceof ScanFragment) {
+
+
+                            }
+
+                            Fragment fragment3 = adapter.getItem(2);
+                            if (fragment3 instanceof ProfileFragment) {
+
+                            }
+
+
+                        } catch (Exception e) {
+
+                            Log.e(TAG, "" + e.getMessage());
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void showLoginDialog() {
+
+        com.rey.material.app.Dialog.Builder builder = null;
+        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+
+        builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
+
+            @Override
+            public void onNegativeActionClicked(DialogFragment fragment) {
+                super.onNegativeActionClicked(fragment);
+
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                startActivityForResult(intent, LOGIN_REQ_CODE);
+
+            }
+        };
+
+        ((SimpleDialog.Builder) builder).message(getString(R.string.please_login))
+                .title(getString(R.string.app_name))
+                .positiveAction("CANCEL")
+                .negativeAction("LOGIN");
+
+        DialogFragment fragment = DialogFragment.newInstance(builder);
+        fragment.show(getSupportFragmentManager(), null);
+
+
+    }
+
 }

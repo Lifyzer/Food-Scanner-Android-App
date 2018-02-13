@@ -13,4 +13,56 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         />
 
+    <RelativeLayout
+        android:id="@+id/rl_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/img_no_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_no_favourite" />
+
+        <TextView
+            android:id="@+id/txt_no_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_no_fav"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp5"
+            android:fontFamily="sans-serif-condensed"
+            android:text="No Favourite Yet!"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_no_fav"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans"
+            android:gravity="center"
+            android:text="Once you favourite any food, \nyou will see them here"
+            android:textSize="@dimen/sp14" />
+
+
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/load_more_progressbar"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.TextPaint;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -67,7 +66,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
     private Context mContext;
     private Realm realm;
-    private DTOUser dtoUser;
+    //public DTOUser dtoUser;
     private TinyDB tinyDB;
 
     private View viewFragment;
@@ -90,6 +89,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
     // Helper objects for detecting taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
+    private String productName = "";
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -106,10 +106,10 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         mContext = getActivity();
         realm = Realm.getDefaultInstance();
         tinyDB = new TinyDB(mContext);
-        dtoUser = realm.where(DTOUser.class).findFirst();
+        //dtoUser = realm.where(DTOUser.class).findFirst();
 
-        //initView(viewFragment);
-        //initGlobals();
+        initView(viewFragment);
+        initGlobals();
         // }
 
         return viewFragment;
@@ -364,7 +364,18 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             public void onClick(View v) {
 
                 if (Utility.validateStringPresence(edt_detected_text)) {
-                    wsCallProductDetails(edt_detected_text.getText().toString());
+
+                    if (((MainActivity)mContext).dtoUser != null) {
+
+                        productName = edt_detected_text.getText().toString();
+
+                        wsCallProductDetails();
+                    } else {
+
+                        //Toast.makeText(mContext, "Please login", Toast.LENGTH_SHORT).show();
+                        ((MainActivity) mContext).showLoginDialog();
+                    }
+
                 }
 
                 d.dismiss();
@@ -374,7 +385,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         d.show();
     }
 
-    private void displayNoResultDialog(){
+    private void displayNoResultDialog() {
 
         final Dialog d = new Dialog(mContext);
         d.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -523,17 +534,17 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         return b || c || getTouchEvent(e);
     }
 
-    public void wsCallProductDetails(String productName) {
+    public void wsCallProductDetails() {
 
         if (Utility.isNetworkAvailable(mContext)) {
 
             try {
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity)mContext).dtoUser.getGuid());
 
                 Attribute attribute = new Attribute();
-                attribute.setUser_id(String.valueOf(dtoUser.getId()));
+                attribute.setUser_id(String.valueOf(((MainActivity)mContext).dtoUser.getId()));
                 attribute.setProduct_name(productName);
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
@@ -557,12 +568,16 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode()) {
 
+            productName = "";
+
             if (object != null) {
                 try {
                     DTOProductDetailsData dtoProductDetailsData = (DTOProductDetailsData) object;
                     if (dtoProductDetailsData.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
 
                         if (dtoProductDetailsData.getProduct() != null && dtoProductDetailsData.getProduct().size() > 0) {
+
+                            tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, true);
 
                             Intent intent = new Intent(mContext, ProductDetailsActivity.class);
                             intent.putExtra("productDetails", dtoProductDetailsData.getProduct().get(0));

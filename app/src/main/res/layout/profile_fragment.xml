@@ -39,6 +39,8 @@
         android:layout_below="@+id/rl_toolbar">
 
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -67,7 +69,8 @@
                     android:layout_marginTop="@dimen/dp10"
                     android:paddingLeft="@dimen/dp5"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp14" />
+                    android:textSize="@dimen/sp14"
+                    android:text="User Name"/>
 
 
                 <TextView
@@ -78,7 +81,8 @@
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp5"
                     android:paddingLeft="@dimen/dp5"
-                    android:textSize="@dimen/sp14" />
+                    android:textSize="@dimen/sp14"
+                    android:text="User Email"/>
 
                 <!--Favourite food-->
 

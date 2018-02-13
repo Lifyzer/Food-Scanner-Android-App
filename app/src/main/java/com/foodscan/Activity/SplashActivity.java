@@ -117,7 +117,8 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
     private void launchApp() {
         try {
-            startActivity(new Intent(this, HomeActivity.class));
+            //startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         } catch (Exception e) {
             Log.e(TAG, "launchApp Exception : ", e);
@@ -129,7 +130,6 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
     public void onResponse(int apiCode, Object object, Exception error) {
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.REFRESH_TOKEN.getTypeCode()) {
-
 
             if (object != null) {
                 try {
@@ -146,6 +146,5 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
             }
 
         }
-
     }
 }

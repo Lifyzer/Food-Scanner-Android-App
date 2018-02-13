@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.daimajia.swipe.util.Attributes;
+import com.foodscan.Activity.HomeActivity;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Adapter.HistoryAdapter;
 import com.foodscan.R;
@@ -26,7 +26,6 @@ import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOHistoryData;
 import com.foodscan.WsHelper.model.DTOProduct;
-import com.foodscan.WsHelper.model.DTOUser;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
@@ -46,24 +45,24 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     private Context mContext;
     private TinyDB tinyDB;
     private Realm realm;
-    private DTOUser dtoUser;
+    //public DTOUser dtoUser;
 
     private View viewFragment;
 
-    private RelativeLayout rl_parent;
+    private RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_history;
-    private TextView txt_no_history;
+    //private TextView txt_no_history;
     private ProgressBar load_more_progressbar;
 
     private HistoryAdapter historyAdapter;
     private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
-    private boolean isViewShown = false, isLoadingFirstTime = true;
+    public boolean isViewShown = false, isLoadingFirstTime = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount, firstVisibleItemIndex;
     private LinearLayoutManager mLayoutManager;
 
     private int offset = 0;
-    public String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+    private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
     private boolean mIsLoading = false;
     private boolean isMoreData = false;
 
@@ -78,7 +77,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
             tinyDB = new TinyDB(mContext);
             realm = Realm.getDefaultInstance();
 
-            dtoUser = realm.where(DTOUser.class).findFirst();
+            //dtoUser = realm.where(DTOUser.class).findFirst();
         }
 
         return viewFragment;
@@ -104,6 +103,9 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                             wsCallGetUSerHistiory(true, false);
                             isLoadingFirstTime = false;
 
+                        } else {
+                            //wsCallGetUSerHistiory(true, false);
+                            //Toast.makeText(mContext, "I am here", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -123,10 +125,36 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                     wsCallGetUSerHistiory(true, false);
                     isLoadingFirstTime = false;
 
+                } else {
+
+
+                    if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_HISTORY)) {
+
+                        HistoryFragment parentFrag = ((HistoryFragment) HistoryTabFragment.this.getParentFragment());
+
+                        //Toast.makeText(mContext, "On Resume", Toast.LENGTH_SHORT).show();
+                        if (parentFrag.viewPager != null) {
+                            if (parentFrag.viewPager.getCurrentItem() == 0) {
+                                if (parentFrag.viewPagerAdapter != null) {
+                                    Fragment fragment = parentFrag.viewPagerAdapter.getItem(0);
+                                    if (fragment instanceof HistoryTabFragment) {
+
+                                        HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment;
+                                        historyTabFragment.refreshData();
+                                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, false);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
+
                 isLoadingFirstTime = false;
             } else {
                 isViewShown = false;
+
             }
         }
     }
@@ -135,7 +163,8 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
         rl_parent = viewFragment.findViewById(R.id.rl_parent);
         rv_history = viewFragment.findViewById(R.id.rv_history);
-        txt_no_history = viewFragment.findViewById(R.id.txt_no_history);
+        //txt_no_history = viewFragment.findViewById(R.id.txt_no_history);
+        rl_no_data = viewFragment.findViewById(R.id.rl_no_data);
         load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
 
     }
@@ -149,6 +178,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         historyAdapter.setMode(Attributes.Mode.Single);
         rv_history.setAdapter(historyAdapter);
 
+        noDataFound();
 
         rv_history.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -175,38 +205,44 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
     }
 
-    private void wsCallGetUSerHistiory(boolean isProgress, boolean isLoadMore) {
+    public void wsCallGetUSerHistiory(boolean isProgress, boolean isLoadMore) {
 
-        if (Utility.isNetworkAvailable(mContext)) {
+        if (((MainActivity) mContext).dtoUser != null) {
 
-            try {
+            if (Utility.isNetworkAvailable(mContext)){
 
-                mIsLoading = true;
+                try {
 
-                String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+                    mIsLoading = true;
 
-                if (isLoadMore) {
-                    load_more_progressbar.setVisibility(View.VISIBLE);
+                    String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
+                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+
+                    if (isLoadMore) {
+                        load_more_progressbar.setVisibility(View.VISIBLE);
+                    }
+
+                    Attribute attribute = new Attribute();
+                    attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
+                    attribute.setTo_index(noOfRecords);
+                    attribute.setFrom_index(String.valueOf(offset));
+                    attribute.setAccess_key(encodeString);
+                    attribute.setSecret_key(userToken);
+
+                    new WebserviceWrapper(mContext, attribute, HistoryTabFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
+                            .execute(WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "" + e.getMessage());
                 }
 
-                Attribute attribute = new Attribute();
-                attribute.setUser_id(String.valueOf(dtoUser.getId()));
-                attribute.setTo_index(noOfRecords);
-                attribute.setFrom_index(String.valueOf(offset));
-                attribute.setAccess_key(encodeString);
-                attribute.setSecret_key(userToken);
-
-                new WebserviceWrapper(mContext, attribute, HistoryTabFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
-                        .execute(WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+            } else {
+                noInternetconnection(getString(R.string.no_internet_connection));
             }
 
         } else {
-            noInternetconnection(getString(R.string.no_internet_connection));
+            ((MainActivity) mContext).showLoginDialog();
         }
 
     }
@@ -280,7 +316,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                                 rv_history.setAdapter(historyAdapter);
 
                             }
-
                         }
 
                     } else {
@@ -299,10 +334,20 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
     private void noDataFound() {
         if (historyArrayList != null && historyArrayList.size() > 0) {
-            txt_no_history.setVisibility(View.GONE);
+            rl_no_data.setVisibility(View.GONE);
         } else {
-            txt_no_history.setVisibility(View.VISIBLE);
+            rl_no_data.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void refreshData() {
+
+        offset = 0;
+        noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+        mIsLoading = false;
+        isMoreData = false;
+        historyArrayList = new ArrayList<>();
+        wsCallGetUSerHistiory(false, false);
     }
 
 }

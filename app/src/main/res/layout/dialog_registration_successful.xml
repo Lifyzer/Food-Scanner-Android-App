@@ -28,11 +28,11 @@
             android:layout_below="@id/img_user"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp10"
-            android:fontFamily="sans-serif-condensed"
             android:text="@string/Thank_You"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp20"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+             />
 
         <TextView
             android:id="@+id/txt_success_login"
@@ -45,7 +45,7 @@
             android:text="@string/You_have_successfully_login"
             android:textColor="@color/black"
             android:textSize="@dimen/sp14"
-            android:textStyle="normal" />
+             />
 
 
         <TextView
@@ -55,12 +55,11 @@
             android:layout_below="@+id/txt_success_login"
             android:layout_marginTop="@dimen/sp20"
             android:background="@color/colorPrimary"
-            android:fontFamily="sans"
             android:gravity="center"
             android:text="@string/OK"
             android:textColor="@color/white"
             android:textSize="@dimen/sp18"
-            android:textStyle="normal" />
+             />
 
     </RelativeLayout>
 

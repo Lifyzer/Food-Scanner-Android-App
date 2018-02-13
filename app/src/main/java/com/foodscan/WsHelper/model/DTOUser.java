@@ -1,5 +1,8 @@
 package com.foodscan.WsHelper.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +18,7 @@ import io.realm.annotations.RealmClass;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RealmClass
-public class DTOUser extends RealmObject {
+public class DTOUser extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @JsonProperty("id")
@@ -46,6 +49,70 @@ public class DTOUser extends RealmObject {
     private String isTest;
     @JsonProperty("guid")
     private String guid;
+
+    protected DTOUser(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        email = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        password = in.readString();
+        facebookId = in.readString();
+        userImage = in.readString();
+        deviceToken = in.readString();
+        deviceType = in.readString();
+        createdDate = in.readString();
+        modifiedDate = in.readString();
+        isDelete = in.readString();
+        isTest = in.readString();
+        guid = in.readString();
+    }
+
+    public DTOUser() {
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        dest.writeString(email);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(password);
+        dest.writeString(facebookId);
+        dest.writeString(userImage);
+        dest.writeString(deviceToken);
+        dest.writeString(deviceType);
+        dest.writeString(createdDate);
+        dest.writeString(modifiedDate);
+        dest.writeString(isDelete);
+        dest.writeString(isTest);
+        dest.writeString(guid);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<DTOUser> CREATOR = new Creator<DTOUser>() {
+        @Override
+        public DTOUser createFromParcel(Parcel in) {
+            return new DTOUser(in);
+        }
+
+        @Override
+        public DTOUser[] newArray(int size) {
+            return new DTOUser[size];
+        }
+    };
 
     @JsonProperty("id")
     public Integer getId() {

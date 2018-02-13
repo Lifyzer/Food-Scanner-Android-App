@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.foodscan.Activity.SignInActivity"
-    android:id="@+id/rl_parent">
+    tools:context="com.foodscan.Activity.SignInActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -32,11 +33,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:fontFamily="sans"
                     android:text="@string/Sign_In"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                     />
 
             </RelativeLayout>
 
@@ -53,10 +54,9 @@
                     android:layout_marginLeft="@dimen/dp30"
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp40"
-                    android:fontFamily="sans"
                     android:gravity="left"
                     android:text="@string/Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in"
-                    android:textStyle="normal" />
+                     />
 
 
                 <EditText
@@ -65,13 +65,13 @@
                     android:layout_below="@+id/txt_login_instruction"
                     android:layout_marginTop="@dimen/dp50"
                     android:background="@drawable/tv_button_stroke_gray"
-                    android:fontFamily="sans"
                     android:hint="@string/Email_Id"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                     />
 
                 <EditText
                     android:id="@+id/edt_password"
@@ -79,13 +79,13 @@
                     android:layout_below="@+id/edt_email"
                     android:layout_marginTop="@dimen/dp20"
                     android:background="@drawable/tv_button_stroke_gray"
-                    android:fontFamily="sans"
                     android:hint="@string/Password"
-                    android:inputType="textPassword"
                     android:imeOptions="actionGo"
+                    android:inputType="textPassword"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                     />
 
                 <TextView
                     android:id="@+id/txt_signin"
@@ -93,10 +93,10 @@
                     android:layout_below="@+id/edt_password"
                     android:layout_marginTop="@dimen/dp40"
                     android:background="@drawable/tv_button_green"
-                    android:fontFamily="sans"
                     android:gravity="center"
                     android:text="@string/Sign_In"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                     />
 
                 <TextView
                     android:id="@+id/txt_forgotpass"
@@ -105,10 +105,10 @@
                     android:layout_below="@+id/txt_signin"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp30"
-                    android:fontFamily="sans"
                     android:padding="@dimen/dp5"
                     android:text="@string/can_not_sign_in_forgot_password"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                     />
 
 
             </RelativeLayout>
