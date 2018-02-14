@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_parent"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,12 +32,10 @@
     </RelativeLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_toolbar">
-
-
 
 
         <RelativeLayout
@@ -61,28 +58,39 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp12" />
 
-                <TextView
-                    android:id="@+id/txt_username"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:id="@+id/ll_user"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lbl_header"
-                    android:layout_marginTop="@dimen/dp10"
-                    android:paddingLeft="@dimen/dp5"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp14"
-                    android:text="User Name"/>
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="@dimen/dp10"
+                        android:paddingLeft="@dimen/dp5"
+                        android:text="User Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp14" />
 
 
-                <TextView
-                    android:id="@+id/txt_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_username"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:layout_marginTop="@dimen/dp5"
-                    android:paddingLeft="@dimen/dp5"
-                    android:textSize="@dimen/sp14"
-                    android:text="User Email"/>
+                    <TextView
+                        android:id="@+id/txt_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_username"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:paddingLeft="@dimen/dp5"
+                        android:text="User Email"
+                        android:textSize="@dimen/sp14" />
+
+                </LinearLayout>
 
                 <!--Favourite food-->
 
@@ -90,7 +98,7 @@
                     android:id="@+id/lbl_favfood"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
-                    android:layout_below="@+id/txt_email"
+                    android:layout_below="@+id/ll_user"
                     android:background="@color/light_gray"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp5"
@@ -98,10 +106,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp12" />
 
+
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_favourite"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_below="@+id/lbl_favfood"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
@@ -112,7 +122,7 @@
 
 
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
 
 </RelativeLayout>

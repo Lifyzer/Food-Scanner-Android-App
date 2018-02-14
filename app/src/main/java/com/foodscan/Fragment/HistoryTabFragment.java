@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.daimajia.swipe.util.Attributes;
-import com.foodscan.Activity.HomeActivity;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Adapter.HistoryAdapter;
 import com.foodscan.R;
@@ -104,8 +103,24 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                             isLoadingFirstTime = false;
 
                         } else {
-                            //wsCallGetUSerHistiory(true, false);
-                            //Toast.makeText(mContext, "I am here", Toast.LENGTH_SHORT).show();
+
+                            if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_HISTORY)) {
+                                if (parentFrag.viewPager != null) {
+                                    if (parentFrag.viewPager.getCurrentItem() == 0) {
+                                        if (parentFrag.viewPagerAdapter != null) {
+                                            Fragment fragment = parentFrag.viewPagerAdapter.getItem(0);
+                                            if (fragment instanceof HistoryTabFragment) {
+
+                                                HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment;
+                                                historyTabFragment.refreshData();
+                                                tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, false);
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                     }
 
@@ -126,7 +141,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                     isLoadingFirstTime = false;
 
                 } else {
-
 
                     if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_HISTORY)) {
 
@@ -209,7 +223,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
         if (((MainActivity) mContext).dtoUser != null) {
 
-            if (Utility.isNetworkAvailable(mContext)){
+            if (Utility.isNetworkAvailable(mContext)) {
 
                 try {
 

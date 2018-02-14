@@ -37,14 +37,14 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 //    private DTOUser dtoUser;
 //    private Realm realm;
 
-
-    private ArrayList<DTOProduct> arrayList = new ArrayList<>();
+    //private ArrayList<DTOProduct> arrayList = new ArrayList<>();
 
     //protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
-    public FavouriteAdapter(Context context, ArrayList<DTOProduct> arrayList) {
+    //public FavouriteAdapter(Context context, ArrayList<DTOProduct> arrayList) {
+    public FavouriteAdapter(Context context) {
         this.mContext = context;
-        this.arrayList = arrayList;
+        //this.arrayList = arrayList;
 
         tinyDB = new TinyDB(mContext);
 //        realm = Realm.getDefaultInstance();
@@ -61,9 +61,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
     @Override
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
 
-        DTOProduct dtoProduct = arrayList.get(position);
+        DTOProduct dtoProduct = ((MainActivity)mContext).favArrayList.get(position);
         if (dtoProduct != null) {
-            viewHolder.txt_product_name.setText(arrayList.get(position).getProductName());
+            viewHolder.txt_product_name.setText(((MainActivity)mContext).favArrayList.get(position).getProductName());
             String isHealthy = dtoProduct.getIsHealthy();
 
             if (isHealthy != null && isHealthy.length() > 0) {
@@ -115,14 +115,14 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
                         Attribute attribute = new Attribute();
                         attribute.setUser_id(String.valueOf(((MainActivity)mContext).dtoUser.getId()));
-                        attribute.setProduct_id(String.valueOf(arrayList.get(position).getId()));
+                        attribute.setProduct_id(String.valueOf(((MainActivity)mContext).favArrayList.get(position).getId()));
                         attribute.setIs_favourite("0");
-                        arrayList.get(position).setIsFavourite("0");
+                        ((MainActivity)mContext).favArrayList.get(position).setIsFavourite("0");
 
                         attribute.setAccess_key(encodeString);
                         attribute.setSecret_key(userToken);
 
-                        arrayList.remove(position);
+                        ((MainActivity)mContext).favArrayList.remove(position);
                         notifyDataSetChanged();
 
                         new WebserviceWrapper(mContext, attribute, FavouriteAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
@@ -142,7 +142,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return ((MainActivity)mContext).favArrayList.size();
     }
 
 
@@ -163,7 +163,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
     }
 
     public void setArrayList(ArrayList<DTOProduct> arrayList) {
-        this.arrayList = arrayList;
+        //this.arrayList = arrayList;
         notifyDataSetChanged();
     }
 

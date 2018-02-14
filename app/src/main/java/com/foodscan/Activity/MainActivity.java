@@ -28,6 +28,7 @@ import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
+import com.foodscan.WsHelper.model.DTOProduct;
 import com.foodscan.WsHelper.model.DTOUser;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
@@ -56,9 +57,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TabLayout tabLayout;
     public ViewPager viewPager;
-    private ViewPagerAdapter adapter;
+    public ViewPagerAdapter adapter;
 
     private int LOGIN_REQ_CODE = 100;
+
+    public int offset = 0;
+    public String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+    public boolean mIsLoading = false;
+    public boolean isMoreData = false;
+    public boolean isFavLoaded = false;
+    //public boolean isMoreData = false;
+
+    public ArrayList<DTOProduct> favArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -449,6 +459,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         } else if (currentIndex == 2) {
 
+                            ProfileFragment profileFragment = (ProfileFragment) fragment;
+                            profileFragment.afterLogin();
+                            //profileFragment.wsCallGetUserFavourite(true, false);
 
                         }
 
@@ -469,7 +482,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                             Fragment fragment3 = adapter.getItem(2);
-                            if (fragment3 instanceof ProfileFragment) {
+                            if (fragment3 instanceof ProfileFragment &&  currentIndex != 2) {
+
+                                ProfileFragment profileFragment = (ProfileFragment) fragment1;
+                                profileFragment.isLoadingFirstTime = true;
 
                             }
 

@@ -44,10 +44,10 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
     private View viewFragment;
 
     public boolean isViewShown = false, isLoadingFirstTime = true;
-    private int offset = 0;
-    private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
-    private boolean mIsLoading = false;
-    private boolean isMoreData = false;
+//    private int offset = 0;
+//    private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+//    private boolean mIsLoading = false;
+//    private boolean isMoreData = false;
 
     private RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_favourite;
@@ -55,7 +55,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
     private LinearLayoutManager mLayoutManager;
     private FavouriteAdapter favouriteAdapter;
-    private ArrayList<DTOProduct> arrayList = new ArrayList<>();
+    //private ArrayList<DTOProduct> arrayList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -86,7 +86,30 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                     if (parentFrag.viewPager.getCurrentItem() == 1) {
                         if (isLoadingFirstTime) {
 
-                            wsCallGetUserFavourite(true, false);
+                            if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_FAVOURITE)) {
+
+                                if (parentFrag.viewPagerAdapter != null) {
+                                    Fragment fragment = parentFrag.viewPagerAdapter.getItem(1);
+                                    if (fragment instanceof FavouriteTabFragment) {
+                                        refreshData();
+                                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
+
+                                    }
+                                }
+
+                            } else if (((MainActivity) mContext).isFavLoaded) {
+                                if (favouriteAdapter != null) {
+                                    favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
+                                } else {
+                                    //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+                                    favouriteAdapter = new FavouriteAdapter(mContext);
+                                    rv_favourite.setAdapter(favouriteAdapter);
+                                }
+                            } else {
+                                wsCallGetUserFavourite(true, false);
+                            }
+
+                            //wsCallGetUserFavourite(true, false);
                             isLoadingFirstTime = false;
 
                         }
@@ -105,31 +128,45 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                 isViewShown = true;
                 if (isLoadingFirstTime) {
 
-                    wsCallGetUserFavourite(true, false);
+                    if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_FAVOURITE)) {
+
+                        refreshData();
+                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
+
+                    }
+
+                    else if (((MainActivity) mContext).isFavLoaded) {
+                        if (favouriteAdapter != null) {
+                            favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
+                        } else {
+                            //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+                            favouriteAdapter = new FavouriteAdapter(mContext);
+                            rv_favourite.setAdapter(favouriteAdapter);
+                        }
+
+                    } else {
+                        wsCallGetUserFavourite(true, false);
+                    }
+
+                    //wsCallGetUserFavourite(true, false);
                     isLoadingFirstTime = false;
 
                 } else {
                     if (tinyDB.getBoolean(UserDefaults.NEED_REFRESH_FAVOURITE)) {
 
-                        HistoryFragment parentFrag = ((HistoryFragment) FavouriteTabFragment.this.getParentFragment());
+                        refreshData();
+                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
 
-                        if (parentFrag.viewPager != null) {
-                            if (parentFrag.viewPager.getCurrentItem() == 1) {
+                    } else {
 
-                                if (parentFrag.viewPagerAdapter != null) {
-                                    Fragment fragment = parentFrag.viewPagerAdapter.getItem(1);
-                                    if (fragment instanceof FavouriteTabFragment) {
-
-                                        refreshData();
-
-                                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
-
-                                    }
-                                }
-
-                            }
-
+                        if (favouriteAdapter != null) {
+                            favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
+                        } else {
+                            //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+                            favouriteAdapter = new FavouriteAdapter(mContext);
+                            rv_favourite.setAdapter(favouriteAdapter);
                         }
+
                     }
                 }
 
@@ -157,7 +194,8 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
         mLayoutManager = new LinearLayoutManager(mContext);
         rv_favourite.setLayoutManager(mLayoutManager);
 
-        favouriteAdapter = new FavouriteAdapter(mContext, arrayList);
+        //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+        favouriteAdapter = new FavouriteAdapter(mContext);
         rv_favourite.setAdapter(favouriteAdapter);
 
         noDataFound();
@@ -175,8 +213,8 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                 if ((lastInScreen == totalItemCount) && totalItemCount != 0) {
 
-                    if (!mIsLoading) {
-                        if (isMoreData) {
+                    if (!((MainActivity) mContext).mIsLoading) {
+                        if (((MainActivity) mContext).isMoreData) {
                             wsCallGetUserFavourite(false, true);
                         }
                     }
@@ -191,7 +229,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
             if (Utility.isNetworkAvailable(mContext)) {
 
-                mIsLoading = true;
+                ((MainActivity) mContext).mIsLoading = true;
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
@@ -201,8 +239,8 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                 Attribute attribute = new Attribute();
                 attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
-                attribute.setTo_index(noOfRecords);
-                attribute.setFrom_index(String.valueOf(offset));
+                attribute.setTo_index(((MainActivity) mContext).noOfRecords);
+                attribute.setFrom_index(String.valueOf(((MainActivity) mContext).offset));
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
 
@@ -249,7 +287,10 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
     public void onResponse(int apiCode, Object object, Exception error) {
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode()) {
-            mIsLoading = false;
+
+            ((MainActivity) mContext).isFavLoaded = true;
+
+            ((MainActivity) mContext).mIsLoading = false;
             load_more_progressbar.setVisibility(View.GONE);
             if (object != null) {
 
@@ -265,21 +306,22 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                             if (tempSelfieArrayList != null) {
 
-                                offset = offset + tempSelfieArrayList.size();
-                                isMoreData = tempSelfieArrayList.size() == UserDefaults.NO_OF_RECORD;
-                                arrayList.addAll(tempSelfieArrayList);
+                                ((MainActivity) mContext).offset = ((MainActivity) mContext).offset + tempSelfieArrayList.size();
+                                ((MainActivity) mContext).isMoreData = tempSelfieArrayList.size() == UserDefaults.NO_OF_RECORD;
+                                ((MainActivity) mContext).favArrayList.addAll(tempSelfieArrayList);
 
                             } else {
-                                isMoreData = false;
+                                ((MainActivity) mContext).isMoreData = false;
                             }
 
                             if (favouriteAdapter != null) {
 
-                                favouriteAdapter.setArrayList(arrayList);
+                                favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
 
                             } else {
 
-                                favouriteAdapter = new FavouriteAdapter(mContext, arrayList);
+                                //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+                                favouriteAdapter = new FavouriteAdapter(mContext);
                                 rv_favourite.setAdapter(favouriteAdapter);
 
                             }
@@ -294,13 +336,12 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                     e.printStackTrace();
                     Log.e(TAG, "" + e.getMessage());
                 }
-
             }
         }
     }
 
     private void noDataFound() {
-        if (arrayList != null && arrayList.size() > 0) {
+        if (((MainActivity) mContext).favArrayList != null && ((MainActivity) mContext).favArrayList.size() > 0) {
             rl_no_data.setVisibility(View.GONE);
         } else {
             rl_no_data.setVisibility(View.VISIBLE);
@@ -309,11 +350,11 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
     public void refreshData() {
 
-        offset = 0;
-        noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
-        mIsLoading = false;
-        isMoreData = false;
-        arrayList = new ArrayList<>();
+        ((MainActivity) mContext).offset = 0;
+        ((MainActivity) mContext).noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
+        ((MainActivity) mContext).mIsLoading = false;
+        ((MainActivity) mContext).isMoreData = false;
+        ((MainActivity) mContext).favArrayList = new ArrayList<>();
         wsCallGetUserFavourite(false, false);
     }
 

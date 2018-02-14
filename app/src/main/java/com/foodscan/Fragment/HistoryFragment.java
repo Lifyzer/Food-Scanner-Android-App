@@ -152,9 +152,7 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
 
                                     }
                                 }
-
                             }
-
                         }
                     }
 
@@ -266,10 +264,7 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
                 favouriteTabFragment.wsCallGetUserFavourite(true, false);
 
             }
-
-
         }
-
     }
 
 }
