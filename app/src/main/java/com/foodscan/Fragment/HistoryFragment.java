@@ -19,6 +19,7 @@ import com.foodscan.Activity.MainActivity;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
+import com.foodscan.WsHelper.model.DTOProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -247,7 +248,6 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
     }
 
     public void afterLogin() {
-
         if (viewPager != null && viewPagerAdapter != null) {
 
             int currentPos = viewPager.getCurrentItem();
@@ -266,5 +266,38 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
             }
         }
     }
+
+    public void updateAdapter(DTOProduct dtoProduct) {
+        Fragment fragment1 = viewPagerAdapter.getItem(0);
+        if (fragment1 instanceof HistoryTabFragment) {
+            HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment1;
+            historyTabFragment.UpdateData();
+        }
+    }
+
+    public void updateFavourite(DTOProduct dtoProduct) {
+
+        int currentPos = viewPager.getCurrentItem();
+        if (currentPos == 1) {
+
+            Fragment fragment = viewPagerAdapter.getItem(1);
+            if (fragment instanceof FavouriteTabFragment) {
+                ((FavouriteTabFragment) fragment).refreshData();
+            }
+        }
+//        else if(currentPos == 0){
+//
+//
+//
+//        }
+//        Fragment fragment1 = viewPagerAdapter.getItem(1);
+//        if(fragment1 instanceof FavouriteTabFragment){
+//            FavouriteTabFragment favouriteTabFragment = (FavouriteTabFragment) fragment1;
+//            favouriteTabFragment.UpdateData();
+//        }
+
+
+    }
+
 
 }

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //public boolean isMoreData = false;
 
     public ArrayList<DTOProduct> favArrayList = new ArrayList<>();
+    public ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -474,30 +475,106 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
 
-
                             Fragment fragment2 = adapter.getItem(1);
                             if (fragment2 instanceof ScanFragment) {
-
 
                             }
 
                             Fragment fragment3 = adapter.getItem(2);
-                            if (fragment3 instanceof ProfileFragment &&  currentIndex != 2) {
+                            if (fragment3 instanceof ProfileFragment && currentIndex != 2) {
 
-                                ProfileFragment profileFragment = (ProfileFragment) fragment1;
+                                ProfileFragment profileFragment = (ProfileFragment) fragment3;
                                 profileFragment.isLoadingFirstTime = true;
 
                             }
 
 
                         } catch (Exception e) {
-
                             Log.e(TAG, "" + e.getMessage());
 
                         }
                     }
                 }
             }
+        } else if (requestCode == UserDefaults.REQ_DETAILS) {
+
+            if (data != null) {
+
+                if (data.hasExtra("productDetails")) {
+
+                    DTOProduct dtoProduct = data.getParcelableExtra("productDetails");
+                    //***********  For history ***************//
+                    for (int i = 0; i < historyArrayList.size(); i++) {
+
+                        if (historyArrayList.get(i).getId().equals(dtoProduct.getId())) {
+
+                            try {
+
+                                historyArrayList.set(i, dtoProduct);
+
+                                Fragment fragment1 = adapter.getItem(0);
+                                if (fragment1 instanceof HistoryFragment) {
+
+                                    HistoryFragment historyFragment = (HistoryFragment) fragment1;
+                                    historyFragment.updateAdapter(dtoProduct);
+
+                                }
+
+                            } catch (Exception e) {
+                                Log.e(TAG, "" + e.getMessage());
+                            }
+
+                            break;
+                        }
+                    }
+
+                    //***********  For favourites ***************//
+
+                    Fragment fragment1 = adapter.getItem(0);
+                    if (fragment1 instanceof HistoryFragment) {
+
+                        HistoryFragment historyFragment = (HistoryFragment) fragment1;
+                        historyFragment.updateFavourite(dtoProduct);
+
+                    }
+
+                    Fragment fragment2 = adapter.getItem(2);
+                    if (fragment2 instanceof ProfileFragment) {
+                        ProfileFragment profileFragment = (ProfileFragment) fragment2;
+                        profileFragment.updateFavourite(dtoProduct);
+                    }
+
+
+//                    for (int i = 0; i < favArrayList.size(); i++) {
+//
+//                        if (favArrayList.get(i).getId().equals(dtoProduct.getId())) {
+//                            try {
+//                                if (dtoProduct.getIsFavourite().equals("1")) {
+//
+//
+//                                } else {
+//                                    favArrayList.remove(i);
+//                                    Fragment fragment1 = adapter.getItem(0);
+//                                    if (fragment1 instanceof HistoryFragment) {
+//                                        HistoryFragment historyFragment = (HistoryFragment) fragment1;
+//                                        historyFragment.updateFavourite(dtoProduct);
+//                                    }
+//                                }
+//
+//
+//                            } catch (Exception e) {
+//                                Log.e(TAG, "" + e.getMessage());
+//                            }
+//
+//                        }
+//
+//                        break;
+//
+//                    }
+                }
+
+            }
+
         }
     }
 

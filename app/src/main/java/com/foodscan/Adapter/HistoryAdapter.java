@@ -1,34 +1,38 @@
 
 package com.foodscan.Adapter;
 
+
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.foodscan.Activity.MainActivity;
+import com.foodscan.Activity.ProductDetailsActivity;
+import com.foodscan.Fragment.HistoryTabFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
-import com.foodscan.WsHelper.model.DTOLoginData;
 import com.foodscan.WsHelper.model.DTOProduct;
 import com.foodscan.WsHelper.model.DTOResponse;
-import com.foodscan.WsHelper.model.DTOUser;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import io.realm.Realm;
 
 
 public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleViewHolder> implements WebserviceWrapper.WebserviceResponse {
@@ -38,20 +42,23 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
     private Context mContext;
     private TinyDB tinyDB;
     //private DTOUser dtoUser;
-    private Realm realm;
+    //private Realm realm;
+
+    private Fragment fragment;
 
 
-    private ArrayList<DTOProduct> arrayList = new ArrayList<>();
+    //private ArrayList<DTOProduct> arrayList = new ArrayList<>();
 
 
     //protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
-    public HistoryAdapter(Context context, ArrayList<DTOProduct> arrayList) {
+    public HistoryAdapter(Context context, Fragment fragment) {
         this.mContext = context;
-        this.arrayList = arrayList;
+        //this.arrayList = arrayList;
 
         tinyDB = new TinyDB(mContext);
-        realm = Realm.getDefaultInstance();
+        this.fragment = fragment;
+        //realm = Realm.getDefaultInstance();
         //dtoUser = realm.where(DTOUser.class).findFirst();
         //dtoUser = ((MainActivity)mContext).dtoUser;
 
@@ -66,10 +73,12 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
     @Override
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
 
-        DTOProduct dtoProduct = arrayList.get(position);
+        final DTOProduct dtoProduct = ((MainActivity) mContext).historyArrayList.get(position);
         if (dtoProduct != null) {
 
-            viewHolder.txt_product_name.setText(arrayList.get(position).getProductName());
+            Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+
+            viewHolder.txt_product_name.setText(dtoProduct.getProductName());
 
             String isHealthy = dtoProduct.getIsHealthy();
 
@@ -121,7 +130,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 //
 //            }
 
-            String isFavourite = dtoProduct.getIsFavourite();
+            String isFavourite = ((MainActivity) mContext).historyArrayList.get(position).getIsFavourite();
             if (isFavourite != null && isFavourite.length() > 0) {
                 if (isFavourite.equals("1")) {
                     viewHolder.img_favourite.setImageResource(R.drawable.img_favourite_solid_green);
@@ -131,6 +140,23 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             }
         }
 
+        viewHolder.card_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (fragment instanceof HistoryTabFragment) {
+
+                    Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                    intent.putExtra("productDetails", dtoProduct);
+                    ((MainActivity) mContext).startActivityForResult(intent , UserDefaults.REQ_DETAILS);
+
+                }
+
+
+            }
+        });
+
         viewHolder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,14 +164,14 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                 if (Utility.isNetworkAvailable(mContext)) {
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity)mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
                     Attribute attribute = new Attribute();
-                    attribute.setHistory_id(arrayList.get(position).getHistoryId());
+                    attribute.setHistory_id(dtoProduct.getHistoryId());
                     attribute.setAccess_key(encodeString);
                     attribute.setSecret_key(userToken);
 
-                    arrayList.remove(position);
+                    ((MainActivity) mContext).historyArrayList.remove(position);
                     notifyDataSetChanged();
 
                     new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
@@ -163,19 +189,19 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity)mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (Utility.isNetworkAvailable(mContext)) {
 
                     Attribute attribute = new Attribute();
-                    attribute.setUser_id(String.valueOf(((MainActivity)mContext).dtoUser.getId()));
-                    attribute.setProduct_id(String.valueOf(arrayList.get(position).getId()));
-                    if (arrayList.get(position).getIsFavourite().equals("1")) {
+                    attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
+                    attribute.setProduct_id(String.valueOf(((MainActivity) mContext).historyArrayList.get(position).getId()));
+                    if (((MainActivity) mContext).historyArrayList.get(position).getIsFavourite().equals("1")) {
                         attribute.setIs_favourite("0");
-                        arrayList.get(position).setIsFavourite("0");
-                    } else if (arrayList.get(position).getIsFavourite().equals("0")) {
+                        ((MainActivity) mContext).historyArrayList.get(position).setIsFavourite("0");
+                    } else if (((MainActivity) mContext).historyArrayList.get(position).getIsFavourite().equals("0")) {
                         attribute.setIs_favourite("1");
-                        arrayList.get(position).setIsFavourite("1");
+                        ((MainActivity) mContext).historyArrayList.get(position).setIsFavourite("1");
                     }
 
                     attribute.setAccess_key(encodeString);
@@ -208,7 +234,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return ((MainActivity) mContext).historyArrayList.size();
     }
 
     @Override
@@ -220,7 +246,9 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView txt_product_name, txt_is_healthy, txt_product_type, txt_created_date;
-        ImageView img_favourite, img_delete;
+        ImageView img_favourite, img_delete, img_food;
+        RelativeLayout rl_card;
+        CardView card_parent;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
@@ -230,43 +258,32 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             txt_product_type = itemView.findViewById(R.id.txt_product_type);
             txt_created_date = itemView.findViewById(R.id.txt_created_date);
             img_favourite = itemView.findViewById(R.id.img_favourite);
+            img_food = itemView.findViewById(R.id.img_food);
             img_delete = itemView.findViewById(R.id.img_delete);
-
-            //final int pos = getAdapterPosition();
-
-
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    int pos = getAdapterPosition();
-//
-//
-//                }
-//            });
-
+            rl_card = itemView.findViewById(R.id.rl_card);
+            card_parent = itemView.findViewById(R.id.card_parent);
 
         }
     }
 
     public void setArrayList(ArrayList<DTOProduct> arrayList) {
-        this.arrayList = arrayList;
+        //this.arrayList = arrayList;
         notifyDataSetChanged();
     }
+
 
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
-        if (apiCode == WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode()){
-            if (object != null){
+        if (apiCode == WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode()) {
+            if (object != null) {
                 try {
                     DTOResponse dtoResponse = (DTOResponse) object;
-                    if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)){
+                    if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
                         tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, true);
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(TAG, "" + e.getMessage());
                 }

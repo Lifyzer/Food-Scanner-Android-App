@@ -1,29 +1,48 @@
 package com.foodscan.Activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foodscan.Adapter.FoodDetailsAdapter;
 import com.foodscan.R;
+import com.foodscan.Utility.TinyDB;
+import com.foodscan.Utility.UserDefaults;
+import com.foodscan.Utility.Utility;
+import com.foodscan.WsHelper.helper.Attribute;
+import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProduct;
+import com.foodscan.WsHelper.model.DTOResponse;
+import com.foodscan.WsHelper.model.DTOUser;
+import com.squareup.picasso.Picasso;
 
-public class ProductDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+import io.realm.Realm;
+
+public class ProductDetailsActivity extends AppCompatActivity implements View.OnClickListener, WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private Context mContext;
+    private Realm realm;
+    private DTOUser dtoUser;
+    private TinyDB tinyDB;
 
-    private ImageView img_back;
+    private ImageView img_back, img_favourite, img_product;
     private RecyclerView rv_details;
+    private TextView txt_product_name;
 
     private DTOProduct dtoProduct;
     private FoodDetailsAdapter foodDetailsAdapter;
-    private TextView txt_product_name;
+    private boolean isChangeMade = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +50,22 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_product_details);
 
         mContext = ProductDetailsActivity.this;
+        tinyDB = new TinyDB(mContext);
+        realm = Realm.getDefaultInstance();
+        dtoUser = realm.where(DTOUser.class).findFirst();
+
+
         initView();
         initGlobals();
     }
 
     private void initView() {
 
-        img_back = (ImageView) findViewById(R.id.img_back);
-        rv_details = (RecyclerView) findViewById(R.id.rv_details);
-        txt_product_name = (TextView) findViewById(R.id.txt_product_name);
+        img_back = findViewById(R.id.img_back);
+        rv_details = findViewById(R.id.rv_details);
+        txt_product_name = findViewById(R.id.txt_product_name);
+        img_favourite = findViewById(R.id.img_favourite);
+        img_product = findViewById(R.id.img_product);
 
     }
 
@@ -53,13 +79,27 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             dtoProduct = bundle.getParcelable("productDetails");
             if (dtoProduct != null) {
 
-                txt_product_name.setText(dtoProduct.getProductName());
+                Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
 
+                txt_product_name.setText(dtoProduct.getProductName());
                 foodDetailsAdapter = new FoodDetailsAdapter(mContext, dtoProduct);
                 rv_details.setAdapter(foodDetailsAdapter);
 
+                String is_fav = dtoProduct.getIsFavourite();
+                if (is_fav == null || is_fav.length() <= 0) {
+                    is_fav = "0";
+                }
+
+                if (is_fav.equals("0")) {
+                    img_favourite.setImageResource(R.drawable.img_fav_white_stroke);
+                } else if (is_fav.equals("1")) {
+                    img_favourite.setImageResource(R.drawable.img_fav_white_solid);
+                }
             }
         }
+
+        img_favourite.setOnClickListener(this);
+
     }
 
     @Override
@@ -71,7 +111,84 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 onBackPressed();
             }
             break;
+
+            case R.id.img_favourite: {
+                callWsFavourite();
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        if (isChangeMade) {
+
+            Intent intent = new Intent();
+            intent.putExtra("productDetails", dtoProduct);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+
+
         }
 
+        super.onBackPressed();
+
+    }
+
+    private void callWsFavourite() {
+
+        String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
+        String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+
+        if (Utility.isNetworkAvailable(mContext)) {
+
+            Attribute attribute = new Attribute();
+            attribute.setUser_id(String.valueOf(dtoUser.getId()));
+            attribute.setProduct_id(String.valueOf(dtoProduct.getId()));
+            if (dtoProduct.getIsFavourite().equals("1")) {
+                attribute.setIs_favourite("0");
+                dtoProduct.setIsFavourite("0");
+                img_favourite.setImageResource(R.drawable.img_fav_white_stroke);
+            } else if (dtoProduct.getIsFavourite().equals("0")) {
+                attribute.setIs_favourite("1");
+                dtoProduct.setIsFavourite("1");
+                img_favourite.setImageResource(R.drawable.img_fav_white_solid);
+            }
+
+            attribute.setAccess_key(encodeString);
+            attribute.setSecret_key(userToken);
+
+
+            new WebserviceWrapper(mContext, attribute, ProductDetailsActivity.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
+                    .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
+
+        } else {
+            Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    @Override
+    public void onResponse(int apiCode, Object object, Exception error) {
+
+        if (apiCode == WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode()) {
+
+            isChangeMade = true;
+
+            if (object != null) {
+                try {
+                    DTOResponse dtoResponse = (DTOResponse) object;
+                    if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
+                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, true);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "" + e.getMessage());
+                }
+            }
+        }
     }
 }

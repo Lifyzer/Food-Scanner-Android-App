@@ -2,6 +2,8 @@
 package com.foodscan.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.foodscan.Activity.MainActivity;
+import com.foodscan.Activity.ProductDetailsActivity;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -21,12 +24,10 @@ import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProduct;
 import com.foodscan.WsHelper.model.DTOResponse;
-import com.foodscan.WsHelper.model.DTOUser;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import io.realm.Realm;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.SimpleViewHolder> implements WebserviceWrapper.WebserviceResponse {
 
@@ -61,9 +62,12 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
     @Override
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
 
-        DTOProduct dtoProduct = ((MainActivity)mContext).favArrayList.get(position);
+        final DTOProduct dtoProduct = ((MainActivity) mContext).favArrayList.get(position);
         if (dtoProduct != null) {
-            viewHolder.txt_product_name.setText(((MainActivity)mContext).favArrayList.get(position).getProductName());
+
+            Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+
+            viewHolder.txt_product_name.setText(((MainActivity) mContext).favArrayList.get(position).getProductName());
             String isHealthy = dtoProduct.getIsHealthy();
 
             if (isHealthy != null && isHealthy.length() > 0) {
@@ -109,20 +113,20 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 public void onClick(View v) {
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity)mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
                     if (Utility.isNetworkAvailable(mContext)) {
 
                         Attribute attribute = new Attribute();
-                        attribute.setUser_id(String.valueOf(((MainActivity)mContext).dtoUser.getId()));
-                        attribute.setProduct_id(String.valueOf(((MainActivity)mContext).favArrayList.get(position).getId()));
+                        attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
+                        attribute.setProduct_id(String.valueOf(((MainActivity) mContext).favArrayList.get(position).getId()));
                         attribute.setIs_favourite("0");
-                        ((MainActivity)mContext).favArrayList.get(position).setIsFavourite("0");
+                        ((MainActivity) mContext).favArrayList.get(position).setIsFavourite("0");
 
                         attribute.setAccess_key(encodeString);
                         attribute.setSecret_key(userToken);
 
-                        ((MainActivity)mContext).favArrayList.remove(position);
+                        ((MainActivity) mContext).favArrayList.remove(position);
                         notifyDataSetChanged();
 
                         new WebserviceWrapper(mContext, attribute, FavouriteAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
@@ -135,6 +139,16 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 }
             });
 
+            viewHolder.card_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                    intent.putExtra("productDetails", dtoProduct);
+                    ((MainActivity) mContext).startActivityForResult(intent, UserDefaults.REQ_DETAILS);
+                }
+            });
+
+
         }
 
 
@@ -142,23 +156,26 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
     @Override
     public int getItemCount() {
-        return ((MainActivity)mContext).favArrayList.size();
+        return ((MainActivity) mContext).favArrayList.size();
     }
 
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView txt_product_name, txt_is_healthy, txt_product_type, txt_created_date;
-        ImageView img_favourite;
+        ImageView img_favourite, img_food;
+        CardView card_parent;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
 
+            card_parent = itemView.findViewById(R.id.card_parent);
             txt_product_name = itemView.findViewById(R.id.txt_product_name);
             txt_is_healthy = itemView.findViewById(R.id.txt_is_healthy);
             txt_product_type = itemView.findViewById(R.id.txt_product_type);
             txt_created_date = itemView.findViewById(R.id.txt_created_date);
             img_favourite = itemView.findViewById(R.id.img_favourite);
+            img_food = itemView.findViewById(R.id.img_food);
         }
     }
 

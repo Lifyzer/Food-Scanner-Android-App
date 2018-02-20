@@ -14,7 +14,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary">
 
-        <TextView
+        <com.foodscan.CustomViews.TextViewCustom
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -29,10 +29,20 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/dp5" />
 
+        <ImageView
+            android:id="@+id/img_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/img_settings"/>
+
     </RelativeLayout>
 
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_nested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_toolbar">
@@ -40,14 +50,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/lbl_header"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
@@ -67,11 +78,10 @@
                     android:background="@color/white"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.foodscan.CustomViews.TextViewCustom
                         android:id="@+id/txt_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="@dimen/dp10"
                         android:paddingLeft="@dimen/dp5"
                         android:text="User Name"
@@ -79,7 +89,7 @@
                         android:textSize="@dimen/sp14" />
 
 
-                    <TextView
+                    <com.foodscan.CustomViews.TextViewCustom
                         android:id="@+id/txt_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -107,7 +117,6 @@
                     android:textSize="@dimen/sp12" />
 
 
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_favourite"
                     android:layout_width="match_parent"
@@ -117,12 +126,21 @@
                     android:orientation="vertical"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+                <ProgressBar
+                    android:id="@+id/load_more_progressbar"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
+
+
 
             </RelativeLayout>
 
 
         </RelativeLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </RelativeLayout>

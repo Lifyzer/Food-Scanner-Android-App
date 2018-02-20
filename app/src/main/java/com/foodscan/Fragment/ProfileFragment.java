@@ -2,19 +2,26 @@ package com.foodscan.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.foodscan.Activity.MainActivity;
+import com.foodscan.Activity.SettingsActivity;
 import com.foodscan.Adapter.FavouriteAdapter;
+import com.foodscan.CustomViews.EndlessParentScrollListener;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -22,18 +29,15 @@ import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProduct;
-import com.foodscan.WsHelper.model.DTOUser;
 import com.foodscan.WsHelper.model.DTOUserFavouriteData;
 
 import java.util.ArrayList;
-
-import io.realm.Realm;
 
 /**
  * Created by c157 on 22/01/18.
  */
 
-public class ProfileFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
+public class ProfileFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, View.OnClickListener {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
@@ -47,6 +51,8 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
     private RelativeLayout rl_parent;
     private RecyclerView rv_favourite;
     private TextView txt_username, txt_email;
+    private ProgressBar load_more_progressbar;
+    private ImageView img_settings;
 
     private FavouriteAdapter favouriteAdapter;
     public boolean isViewShown = false, isLoadingFirstTime = true;
@@ -97,7 +103,6 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                     favouriteAdapter = new FavouriteAdapter(mContext);
                                     rv_favourite.setAdapter(favouriteAdapter);
                                 }
-
                             } else {
                                 wsCallGetUserFavourite(true, false);
                             }
@@ -140,17 +145,43 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
         rv_favourite = viewFragment.findViewById(R.id.rv_favourite);
         txt_username = viewFragment.findViewById(R.id.txt_username);
         txt_email = viewFragment.findViewById(R.id.txt_email);
+        load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
+        img_settings = viewFragment.findViewById(R.id.img_settings);
 
     }
 
     private void initGlobals() {
 
-        if (((MainActivity)mContext).dtoUser != null) {
-            txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
-            txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName() + " " + ((MainActivity)mContext).dtoUser.getLastName());
+
+        img_settings.setOnClickListener(this);
+
+        if (((MainActivity) mContext).dtoUser != null) {
+            txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
+            txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName() + " " + ((MainActivity) mContext).dtoUser.getLastName());
         } else {
             //Toast.makeText(mContext, "Please login", Toast.LENGTH_SHORT).show();
         }
+
+
+        LinearLayoutManager recycleLayoutManager = new LinearLayoutManager(mContext);
+        rv_favourite.setLayoutManager(recycleLayoutManager);
+
+
+        NestedScrollView scrollView = viewFragment.findViewById(R.id.scroll_nested);
+        scrollView.setOnScrollChangeListener(new EndlessParentScrollListener(recycleLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+//                if (offset < serverItems)
+//                    callWsBusinessImages(dtObusiness.getId(), true);
+
+                if (!((MainActivity) mContext).mIsLoading) {
+                    if (((MainActivity) mContext).isMoreData) {
+                        wsCallGetUserFavourite(false, true);
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
@@ -226,7 +257,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                 String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (isLoadMore) {
-                    // load_more_progressbar.setVisibility(View.VISIBLE);
+                    load_more_progressbar.setVisibility(View.VISIBLE);
                 }
 
                 Attribute attribute = new Attribute();
@@ -258,7 +289,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
             ((MainActivity) mContext).mIsLoading = false;
             ((MainActivity) mContext).isFavLoaded = true;
 
-            //load_more_progressbar.setVisibility(View.GONE);
+            load_more_progressbar.setVisibility(View.GONE);
             if (object != null) {
 
                 try {
@@ -316,10 +347,35 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
     public void afterLogin() {
         {
             wsCallGetUserFavourite(true, false);
-            txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
-            txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName() + " " + ((MainActivity)mContext).dtoUser.getLastName());
+            txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
+            txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName() + " " + ((MainActivity) mContext).dtoUser.getLastName());
         }
     }
 
+    public void updateFavourite(DTOProduct dtoProduct) {
 
+        refreshData();
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.img_settings: {
+                if (((MainActivity) mContext).dtoUser != null) {
+                    Intent intent = new Intent(mContext, SettingsActivity.class);
+                    startActivity(intent);
+                } else {
+                    ((MainActivity) mContext).showLoginDialog();
+                }
+
+
+            }
+            break;
+
+        }
+    }
 }

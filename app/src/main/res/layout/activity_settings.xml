@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.foodscan.Activity.SettingsActivity">
+
+    <!--Toolbar-->
+
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <com.foodscan.CustomViews.TextViewCustom
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/Settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_back_white"
+            android:padding="@dimen/dp10" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_toolbar">
+
+
+        <!--Edit Profile-->
+        <RelativeLayout
+            android:id="@+id/rl_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            >
+
+            <com.foodscan.CustomViews.TextViewCustom
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Edit_profile"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp14"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_arror_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_2"
+            android:layout_below="@+id/rl_edit_profile"
+            android:background="@color/black"
+            />
+
+
+        <!--Change Pass-->
+        <RelativeLayout
+            android:id="@+id/rl_change_pass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:layout_below="@+id/view1"
+            >
+
+            <com.foodscan.CustomViews.TextViewCustom
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Change_password"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp14"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_arror_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_2"
+            android:layout_below="@+id/rl_change_pass"
+            android:background="@color/black"
+            />
+
+        <!--Privacy-->
+
+        <RelativeLayout
+            android:id="@+id/rl_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:layout_below="@+id/view2"
+            >
+
+            <com.foodscan.CustomViews.TextViewCustom
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Privacy"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp14"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_arror_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_2"
+            android:layout_below="@+id/rl_privacy"
+            android:background="@color/black"
+            />
+
+        <!--Terms and Conditions-->
+
+        <RelativeLayout
+            android:id="@+id/rl_terms"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:layout_below="@+id/view3"
+            >
+
+            <com.foodscan.CustomViews.TextViewCustom
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Terms_and_Condition"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp14"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_arror_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_2"
+            android:layout_below="@+id/rl_terms"
+            android:background="@color/black"
+            />
+
+    </RelativeLayout>
+
+    <com.foodscan.CustomViews.TextViewCustom
+        android:id="@+id/txt_logout"
+        style="@style/EditInputField"
+        android:layout_marginTop="@dimen/dp40"
+        android:background="@drawable/tv_button_green"
+        android:gravity="center"
+        android:text="@string/Logout"
+        android:textStyle="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp40"
+        />
+
+
+
+
+
+</RelativeLayout>

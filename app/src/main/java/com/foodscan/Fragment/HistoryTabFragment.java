@@ -2,6 +2,7 @@ package com.foodscan.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.daimajia.swipe.util.Attributes;
 import com.foodscan.Activity.MainActivity;
+import com.foodscan.Activity.ProductDetailsActivity;
 import com.foodscan.Adapter.HistoryAdapter;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
@@ -54,7 +56,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     private ProgressBar load_more_progressbar;
 
     private HistoryAdapter historyAdapter;
-    private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
+    //private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
     public boolean isViewShown = false, isLoadingFirstTime = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount, firstVisibleItemIndex;
@@ -123,7 +125,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                         }
                     }
-
                 }
             }
         }
@@ -146,7 +147,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                         HistoryFragment parentFrag = ((HistoryFragment) HistoryTabFragment.this.getParentFragment());
 
-                        //Toast.makeText(mContext, "On Resume", Toast.LENGTH_SHORT).show();
                         if (parentFrag.viewPager != null) {
                             if (parentFrag.viewPager.getCurrentItem() == 0) {
                                 if (parentFrag.viewPagerAdapter != null) {
@@ -188,7 +188,8 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         mLayoutManager = new LinearLayoutManager(mContext);
         rv_history.setLayoutManager(mLayoutManager);
 
-        historyAdapter = new HistoryAdapter(mContext, historyArrayList);
+        //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
+        historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
         historyAdapter.setMode(Attributes.Mode.Single);
         rv_history.setAdapter(historyAdapter);
 
@@ -289,7 +290,38 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_DETAILS) {
+
+            if (data != null) {
+
+                if (data.hasExtra("productDetails")) {
+
+                    DTOProduct dtoProduct = data.getParcelableExtra("productDetails");
+
+                }
+            }
+        }
+    }
+
+    private static int REQ_DETAILS = 100;
+
+
+    public void productDetails(DTOProduct dtoProduct, int pos) {
+
+        Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+        intent.putExtra("productDetails", dtoProduct);
+        startActivityForResult(intent, REQ_DETAILS);
+
+    }
+
+
+    @Override
     public void onResponse(int apiCode, Object object, Exception error) {
+
+
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode()) {
 
@@ -311,7 +343,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                                 offset = offset + tempSelfieArrayList.size();
                                 isMoreData = tempSelfieArrayList.size() == UserDefaults.NO_OF_RECORD;
-                                historyArrayList.addAll(tempSelfieArrayList);
+                                ((MainActivity) mContext).historyArrayList.addAll(tempSelfieArrayList);
 
                             } else {
                                 isMoreData = false;
@@ -321,11 +353,12 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                             if (historyAdapter != null) {
 
-                                historyAdapter.setArrayList(historyArrayList);
+                                historyAdapter.setArrayList(((MainActivity) mContext).historyArrayList);
 
                             } else {
 
-                                historyAdapter = new HistoryAdapter(mContext, historyArrayList);
+                                //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
+                                historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
                                 historyAdapter.setMode(Attributes.Mode.Single);
                                 rv_history.setAdapter(historyAdapter);
 
@@ -347,7 +380,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     }
 
     private void noDataFound() {
-        if (historyArrayList != null && historyArrayList.size() > 0) {
+        if (((MainActivity) mContext).historyArrayList != null && ((MainActivity) mContext).historyArrayList.size() > 0) {
             rl_no_data.setVisibility(View.GONE);
         } else {
             rl_no_data.setVisibility(View.VISIBLE);
@@ -360,8 +393,23 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
         mIsLoading = false;
         isMoreData = false;
-        historyArrayList = new ArrayList<>();
+        ((MainActivity) mContext).historyArrayList = new ArrayList<>();
         wsCallGetUSerHistiory(false, false);
+    }
+
+    public void UpdateData(){
+
+        if(viewFragment != null){
+
+            if (historyAdapter != null) {
+                historyAdapter.setArrayList(((MainActivity) mContext).historyArrayList);
+            } else {
+                //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
+                historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
+                historyAdapter.setMode(Attributes.Mode.Single);
+                rv_history.setAdapter(historyAdapter);
+            }
+        }
     }
 
 }

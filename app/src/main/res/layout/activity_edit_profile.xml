@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/rl_parent"
+    tools:context="com.foodscan.Activity.EditProfileActivity">
+
+    <!--Toolbar-->
+
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <com.foodscan.CustomViews.TextViewCustom
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/Edit_profile"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_back_white"
+            android:padding="@dimen/dp10" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_toolbar"
+        android:padding="@dimen/dp20">
+
+        <com.foodscan.CustomViews.TextViewCustom
+            android:id="@+id/lbl_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp30"
+            android:layout_marginLeft="@dimen/dp30"
+            android:text="@string/Full_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14"
+            />
+
+
+        <com.foodscan.CustomViews.EditTextCustom
+            android:id="@+id/edt_full_name"
+            style="@style/EditInputField"
+            android:layout_below="@+id/lbl_fullname"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/tv_button_stroke_gray"
+            android:hint="@string/Full_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/light_gray"
+            android:textStyle="normal"
+            />
+
+        <com.foodscan.CustomViews.TextViewCustom
+            android:id="@+id/lbl_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp30"
+            android:layout_marginLeft="@dimen/dp30"
+            android:text="@string/Email_Id"
+            android:layout_below="@+id/edt_full_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14"
+            android:layout_marginTop="@dimen/dp20"
+            />
+
+        <com.foodscan.CustomViews.EditTextCustom
+            android:id="@+id/edt_email_id"
+            style="@style/EditInputField"
+            android:layout_below="@+id/lbl_email"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/tv_button_stroke_gray"
+            android:hint="@string/Full_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/light_gray"
+            android:textStyle="normal"
+            />
+
+
+    </RelativeLayout>
+
+    <com.foodscan.CustomViews.TextViewCustom
+        android:id="@+id/txt_save"
+        style="@style/EditInputField"
+        android:layout_marginTop="@dimen/dp40"
+        android:background="@drawable/tv_button_green"
+        android:gravity="center"
+        android:text="@string/Save"
+        android:textStyle="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp40"
+        />
+
+
+</RelativeLayout>

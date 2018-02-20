@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +7,10 @@
     tools:context="com.foodscan.Activity.HomeActivity">
 
 
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
 
 
         <RelativeLayout
@@ -25,8 +22,8 @@
                 android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:src="@drawable/img_back_black"
-                android:padding="@dimen/dp5"/>
+                android:padding="@dimen/dp10"
+                android:src="@drawable/img_back_black" />
 
             <ImageView
                 android:id="@+id/img_logo"
@@ -37,7 +34,7 @@
                 android:src="@drawable/img_app_name" />
 
 
-            <TextView
+            <com.foodscan.CustomViews.TextViewCustom
                 android:id="@+id/txt_app_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,8 +46,8 @@
                 android:gravity="center"
                 android:text="@string/Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories"
                 android:textColor="@color/gray"
-                android:typeface="sans"
-                 />
+
+                />
 
 
             <RelativeLayout
@@ -59,18 +56,14 @@
                 android:layout_below="@+id/txt_app_intro">
 
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_signin"
                     style="@style/EditInputField"
-
                     android:background="@drawable/tv_button_green"
                     android:gravity="center"
-                    android:text="@string/Sign_In"
+                    android:text="@string/Sign_In" />
 
-
-                    />
-
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_create_new_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,11 +71,9 @@
                     android:layout_centerVertical="true"
                     android:text="@string/Create_New_Account"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/sp16"
-                    android:typeface="sans"
-                     />
+                    android:textSize="@dimen/sp16" />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_copy_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,8 +83,7 @@
                     android:layout_marginBottom="@dimen/dp10"
                     android:padding="@dimen/dp5"
                     android:text="@string/Scanfood_Inc"
-                    android:textSize="@dimen/sp10"
-                     />
+                    android:textSize="@dimen/sp10" />
 
             </RelativeLayout>
 

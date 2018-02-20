@@ -28,7 +28,7 @@
                     android:padding="@dimen/dp10"
                     android:src="@drawable/img_back_black" />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_toolbar">
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_full_name"
                     style="@style/EditInputField"
                     android:layout_marginTop="@dimen/dp30"
@@ -53,15 +53,13 @@
                     android:hint="@string/Full_name"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-
-                    android:textStyle="normal"
                     android:inputType="text"
                     android:imeOptions="actionNext"
                     />
 
 
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_email_id"
                     style="@style/EditInputField"
                     android:layout_below="@+id/edt_full_name"
@@ -70,13 +68,11 @@
                     android:hint="@string/Email_Id"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-
-                    android:textStyle="normal"
                     android:inputType="textEmailAddress"
                     android:imeOptions="actionNext"
                     />
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_password"
                     style="@style/EditInputField"
                     android:layout_below="@+id/edt_email_id"
@@ -85,13 +81,11 @@
                     android:hint="@string/Password"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-
-                    android:textStyle="normal"
                     android:inputType="textPassword"
                     android:imeOptions="actionNext"
                     />
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_confirm_password"
                     style="@style/EditInputField"
                     android:layout_below="@+id/edt_password"
@@ -100,14 +94,12 @@
                     android:hint="@string/Confirm_Password"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-
-                    android:textStyle="normal"
                     android:inputType="textPassword"
                     android:imeOptions="actionGo"
 
                     />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_terms_and_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,19 +108,16 @@
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp20"
                     android:gravity="left"
-
-                    android:textStyle="normal"
                     android:textSize="@dimen/sp12"
                     android:text="@string/Terms_and_condition" />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_proceed"
                     style="@style/EditInputField"
                     android:layout_below="@+id/txt_terms_and_condition"
                     android:layout_marginTop="@dimen/dp50"
                     android:background="@drawable/tv_button_green"
                     android:gravity="center"
-
                     android:text="@string/Process" />
 
 

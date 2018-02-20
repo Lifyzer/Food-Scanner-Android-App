@@ -21,7 +21,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/img_user" />
 
-        <TextView
+        <com.foodscan.CustomViews.TextViewBoldCustom
             android:id="@+id/lbl_thanx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,10 +31,9 @@
             android:text="@string/Thank_You"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp20"
-            android:textStyle="bold"
-             />
+            android:textStyle="bold" />
 
-        <TextView
+        <com.foodscan.CustomViews.TextViewCustom
             android:id="@+id/txt_success_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,11 +43,10 @@
             android:fontFamily="sans"
             android:text="@string/You_have_successfully_login"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp14"
-             />
+            android:textSize="@dimen/sp14" />
 
 
-        <TextView
+        <com.foodscan.CustomViews.TextViewCustom
             android:id="@+id/txt_ok"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
@@ -58,8 +56,7 @@
             android:gravity="center"
             android:text="@string/OK"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp18"
-             />
+            android:textSize="@dimen/sp18" />
 
     </RelativeLayout>
 

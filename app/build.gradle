@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 //    implementation 'io.reactivex:rxjava:1.2.6'
 //    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.6'

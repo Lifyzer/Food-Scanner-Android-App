@@ -29,7 +29,7 @@
                     android:padding="@dimen/dp10"
                     android:src="@drawable/img_back_black" />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -47,7 +47,7 @@
                 android:layout_below="@+id/rl_toolbar">
 
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_login_instruction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                      />
 
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_email"
                     style="@style/EditInputField"
                     android:layout_below="@+id/txt_login_instruction"
@@ -73,7 +73,7 @@
                     android:textStyle="normal"
                      />
 
-                <EditText
+                <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_password"
                     style="@style/EditInputField"
                     android:layout_below="@+id/edt_email"
@@ -87,7 +87,7 @@
                     android:textStyle="normal"
                      />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_signin"
                     style="@style/EditInputField"
                     android:layout_below="@+id/edt_password"
@@ -98,7 +98,7 @@
                     android:textStyle="normal"
                      />
 
-                <TextView
+                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_forgotpass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

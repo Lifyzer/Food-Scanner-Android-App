@@ -16,19 +16,27 @@ public class EditTextCustom extends EditText {
 
 	private static final String TAG = EditTextCustom.class.getSimpleName();
 
-	public EditTextCustom(Context context) {
-		super(context);
+	public EditTextCustom(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init();
 	}
 
 	public EditTextCustom(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		//setCustomFont(context, attrs);
+		init();
 	}
 
-	public EditTextCustom(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		//setCustomFont(context, attrs);
+	public EditTextCustom(Context context) {
+		super(context);
+		init();
 	}
+
+	private void init() {
+		android.graphics.Typeface tf = android.graphics.Typeface.createFromAsset(getContext().getAssets(), "fonts/arial.ttf");
+		setTypeface(tf ,0);
+
+	}
+
 //
 //	private void setCustomFont(Context context, AttributeSet attrs) {
 //		try {

@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.daimajia.swipe.util.Attributes;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Adapter.FavouriteAdapter;
+import com.foodscan.Adapter.HistoryAdapter;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -356,6 +358,20 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
         ((MainActivity) mContext).isMoreData = false;
         ((MainActivity) mContext).favArrayList = new ArrayList<>();
         wsCallGetUserFavourite(false, false);
+    }
+
+    public void UpdateData(){
+
+        if(viewFragment != null){
+
+            if (favouriteAdapter != null) {
+                favouriteAdapter.setArrayList(((MainActivity) mContext).historyArrayList);
+            } else {
+                //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
+                favouriteAdapter = new FavouriteAdapter(mContext);
+                rv_favourite.setAdapter(favouriteAdapter);
+            }
+        }
     }
 
 }

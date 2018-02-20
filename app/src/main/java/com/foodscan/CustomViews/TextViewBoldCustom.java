@@ -2,39 +2,34 @@ package com.foodscan.CustomViews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
-
-import com.foodscan.R;
-
 
 
 @SuppressLint("AppCompatCustomView")
-public class TextViewCustom extends TextView {
+public class TextViewBoldCustom extends TextView {
 
-    private static final String TAG = TextViewCustom.class.getSimpleName();
+    private static final String TAG = TextViewBoldCustom.class.getSimpleName();
 
 
-    public TextViewCustom(Context context, AttributeSet attrs, int defStyle) {
+    public TextViewBoldCustom(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public TextViewCustom(Context context, AttributeSet attrs) {
+    public TextViewBoldCustom(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public TextViewCustom(Context context) {
+    public TextViewBoldCustom(Context context) {
         super(context);
         init();
     }
 
     private void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/arial.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/aribl_bold.ttf");
         setTypeface(tf ,0);
 
     }
