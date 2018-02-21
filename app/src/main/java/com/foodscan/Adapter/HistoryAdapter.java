@@ -207,6 +207,8 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     attribute.setAccess_key(encodeString);
                     attribute.setSecret_key(userToken);
 
+
+
                     notifyDataSetChanged();
 
                     new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()

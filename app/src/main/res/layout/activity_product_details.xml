@@ -89,17 +89,20 @@
                     android:id="@+id/txt_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Grenki 6 3AEblo "
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp16" />
 
                 <com.foodscan.CustomViews.TextViewCustom
+                    android:id="@+id/txt_ingradiants"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_product_name"
-                    android:text="FLINT" />
+                    android:layout_toLeftOf="@+id/txt_is_healthy"
+                    android:layout_marginRight="@dimen/dp10"
+                     />
 
                 <TextView
+                    android:id="@+id/txt_is_healthy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

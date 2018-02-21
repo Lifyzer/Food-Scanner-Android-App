@@ -196,12 +196,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 realm.beginTransaction();
                                 realm.copyToRealmOrUpdate(dtoUser);
                                 realm.commitTransaction();
-
 //                              startActivity(new Intent(SignInActivity.this, MainActivity.class));
 //                              finish();
-
                                 setResult(dtoUser);
-
                             }
                         }
 

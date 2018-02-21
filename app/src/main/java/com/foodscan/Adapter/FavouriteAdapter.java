@@ -126,11 +126,18 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                         attribute.setAccess_key(encodeString);
                         attribute.setSecret_key(userToken);
 
+
+                        ((MainActivity) mContext).updateFavFrag(((MainActivity) mContext).favArrayList.get(position));
+
                         ((MainActivity) mContext).favArrayList.remove(position);
                         notifyDataSetChanged();
 
                         new WebserviceWrapper(mContext, attribute, FavouriteAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                                 .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
+
+                        //************* update main array of favourite and history **************//
+
+
 
                     } else {
                         Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -192,8 +199,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 try {
                     DTOResponse dtoResponse = (DTOResponse) object;
                     if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
-                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, true);
-                        tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, true);
+                        //tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, true);
+                        //tinyDB.putBoolean(UserDefaults.NEED_REFRESH_HISTORY, true);
                     }
 
                 } catch (Exception e) {

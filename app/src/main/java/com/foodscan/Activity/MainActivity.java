@@ -156,6 +156,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (viewPager != null && adapter != null) {
+
+            if (viewPager.getCurrentItem() == 2 && tinyDB.getBoolean(UserDefaults.NEED_REFRESH_USER)) {
+
+                dtoUser = realm.where(DTOUser.class).findFirst();
+
+                Fragment fragment = adapter.getItem(2);
+                if (fragment instanceof ProfileFragment) {
+                    ProfileFragment profileFragment = (ProfileFragment) fragment;
+                    profileFragment.userDataChanges();
+                    tinyDB.putBoolean(UserDefaults.NEED_REFRESH_USER, false);
+                }
+            }
+        }
+    }
+
     private void createViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HistoryFragment(), getString(R.string.History));
@@ -475,10 +495,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
 
-                            Fragment fragment2 = adapter.getItem(1);
-                            if (fragment2 instanceof ScanFragment) {
-
-                            }
+//                            Fragment fragment2 = adapter.getItem(1);
+//                            if (fragment2 instanceof ScanFragment) {
+//
+//                            }
 
                             Fragment fragment3 = adapter.getItem(2);
                             if (fragment3 instanceof ProfileFragment && currentIndex != 2) {
@@ -510,7 +530,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             try {
 
-                                historyArrayList.set(i, dtoProduct);
+                                //historyArrayList.set(i, dtoProduct);
+                                historyArrayList.get(i).setIsFavourite(dtoProduct.getIsFavourite());
 
                                 Fragment fragment1 = adapter.getItem(0);
                                 if (fragment1 instanceof HistoryFragment) {
@@ -544,7 +565,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         profileFragment.updateFavourite(dtoProduct);
                     }
 
-
 //                    for (int i = 0; i < favArrayList.size(); i++) {
 //
 //                        if (favArrayList.get(i).getId().equals(dtoProduct.getId())) {
@@ -574,9 +594,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             }
-
         }
     }
+
+    public void updateFavFrag(DTOProduct dtoProduct) {
+
+        for (int i = 0; i < historyArrayList.size(); i++) {
+
+            if (historyArrayList.get(i).getId().equals(dtoProduct.getId())) {
+
+                try {
+
+                    //historyArrayList.set(i, dtoProduct);
+                    historyArrayList.get(i).setIsFavourite(dtoProduct.getIsFavourite());
+
+                    Fragment fragment1 = adapter.getItem(0);
+                    if (fragment1 instanceof HistoryFragment) {
+
+                        HistoryFragment historyFragment = (HistoryFragment) fragment1;
+                        historyFragment.updateAdapter(dtoProduct);
+
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, "" + e.getMessage());
+                }
+
+                break;
+            }
+        }
+    }
+
+    public void updateinHistoryFrag() {
+
+    }
+
 
     public void showLoginDialog() {
 

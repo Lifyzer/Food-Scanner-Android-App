@@ -47,7 +47,9 @@
     <string name="please_enter_confirm_password">Please enter confirm password</string>
     <string name="please_enter_username">Please enter username</string>
     <string name="please_enter_email">Please enter email</string>
+
     <string name="please_enter_first_name">Please enter first name</string>
+    <string name="please_enter_full_name">Please enter full name</string>
     <string name="please_enter_valid_email">Please enter valid email</string>
     <string name="please_login">To perform any action please login to FoodScan app</string>
     <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
@@ -74,5 +76,8 @@
     <string name="Terms_and_Condition"><![CDATA[Terms & Conditions]]></string>
     <string name="Logout">Logout</string>
     <string name="Save">Save</string>
+    <string name="Change">Change</string>
+    <string name="Current_Password">Current Password</string>
+    <string name="New_Password">New Password</string>
 
 </resources>

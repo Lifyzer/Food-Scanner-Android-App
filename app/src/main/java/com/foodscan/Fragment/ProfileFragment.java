@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.SettingsActivity;
@@ -95,6 +96,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                         tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
                                     }
                                 }
+
                             } else if (((MainActivity) mContext).isFavLoaded) {
                                 if (favouriteAdapter != null) {
                                     favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
@@ -157,7 +159,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
         if (((MainActivity) mContext).dtoUser != null) {
             txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
-            txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName() + " " + ((MainActivity) mContext).dtoUser.getLastName());
+            txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName());
         } else {
             //Toast.makeText(mContext, "Please login", Toast.LENGTH_SHORT).show();
         }
@@ -378,4 +380,12 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
         }
     }
+
+    public void userDataChanges(){
+
+        txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName());
+        txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
+
+    }
+
 }

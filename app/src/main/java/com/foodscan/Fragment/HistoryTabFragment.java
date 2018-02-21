@@ -58,7 +58,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     private HistoryAdapter historyAdapter;
     //private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
-    public boolean isViewShown = false, isLoadingFirstTime = true;
+    public boolean isViewShown = false, isHistoryLoadingFirstTime = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount, firstVisibleItemIndex;
     private LinearLayoutManager mLayoutManager;
 
@@ -99,10 +99,10 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                 if (((MainActivity) mContext).viewPager.getCurrentItem() == 0) {
 
                     if (parentFrag.viewPager.getCurrentItem() == 0) {
-                        if (isLoadingFirstTime) {
+                        if (isHistoryLoadingFirstTime) {
 
                             wsCallGetUSerHistiory(true, false);
-                            isLoadingFirstTime = false;
+                            isHistoryLoadingFirstTime = false;
 
                         } else {
 
@@ -136,10 +136,10 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         if (isVisibleToUser) {
             if (getView() != null) {
                 isViewShown = true;
-                if (isLoadingFirstTime) {
+                if (isHistoryLoadingFirstTime) {
 
                     wsCallGetUSerHistiory(true, false);
-                    isLoadingFirstTime = false;
+                    isHistoryLoadingFirstTime = false;
 
                 } else {
 
@@ -165,7 +165,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                 }
 
-                isLoadingFirstTime = false;
+                isHistoryLoadingFirstTime = false;
             } else {
                 isViewShown = false;
 

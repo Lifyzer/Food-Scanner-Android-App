@@ -19,6 +19,7 @@ public class UserDefaults {
     public static final int NO_OF_RECORD = 5;
     public static final String NEED_REFRESH_HISTORY = "need_refresh_history";
     public static final String NEED_REFRESH_FAVOURITE = "need_refresh_favourite" ;
+    public static final String NEED_REFRESH_USER = "need_refresh_user" ;
 
     public static int REQ_DETAILS = 101;
 

@@ -37,7 +37,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
     private ImageView img_back, img_favourite, img_product;
     private RecyclerView rv_details;
-    private TextView txt_product_name;
+    private TextView txt_product_name, txt_is_healthy, txt_ingradiants;
 
     private DTOProduct dtoProduct;
     private FoodDetailsAdapter foodDetailsAdapter;
@@ -66,6 +66,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         txt_product_name = findViewById(R.id.txt_product_name);
         img_favourite = findViewById(R.id.img_favourite);
         img_product = findViewById(R.id.img_product);
+        txt_is_healthy = findViewById(R.id.txt_is_healthy);
+        txt_ingradiants = findViewById(R.id.txt_ingradiants);
 
     }
 
@@ -95,6 +97,27 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 } else if (is_fav.equals("1")) {
                     img_favourite.setImageResource(R.drawable.img_fav_white_solid);
                 }
+
+                txt_ingradiants.setText(dtoProduct.getIngrediants());
+
+                String isHealthy = dtoProduct.getIsHealthy();
+                if (isHealthy != null && isHealthy.length() > 0) {
+                    if (isHealthy.equals("0")) {
+
+                        //Not healthy
+                        txt_is_healthy.setText(mContext.getString(R.string.Poor));
+                        txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_red_small, 0, 0, 0);
+                        txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.red));
+
+                    } else if (isHealthy.equals("1")) {
+
+                        //Healthy
+                        txt_is_healthy.setText(mContext.getString(R.string.Excellent));
+                        txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_green_small, 0, 0, 0);
+                        txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
+                    }
+                }
+
             }
         }
 

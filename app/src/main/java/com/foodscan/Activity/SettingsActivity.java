@@ -88,6 +88,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.rl_change_pass: {
 
+                Intent intent = new Intent(mContext, ChangePasswordActivity.class);
+                startActivity(intent);
+
             }
             break;
 

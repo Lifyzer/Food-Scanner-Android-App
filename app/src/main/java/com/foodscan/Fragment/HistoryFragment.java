@@ -106,19 +106,17 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
                 if (isLoadingFirstTime) {
                     initGlobal();
                     isLoadingFirstTime = false;
-                    if (viewPager != null && viewPagerAdapter != null) {
+//                    if (viewPager != null && viewPagerAdapter != null) {
+//                        Fragment fragment1 = viewPagerAdapter.getItem(0);
+//                        if (fragment1 instanceof HistoryTabFragment) {
+//                           // ((HistoryTabFragment) fragment1).isHistoryLoadingFirstTime = true;
+//                        }
 
-                        Fragment fragment1 = viewPagerAdapter.getItem(0);
-                        if (fragment1 instanceof HistoryTabFragment) {
-                            ((HistoryTabFragment) fragment1).isLoadingFirstTime = true;
-                        }
-
-                        Fragment fragment2 = viewPagerAdapter.getItem(1);
-                        if (fragment2 instanceof FavouriteTabFragment) {
-                            ((FavouriteTabFragment) fragment2).isLoadingFirstTime = true;
-                        }
-
-                    }
+//                        Fragment fragment2 = viewPagerAdapter.getItem(1);
+//                        if (fragment2 instanceof FavouriteTabFragment) {
+//                            ((FavouriteTabFragment) fragment2).isLoadingFirstTime = true;
+//                        }
+//                    }
 
                 } else {
                     //Refresh

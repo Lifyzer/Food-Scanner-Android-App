@@ -33,7 +33,8 @@ public class WebserviceWrapper {
     boolean displayProgress = false;
     String dialogMessage = "";
 
-    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4, REMOVE_FROM_HISTORY = 5, FAVOURITE = 6, USER_FAVOURITE = 7;
+    private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4, REMOVE_FROM_HISTORY = 5, FAVOURITE = 6, USER_FAVOURITE = 7,
+            EDIT_PROFILE = 8;
 
 
     public interface WebserviceResponse {
@@ -67,7 +68,8 @@ public class WebserviceWrapper {
     }
 
     public enum WEB_CALLID {
-        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4), REMOVE_FROM_HISTORY(5), FAVOURITE(6), USER_FAVOURITE(7);
+        LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4), REMOVE_FROM_HISTORY(5), FAVOURITE(6), USER_FAVOURITE(7),
+        EDIT_PROFILE(8);
 
         int callId;
 
@@ -147,6 +149,11 @@ public class WebserviceWrapper {
 
                     case USER_FAVOURITE: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.GET_USER_FAVOURITE, mContext).execute(attribute, DTOUserFavouriteData.class, null);
+                    }
+                    break;
+
+                    case EDIT_PROFILE: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.EDIT_PROFILE, mContext).execute(attribute, DTOLoginData.class, null);
                     }
                     break;
 
