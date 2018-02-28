@@ -90,13 +90,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
             case R.id.txt_proceed: {
 
+                Utility.hideKeyboard(RegistrationActivity.this);
                 if (isInputsValid()) {
-                    wsCallRegistration();
+                    if (Utility.validateEmail(edt_email_id)) {
+                        wsCallRegistration();
+                    } else {
+                        Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_valid_email), RegistrationActivity.this);
+                    }
                 }
-
             }
             break;
-
         }
     }
 
@@ -194,7 +197,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         } else {
             //first name blank
-            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_first_name), RegistrationActivity.this);
+            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_full_name), RegistrationActivity.this);
             return false;
 
         }

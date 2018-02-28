@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
     private View viewFragment;
 
-    private RelativeLayout rl_parent;
+    private RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_favourite;
     private TextView txt_username, txt_email;
     private ProgressBar load_more_progressbar;
@@ -105,6 +105,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                     favouriteAdapter = new FavouriteAdapter(mContext);
                                     rv_favourite.setAdapter(favouriteAdapter);
                                 }
+                                noDataFound();
                             } else {
                                 wsCallGetUserFavourite(true, false);
                             }
@@ -149,11 +150,13 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
         txt_email = viewFragment.findViewById(R.id.txt_email);
         load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
         img_settings = viewFragment.findViewById(R.id.img_settings);
+        rl_no_data = viewFragment.findViewById(R.id.rl_no_data);
 
     }
 
     private void initGlobals() {
 
+        noDataFound();
 
         img_settings.setOnClickListener(this);
 
@@ -211,6 +214,8 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                             rv_favourite.setAdapter(favouriteAdapter);
                         }
 
+                        noDataFound();
+
                     } else {
                         wsCallGetUserFavourite(true, false);
                     }
@@ -237,6 +242,8 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                             favouriteAdapter = new FavouriteAdapter(mContext);
                             rv_favourite.setAdapter(favouriteAdapter);
                         }
+
+                        noDataFound();
 
                     }
 
@@ -326,7 +333,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                         Utility.showLongSnackBar(rl_parent, dtoUserFavouriteData.getMessage(), mContext);
                     }
 
-                    //noDataFound();
+                    noDataFound();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -386,6 +393,14 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
         txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName());
         txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
 
+    }
+
+    public void noDataFound() {
+        if (((MainActivity) mContext).favArrayList != null && ((MainActivity) mContext).favArrayList.size() > 0) {
+            rl_no_data.setVisibility(View.GONE);
+        } else {
+            rl_no_data.setVisibility(View.VISIBLE);
+        }
     }
 
 }

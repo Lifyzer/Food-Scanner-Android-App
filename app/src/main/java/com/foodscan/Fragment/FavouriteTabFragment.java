@@ -107,6 +107,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                                     favouriteAdapter = new FavouriteAdapter(mContext);
                                     rv_favourite.setAdapter(favouriteAdapter);
                                 }
+                                noDataFound();
                             } else {
                                 wsCallGetUserFavourite(true, false);
                             }
@@ -136,7 +137,6 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                         tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
 
                     }
-
                     else if (((MainActivity) mContext).isFavLoaded) {
                         if (favouriteAdapter != null) {
                             favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
@@ -145,6 +145,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                             favouriteAdapter = new FavouriteAdapter(mContext);
                             rv_favourite.setAdapter(favouriteAdapter);
                         }
+                        noDataFound();
 
                     } else {
                         wsCallGetUserFavourite(true, false);
@@ -168,6 +169,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                             favouriteAdapter = new FavouriteAdapter(mContext);
                             rv_favourite.setAdapter(favouriteAdapter);
                         }
+                        noDataFound();
 
                     }
                 }
@@ -342,7 +344,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
         }
     }
 
-    private void noDataFound() {
+    public void noDataFound() {
         if (((MainActivity) mContext).favArrayList != null && ((MainActivity) mContext).favArrayList.size() > 0) {
             rl_no_data.setVisibility(View.GONE);
         } else {

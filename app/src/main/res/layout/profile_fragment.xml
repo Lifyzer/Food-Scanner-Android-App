@@ -33,10 +33,10 @@
             android:id="@+id/img_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="@dimen/dp5"
-            android:src="@drawable/img_settings"/>
+            android:src="@drawable/img_settings" />
 
     </RelativeLayout>
 
@@ -117,23 +117,70 @@
                     android:textSize="@dimen/sp12" />
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_favourite"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/lbl_favfood"
-                    android:nestedScrollingEnabled="false"
-                    android:orientation="vertical"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                    android:layout_below="@+id/lbl_favfood">
 
-                <ProgressBar
-                    android:id="@+id/load_more_progressbar"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp30"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:visibility="gone" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_favourite"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+                    <RelativeLayout
+                        android:id="@+id/rl_no_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/dp100"
+                        android:visibility="gone"
+                        >
+
+                        <ImageView
+                            android:id="@+id/img_no_fav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/img_no_favourite" />
+
+                        <TextView
+                            android:id="@+id/txt_no_fav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_no_fav"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="No Favourite Yet!"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/sp18"
+                            android:textStyle="bold" />
+
+                        <com.foodscan.CustomViews.TextViewCustom
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_no_fav"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="Once you favourite any food, \nyou will see them here"
+                            android:textSize="@dimen/sp14" />
+
+
+                    </RelativeLayout>
+
+
+                    <ProgressBar
+                        android:id="@+id/load_more_progressbar"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
 
             </RelativeLayout>

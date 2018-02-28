@@ -98,7 +98,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                     img_favourite.setImageResource(R.drawable.img_fav_white_solid);
                 }
 
-                txt_ingradiants.setText(dtoProduct.getIngrediants());
+                //txt_ingradiants.setText(dtoProduct.getIngrediants());
 
                 String isHealthy = dtoProduct.getIsHealthy();
                 if (isHealthy != null && isHealthy.length() > 0) {

@@ -38,6 +38,24 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
             if (position == 0) {
 
                 //************** Organic  **************//
+
+                String isOrganic = dtoProduct.getIsOrganic();
+                if (isOrganic != null && isOrganic.length() > 0) {
+
+                } else {
+                    isOrganic = "0";
+                }
+
+                if (isOrganic.equals("1")) {
+                    viewHolder.txt_content_amount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_bg_green_small, 0);
+                    viewHolder.txt_content_name.setText(mContext.getString(R.string.Organic));
+                    viewHolder.txt_content_comments.setText(mContext.getString(R.string.Natural_Product));
+
+                } else {
+                    viewHolder.txt_content_amount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_bg_red_small, 0);
+                    viewHolder.txt_content_name.setText(mContext.getString(R.string.not_Organic));
+                    viewHolder.txt_content_comments.setText(mContext.getString(R.string.Not_Natural_Product));
+                }
                 viewHolder.img_content.setImageResource(R.drawable.img_organic);
 
             } else if (position == 1) {
@@ -49,10 +67,10 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
 
             } else if (position == 2) {
 
-                //************** Fiber  **************//
-                viewHolder.img_content.setImageResource(R.drawable.img_fiber);
-                viewHolder.txt_content_name.setText(mContext.getString(R.string.Fiber));
-                viewHolder.txt_content_amount.setText(dtoProduct.getDietaryFiber() + "g");
+                //************** Sugar  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_sugar);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Sugar));
+                viewHolder.txt_content_amount.setText(dtoProduct.getSugar() + "g");
 
             } else if (position == 3) {
 
@@ -60,6 +78,27 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                 viewHolder.img_content.setImageResource(R.drawable.img_salt);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Salt));
                 viewHolder.txt_content_amount.setText(dtoProduct.getSalt() + "g");
+
+            } else if (position == 4) {
+
+                //************** Ingrediants  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_ingrediants);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Ingrediants));
+                viewHolder.txt_content_comments.setText(dtoProduct.getIngrediants());
+
+            } else if (position == 5) {
+
+                //************** Fat  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_fat);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Fat));
+                viewHolder.txt_content_amount.setText(dtoProduct.getFatAmount() + "g");
+
+            } else if (position == 6) {
+
+                //************** Calories  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_calories);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Calories));
+                viewHolder.txt_content_amount.setText(dtoProduct.getCalories() + "g");
 
             }
 
@@ -69,7 +108,7 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 7;
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {

@@ -34,7 +34,7 @@ public class WebserviceWrapper {
     String dialogMessage = "";
 
     private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4, REMOVE_FROM_HISTORY = 5, FAVOURITE = 6, USER_FAVOURITE = 7,
-            EDIT_PROFILE = 8;
+            EDIT_PROFILE = 8, CHANGE_PASSWORD = 9;
 
 
     public interface WebserviceResponse {
@@ -69,7 +69,7 @@ public class WebserviceWrapper {
 
     public enum WEB_CALLID {
         LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4), REMOVE_FROM_HISTORY(5), FAVOURITE(6), USER_FAVOURITE(7),
-        EDIT_PROFILE(8);
+        EDIT_PROFILE(8), CHANGE_PASSWORD(9);
 
         int callId;
 
@@ -154,6 +154,11 @@ public class WebserviceWrapper {
 
                     case EDIT_PROFILE: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.EDIT_PROFILE, mContext).execute(attribute, DTOLoginData.class, null);
+                    }
+                    break;
+
+                    case CHANGE_PASSWORD:{
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.CHANGE_PASSWORD, mContext).execute(attribute, DTOResponse.class, null);
                     }
                     break;
 

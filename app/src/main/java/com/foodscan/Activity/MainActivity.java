@@ -654,8 +654,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         DialogFragment fragment = DialogFragment.newInstance(builder);
         fragment.show(getSupportFragmentManager(), null);
+    }
 
+    public void historyBlank() {
+        if (viewPager != null && adapter != null) {
 
+            Fragment fragment = adapter.getItem(0);
+            if (fragment != null) {
+                HistoryFragment historyFragment = (HistoryFragment) fragment;
+                historyFragment.historyBlank();
+            }
+        }
+    }
+
+    public void favouriteBlank() {
+        if (viewPager != null && adapter != null) {
+
+            Fragment frag0 = adapter.getItem(0);
+            if (frag0 instanceof HistoryFragment) {
+                HistoryFragment historyFragment = (HistoryFragment) frag0;
+                historyFragment.favouriteBlank();
+            }
+
+            Fragment frag2 = adapter.getItem(2);
+            if (frag2 instanceof ProfileFragment) {
+                ProfileFragment profileFragment = (ProfileFragment) frag2;
+                profileFragment.noDataFound();
+            }
+        }
     }
 
 }

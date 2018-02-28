@@ -136,6 +136,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                                 .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
 
                         //************* update main array of favourite and history **************//
+                        ((MainActivity)mContext).favouriteBlank();
 
 
 

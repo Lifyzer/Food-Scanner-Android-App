@@ -293,9 +293,35 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
 //            FavouriteTabFragment favouriteTabFragment = (FavouriteTabFragment) fragment1;
 //            favouriteTabFragment.UpdateData();
 //        }
-
-
     }
+
+    public void historyBlank() {
+        try {
+            Fragment fragment = viewPagerAdapter.getItem(0);
+            if (fragment != null) {
+                HistoryTabFragment historyTabFragment = (HistoryTabFragment) fragment;
+                historyTabFragment.noDataFound();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void favouriteBlank() {
+        try {
+            Fragment fragment = viewPagerAdapter.getItem(1);
+            if (fragment != null) {
+                FavouriteTabFragment favouriteTabFragment = (FavouriteTabFragment) fragment;
+                favouriteTabFragment.noDataFound();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

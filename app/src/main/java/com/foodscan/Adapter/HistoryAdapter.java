@@ -149,7 +149,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
                     Intent intent = new Intent(mContext, ProductDetailsActivity.class);
                     intent.putExtra("productDetails", dtoProduct);
-                    ((MainActivity) mContext).startActivityForResult(intent , UserDefaults.REQ_DETAILS);
+                    ((MainActivity) mContext).startActivityForResult(intent, UserDefaults.REQ_DETAILS);
 
                 }
 
@@ -173,6 +173,10 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
                     ((MainActivity) mContext).historyArrayList.remove(position);
                     notifyDataSetChanged();
+
+                    if (((MainActivity) mContext).historyArrayList != null && ((MainActivity) mContext).historyArrayList.size() <= 0) {
+                        ((MainActivity) mContext).historyBlank();
+                    }
 
                     new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                             .execute(WebserviceWrapper.WEB_CALLID.REMOVE_FROM_HISTORY.getTypeCode());
@@ -206,7 +210,6 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
                     attribute.setAccess_key(encodeString);
                     attribute.setSecret_key(userToken);
-
 
 
                     notifyDataSetChanged();

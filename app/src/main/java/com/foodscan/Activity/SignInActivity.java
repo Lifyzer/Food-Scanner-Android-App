@@ -81,6 +81,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txt_signin: {
 
+                Utility.hideKeyboard(SignInActivity.this);
                 if (isInputsValid()) {
                     wsCallLogin();
                 }
@@ -148,7 +149,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private boolean isInputsValid() {
-
 
         if (Utility.validateStringPresence(edt_email)) {
             if (Utility.validateStringPresence(edt_password)) {

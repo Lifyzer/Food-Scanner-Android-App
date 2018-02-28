@@ -41,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_content_name"
-                android:text="Natural Product"
                 android:textSize="@dimen/sp12" />
+            <!--android:text="Natural Product"-->
 
         </RelativeLayout>
 
@@ -54,7 +54,6 @@
             android:layout_alignParentTop="true"
             android:drawablePadding="@dimen/dp2"
             android:drawableRight="@drawable/img_green_dot"
-            android:text="11.6g"
             android:textSize="@dimen/sp14" />
 
     </RelativeLayout>

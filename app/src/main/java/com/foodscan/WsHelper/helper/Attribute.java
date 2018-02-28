@@ -61,6 +61,9 @@ public class Attribute {
     @JsonProperty("is_favourite")
     private String is_favourite;
 
+    @JsonProperty("new_password")
+    private String new_password;
+
 
     // *************************************//
     // *********  getter setter  *********** //
@@ -204,6 +207,16 @@ public class Attribute {
     @JsonProperty("is_favourite")
     public void setIs_favourite(String is_favourite) {
         this.is_favourite = is_favourite;
+    }
+
+    @JsonProperty("new_password")
+    public String getNew_password() {
+        return new_password;
+    }
+
+    @JsonProperty("new_password")
+    public void setNew_password(String new_password) {
+        this.new_password = new_password;
     }
 
 }

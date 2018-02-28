@@ -379,7 +379,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         }
     }
 
-    private void noDataFound() {
+    public void noDataFound() {
         if (((MainActivity) mContext).historyArrayList != null && ((MainActivity) mContext).historyArrayList.size() > 0) {
             rl_no_data.setVisibility(View.GONE);
         } else {
