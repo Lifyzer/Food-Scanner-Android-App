@@ -100,6 +100,34 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Calories));
                 viewHolder.txt_content_amount.setText(dtoProduct.getCalories() + "g");
 
+            } else if (position == 7) {
+
+                //************** vitamin  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_vitamin);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Vitamin));
+                viewHolder.txt_content_comments.setText(dtoProduct.getVitamin() );
+
+            }else if (position == 8) {
+
+                //************** Saturated Fats  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_saturated_fats);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Saturated_fat));
+                viewHolder.txt_content_amount.setText(dtoProduct.getSaturatedFats() + "g" );
+
+            }else if (position == 9) {
+
+                //************** Carbohydrate  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_carbohydrate);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.Carbohydrate));
+                viewHolder.txt_content_amount.setText(dtoProduct.getCarbohydrate()+ "g" );
+
+            }else if (position == 10) {
+
+                //************** Dietry Fiber  **************//
+                viewHolder.img_content.setImageResource(R.drawable.img_fiber);
+                viewHolder.txt_content_name.setText(mContext.getString(R.string.dietry_fiber));
+                viewHolder.txt_content_amount.setText(dtoProduct.getDietaryFiber()+ "g" );
+
             }
 
         }
@@ -108,7 +136,7 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
 
     @Override
     public int getItemCount() {
-        return 7;
+        return 11;
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {

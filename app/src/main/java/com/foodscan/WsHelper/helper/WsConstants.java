@@ -20,5 +20,6 @@ public class WsConstants {
     public static String GET_USER_FAVOURITE = "getAllUserFavourite";
     public static String EDIT_PROFILE = "EditProfile";
     public static String CHANGE_PASSWORD = "ChangePassword";
+    public static String FORGOT_PASSWORD = "ForgotPassword";
 
 }
