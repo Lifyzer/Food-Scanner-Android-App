@@ -45,6 +45,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = ForgotPasswordActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -194,7 +195,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)){
                     SuccessForgetPass();
                 }else {
-                    Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ForgotPasswordActivity.this);
+                    Utility.showLongSnackBar(rl_parent, "Something went wrong please try again later", ForgotPasswordActivity.this);
                 }
             }
 

@@ -42,6 +42,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = ChangePasswordActivity.this;
         tinyDB = new TinyDB(mContext);

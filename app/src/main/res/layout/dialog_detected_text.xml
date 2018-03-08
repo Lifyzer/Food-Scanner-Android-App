@@ -46,6 +46,7 @@
                 android:cursorVisible="false"
                 android:drawablePadding="@dimen/dp5"
                 android:drawableRight="@drawable/img_edit"
+                android:hint="@string/The_Product_Name"
                 android:imeOptions="actionGo"
                 android:inputType="text"
                 android:paddingLeft="@dimen/dp15" />

@@ -44,6 +44,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = SignInActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -229,8 +230,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             setResult(Activity.RESULT_OK, intent);
             finish();
         }
-
-
     }
 
 }

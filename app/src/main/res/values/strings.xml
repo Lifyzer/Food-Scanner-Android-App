@@ -16,7 +16,7 @@
     <string name="Password">Password</string>
     <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
     <string name="Forgot_Password">Forgot Password</string>
-    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a link to reset your password</string>
+    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a new password on your email ID</string>
     <string name="Send">Send</string>
     <string name="First_name">First Name</string>
     <string name="Last_Name">Last Name</string>
@@ -94,5 +94,6 @@
     <string name="Change">Change</string>
     <string name="Current_Password">Current Password</string>
     <string name="New_Password">New Password</string>
+    <string name="The_Product_Name">The Product Name</string>
 
 </resources>

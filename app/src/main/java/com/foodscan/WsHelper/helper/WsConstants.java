@@ -7,7 +7,8 @@ public class WsConstants {
 
     public static String BASE_URL = "http://europa.narola.online/";
 
-    public static String SERVICE_URL = BASE_URL + "pg/FoodScanApp/FoodScanAppService.php?Service=";
+    //public static String SERVICE_URL = BASE_URL + "pg/FoodScanApp/FoodScanAppService.php?Service=";
+    public static String SERVICE_URL = BASE_URL + "pg/FoodScanApp/WS/FoodScanAppService.php?Service=";
 
 
     public static String REFRESH_TOKEN = "refreshToken";

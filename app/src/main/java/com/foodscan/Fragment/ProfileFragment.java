@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
     private View viewFragment;
 
-    private RelativeLayout rl_parent, rl_no_data;
+    public RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_favourite;
     private TextView txt_username, txt_email;
     private ProgressBar load_more_progressbar;
@@ -57,6 +57,8 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
     private FavouriteAdapter favouriteAdapter;
     public boolean isViewShown = false, isLoadingFirstTime = true;
+
+    //private Fragment fragment;
 
 
     @Nullable
@@ -68,6 +70,8 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
             mContext = getActivity();
             tinyDB = new TinyDB(mContext);
+
+
             //realm = Realm.getDefaultInstance();
 
             //dtoUser = realm.where(DTOUser.class).findFirst();
@@ -102,12 +106,19 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                     favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
                                 } else {
                                     //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
+
+
+
                                     favouriteAdapter = new FavouriteAdapter(mContext);
                                     rv_favourite.setAdapter(favouriteAdapter);
                                 }
                                 noDataFound();
                             } else {
                                 wsCallGetUserFavourite(true, false);
+                                if(((MainActivity)mContext).dtoUser != null){
+                                    txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
+                                    txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName());
+                                }
                             }
 
                             isLoadingFirstTime = false;

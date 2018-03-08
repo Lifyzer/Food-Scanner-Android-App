@@ -1,8 +1,10 @@
 
 package com.foodscan.Adapter;
 
+
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
+import com.foodscan.Fragment.FavouriteTabFragment;
+import com.foodscan.Fragment.ProfileFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -35,6 +39,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
     private Context mContext;
     private TinyDB tinyDB;
+    private Fragment fragment;
 //    private DTOUser dtoUser;
 //    private Realm realm;
 
@@ -46,8 +51,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
     public FavouriteAdapter(Context context) {
         this.mContext = context;
         //this.arrayList = arrayList;
-
         tinyDB = new TinyDB(mContext);
+
+
 //        realm = Realm.getDefaultInstance();
 //        //dtoUser = realm.where(DTOUser.class).findFirst();
 //        dtoUser = ((MainActivity)mContext).dtoUser;
@@ -107,6 +113,46 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 viewHolder.txt_created_date.setText(history_date);
 
             }
+
+            viewHolder.img_remove_favourite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
+                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+
+                    if (Utility.isNetworkAvailable(mContext)) {
+
+                        Attribute attribute = new Attribute();
+                        attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
+                        attribute.setProduct_id(String.valueOf(((MainActivity) mContext).favArrayList.get(position).getId()));
+                        attribute.setIs_favourite("0");
+                        ((MainActivity) mContext).favArrayList.get(position).setIsFavourite("0");
+
+                        attribute.setAccess_key(encodeString);
+                        attribute.setSecret_key(userToken);
+
+
+                        ((MainActivity) mContext).updateFavFrag(((MainActivity) mContext).favArrayList.get(position));
+
+                        ((MainActivity) mContext).favArrayList.remove(position);
+                        notifyDataSetChanged();
+
+                        new WebserviceWrapper(mContext, attribute, FavouriteAdapter.this, false, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
+                                .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
+
+                        //************* update main array of favourite and history **************//
+                        ((MainActivity)mContext).favouriteBlank();
+
+                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully removed from favourite",mContext);
+
+
+                    } else {
+                        Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
 
             viewHolder.img_favourite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,7 +217,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView txt_product_name, txt_is_healthy, txt_product_type, txt_created_date;
-        ImageView img_favourite, img_food;
+        ImageView img_favourite, img_food, img_remove_favourite;
         CardView card_parent;
 
         public SimpleViewHolder(View itemView) {
@@ -184,6 +230,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
             txt_created_date = itemView.findViewById(R.id.txt_created_date);
             img_favourite = itemView.findViewById(R.id.img_favourite);
             img_food = itemView.findViewById(R.id.img_food);
+            img_remove_favourite = itemView.findViewById(R.id.img_remove_favourite);
         }
     }
 

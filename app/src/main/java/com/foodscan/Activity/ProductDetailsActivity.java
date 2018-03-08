@@ -48,6 +48,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = ProductDetailsActivity.this;
         tinyDB = new TinyDB(mContext);

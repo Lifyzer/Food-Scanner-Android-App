@@ -43,6 +43,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = EditProfileActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -117,6 +118,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+
 
                 Attribute attribute = new Attribute();
                 attribute.setFirst_name(edt_full_name.getText().toString());
