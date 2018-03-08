@@ -213,6 +213,4 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
         }
 
     }
-
-
 }

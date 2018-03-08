@@ -154,20 +154,11 @@ public class Utility {
     }
 
     public static boolean validateEmail(EditText editText) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(
-                editText.getText()).matches()) {
-            return false;
-        } else {
-            return true;
-        }
+        return Patterns.EMAIL_ADDRESS.matcher(editText.getText()).matches();
     }
 
     public static boolean validateWebSite(EditText editText) {
-        if (!Patterns.WEB_URL.matcher(editText.getText()).matches()) {
-            return false;
-        } else {
-            return true;
-        }
+        return Patterns.WEB_URL.matcher(editText.getText()).matches();
     }
 
     public static void hideKeyboard(Activity activity) {

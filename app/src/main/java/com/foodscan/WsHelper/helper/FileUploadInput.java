@@ -2,10 +2,6 @@ package com.foodscan.WsHelper.helper;
 
 import java.util.ArrayList;
 
-/**
- * Created by c157 on 23/03/17.
- */
-
 public class FileUploadInput {
 
     public class Item {
