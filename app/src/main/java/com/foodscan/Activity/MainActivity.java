@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout frame_history, frame_scan, frame_profile;
     private ImageView img_history, img_scan, img_profile;
     private TextView txt_history, txt_scan_food, txt_profile;
+    public FrameLayout frame_main;
 
     public boolean needDialog = false;
     private TinyDB tinyDB;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean isFavLoaded = false;
     //public boolean isMoreData = false;
 
+    //public String productName = "";
+
     public ArrayList<DTOProduct> favArrayList = new ArrayList<>();
     public ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
 
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = MainActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -87,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
 
+        frame_main = findViewById(R.id.frame_main);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         createViewPager(viewPager);

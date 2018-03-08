@@ -23,6 +23,7 @@ import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
+import com.foodscan.WsHelper.helper.AES_Helper_new;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOHistoryData;
@@ -189,7 +190,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         rv_history.setLayoutManager(mLayoutManager);
 
         //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
-        historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
+        historyAdapter = new HistoryAdapter(mContext);
         historyAdapter.setMode(Attributes.Mode.Single);
         rv_history.setAdapter(historyAdapter);
 
@@ -232,6 +233,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                     String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                    //String encodeString = AES_Helper_new.encrypt(((MainActivity) mContext).dtoUser.getGuid(), UserDefaults.ENCODE_KEY);
 
                     if (isLoadMore) {
                         load_more_progressbar.setVisibility(View.VISIBLE);
@@ -358,7 +360,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                             } else {
 
                                 //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
-                                historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
+                                historyAdapter = new HistoryAdapter(mContext);
                                 historyAdapter.setMode(Attributes.Mode.Single);
                                 rv_history.setAdapter(historyAdapter);
 
@@ -405,7 +407,7 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
                 historyAdapter.setArrayList(((MainActivity) mContext).historyArrayList);
             } else {
                 //historyAdapter = new HistoryAdapter(mContext, ((MainActivity)mContext).historyArrayList, new HistoryTabFragment());
-                historyAdapter = new HistoryAdapter(mContext, new HistoryTabFragment());
+                historyAdapter = new HistoryAdapter(mContext);
                 historyAdapter.setMode(Attributes.Mode.Single);
                 rv_history.setAdapter(historyAdapter);
             }

@@ -18,6 +18,9 @@ import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOLoginData;
 import com.foodscan.WsHelper.model.DTOUser;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
+import com.rey.material.app.ThemeManager;
 
 import io.realm.Realm;
 
@@ -40,6 +43,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = EditProfileActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -115,6 +119,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
 
+
                 Attribute attribute = new Attribute();
                 attribute.setFirst_name(edt_full_name.getText().toString());
                 attribute.setEmail_id(edt_email_id.getText().toString());
@@ -161,6 +166,29 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void SuccessEditProfile() {
+
+        com.rey.material.app.Dialog.Builder builder = null;
+        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+
+        builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
+
+            @Override
+            public void onNegativeActionClicked(DialogFragment fragment) {
+                super.onNegativeActionClicked(fragment);
+                onBackPressed();
+            }
+        };
+
+        ((SimpleDialog.Builder) builder).message(getString(R.string.profile_change_success))
+                .title(getString(R.string.app_name))
+                .negativeAction("OK");
+
+        DialogFragment fragment = DialogFragment.newInstance(builder);
+        fragment.show(getSupportFragmentManager(), null);
+
+    }
+
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
@@ -180,8 +208,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                             realm.copyToRealmOrUpdate(dtoUser);
                             realm.commitTransaction();
 
-                            onBackPressed();
-                            EditProfileActivity.this.finish();
+//                            onBackPressed();
+//                            EditProfileActivity.this.finish();
+
+                            SuccessEditProfile();
                         }
 
                     } else {
@@ -194,7 +224,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         }
-
-
     }
+
+
+
+
 }

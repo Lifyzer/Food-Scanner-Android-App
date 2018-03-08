@@ -1,5 +1,6 @@
 package com.foodscan.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = RegistrationActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -69,11 +71,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private void initGlobals() {
 
-        String text = "<font color=#5B5B5B> By Creating Account, you are automatically accepting all the </font> <font color=#44B05B> Teams & Conditions</font>";
+        String text = "<font color=#5B5B5B> By Creating Account, you are automatically accepting all the </font> <font color=#44B05B> Terms & Conditions</font>";
         txt_terms_and_condition.setText(Html.fromHtml(text));
 
         img_back.setOnClickListener(this);
         txt_proceed.setOnClickListener(this);
+        txt_terms_and_condition.setOnClickListener(this);
 
 
     }
@@ -98,6 +101,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_valid_email), RegistrationActivity.this);
                     }
                 }
+            }
+            break;
+
+            case R.id.txt_terms_and_condition:{
+
+                Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
+                startActivity(intent);
+
             }
             break;
         }
@@ -227,10 +238,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 realm.copyToRealmOrUpdate(dtoUser);
                                 realm.commitTransaction();
 
-                                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
-                                intent.putExtra("needDialog", true);
-                                startActivity(intent);
-                                finish();
+
+                                setResult(dtoUser);
+
+//                                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+//                                intent.putExtra("needDialog", true);
+//                                startActivity(intent);
+//                                finish();
 
                             }
                         }
@@ -246,6 +260,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         }
-
     }
+
+
+    private void setResult(DTOUser dtoUser) {
+
+        if (dtoUser != null) {
+            Intent intent = new Intent();
+            intent.putExtra("user_data", dtoUser);
+            //intent.putExtra("needDialog", true);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
+    }
+
+
+
 }

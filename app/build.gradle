@@ -31,14 +31,9 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
-//    implementation 'io.reactivex:rxjava:1.2.6'
-//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
-
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
     implementation 'io.reactivex:rxjava:1.1.0'
-    //compile 'io.reactivex:rxjava:1.0.16'
 
-    //implementation 'com.google.android.gms:play-services-vision:11.8.0'
     implementation 'com.google.android.gms:play-services-vision:9.4.0+'
 
     implementation 'com.github.rey5137:material:1.2.4'

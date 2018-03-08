@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 
 import com.foodscan.R;
+import com.foodscan.WsHelper.helper.AES_Helper_new;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -602,49 +603,55 @@ public class Utility {
         }
     }
 
-    public static String encode(String keyString, String stringToEncode) throws NullPointerException {
-        if (keyString.length() == 0 || keyString == null) {
-            throw new NullPointerException("Please give Password");
-        }
 
-        if (stringToEncode.length() == 0 || stringToEncode == null) {
-            throw new NullPointerException("Please give text");
-        }
-
-        try {
-            SecretKeySpec skeySpec = getKey(keyString);
-            byte[] clearText = stringToEncode.getBytes("UTF8");
-
-            // IMPORTANT TO GET SAME RESULTS ON iOS and ANDROID
-            final byte[] iv = new byte[16];
-            Arrays.fill(iv, (byte) 0x00);
-            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-
-            // Cipher is not thread safe
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivParameterSpec);
-
-            String encrypedValue = Base64.encodeToString(cipher.doFinal(clearText), Base64.DEFAULT);
-            Log.d("jacek", "Encrypted: " + stringToEncode + " -> " + encrypedValue);
-            return encrypedValue;
-
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        }
-        return "";
+    public static String encode(String keyString, String stringToEncode){
+        return AES_Helper_new.encrypt(stringToEncode, keyString);
     }
+
+
+//    public static String encode(String keyString, String stringToEncode) throws NullPointerException {
+//        if (keyString.length() == 0 || keyString == null) {
+//            throw new NullPointerException("Please give Password");
+//        }
+//
+//        if (stringToEncode.length() == 0 || stringToEncode == null) {
+//            throw new NullPointerException("Please give text");
+//        }
+//
+//        try {
+//            SecretKeySpec skeySpec = getKey(keyString);
+//            byte[] clearText = stringToEncode.getBytes("UTF8");
+//
+//            // IMPORTANT TO GET SAME RESULTS ON iOS and ANDROID
+//            final byte[] iv = new byte[16];
+//            Arrays.fill(iv, (byte) 0x00);
+//            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+//
+//            // Cipher is not thread safe
+//            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+//            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivParameterSpec);
+//
+//            String encrypedValue = Base64.encodeToString(cipher.doFinal(clearText), Base64.DEFAULT);
+//            Log.d("jacek", "Encrypted: " + stringToEncode + " -> " + encrypedValue);
+//            return encrypedValue;
+//
+//        } catch (InvalidKeyException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (BadPaddingException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchPaddingException e) {
+//            e.printStackTrace();
+//        } catch (IllegalBlockSizeException e) {
+//            e.printStackTrace();
+//        } catch (InvalidAlgorithmParameterException e) {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
 
     private static SecretKeySpec getKey(String password) throws UnsupportedEncodingException {
 
@@ -662,6 +669,7 @@ public class Utility {
         SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
         return key;
     }
+
 
 
 }

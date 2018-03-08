@@ -31,6 +31,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = SplashActivity.this;
         tinyDB = new TinyDB(mContext);

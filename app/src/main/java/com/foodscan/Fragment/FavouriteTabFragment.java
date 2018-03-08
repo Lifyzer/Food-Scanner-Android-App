@@ -45,13 +45,15 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
     private View viewFragment;
 
+
+
     public boolean isViewShown = false, isLoadingFirstTime = true;
 //    private int offset = 0;
 //    private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
 //    private boolean mIsLoading = false;
 //    private boolean isMoreData = false;
 
-    private RelativeLayout rl_parent, rl_no_data;
+    public RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_favourite;
     private ProgressBar load_more_progressbar;
 
@@ -66,6 +68,8 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
             viewFragment = inflater.inflate(R.layout.favourite_tab_fragment, container, false);
             mContext = getActivity();
             tinyDB = new TinyDB(mContext);
+
+
         }
 
         return viewFragment;
@@ -250,6 +254,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                 new WebserviceWrapper(mContext, attribute, FavouriteTabFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode());
+
 
             } else {
                 noInternetconnection(getString(R.string.no_internet_connection));

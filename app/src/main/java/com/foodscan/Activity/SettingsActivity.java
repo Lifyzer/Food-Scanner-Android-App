@@ -40,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = SettingsActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -96,10 +97,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.rl_privacy: {
 
+                Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
+                startActivity(intent);
+
             }
             break;
 
             case R.id.rl_terms: {
+
+                Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
+                startActivity(intent);
 
             }
             break;

@@ -16,7 +16,7 @@
     <string name="Password">Password</string>
     <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
     <string name="Forgot_Password">Forgot Password</string>
-    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a link to reset your password</string>
+    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a new password on your email ID</string>
     <string name="Send">Send</string>
     <string name="First_name">First Name</string>
     <string name="Last_Name">Last Name</string>
@@ -38,6 +38,10 @@
     <string name="Ingrediants">Ingrediants</string>
     <string name="Fat">Fat</string>
     <string name="Calories">Calories</string>
+    <string name="Vitamin">Vitamin</string>
+    <string name="Saturated_fat">Saturated Fat</string>
+    <string name="Carbohydrate">Carbohydrate</string>
+    <string name="dietry_fiber">Dietry Fiber</string>
     <string name="Excellent">Excellent</string>
     <string name="Poor">Poor</string>
     <string name="Organic">Organic</string>
@@ -59,6 +63,9 @@
     <string name="please_enter_first_name">Please enter first name</string>
     <string name="please_enter_full_name">Please enter full name</string>
     <string name="please_enter_valid_email">Please enter valid email address</string>
+    <string name="forget_password_success">Please check your email to get password</string>
+    <string name="password_change_success">Your Password is changed successfully</string>
+    <string name="profile_change_success">Your Profile is updated successfully</string>
     <string name="please_login">To perform any action please login to FoodScan app</string>
     <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
 
@@ -87,5 +94,6 @@
     <string name="Change">Change</string>
     <string name="Current_Password">Current Password</string>
     <string name="New_Password">New Password</string>
+    <string name="The_Product_Name">The Product Name</string>
 
 </resources>

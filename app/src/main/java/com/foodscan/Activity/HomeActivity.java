@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = HomeActivity.this;
 

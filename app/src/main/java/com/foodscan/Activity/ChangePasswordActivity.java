@@ -18,6 +18,9 @@ import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOResponse;
 import com.foodscan.WsHelper.model.DTOUser;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
+import com.rey.material.app.ThemeManager;
 
 import io.realm.Realm;
 
@@ -39,6 +42,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = ChangePasswordActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -154,10 +158,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                     DTOResponse dtoResponse = (DTOResponse) object;
                     if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
 
-                        Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ChangePasswordActivity.this);
+//                        Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ChangePasswordActivity.this);
+//
+//                        onBackPressed();
+//                        ChangePasswordActivity.this.finish();
 
-                        onBackPressed();
-                        ChangePasswordActivity.this.finish();
+                        SuccessChangePass();
+
                     } else {
                         Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ChangePasswordActivity.this);
                     }
@@ -169,4 +176,30 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             }
         }
     }
+
+
+    private void SuccessChangePass() {
+
+        com.rey.material.app.Dialog.Builder builder = null;
+        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+
+        builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
+
+            @Override
+            public void onNegativeActionClicked(DialogFragment fragment) {
+                super.onNegativeActionClicked(fragment);
+                onBackPressed();
+            }
+        };
+
+        ((SimpleDialog.Builder) builder).message(getString(R.string.password_change_success))
+                .title(getString(R.string.app_name))
+                .negativeAction("OK");
+
+        DialogFragment fragment = DialogFragment.newInstance(builder);
+        fragment.show(getSupportFragmentManager(), null);
+
+    }
+
+
 }

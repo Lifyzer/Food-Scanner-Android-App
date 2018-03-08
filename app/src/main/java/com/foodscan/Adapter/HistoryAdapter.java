@@ -52,12 +52,12 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
     //protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
-    public HistoryAdapter(Context context, Fragment fragment) {
+    public HistoryAdapter(Context context) {
         this.mContext = context;
         //this.arrayList = arrayList;
 
         tinyDB = new TinyDB(mContext);
-        this.fragment = fragment;
+
         //realm = Realm.getDefaultInstance();
         //dtoUser = realm.where(DTOUser.class).findFirst();
         //dtoUser = ((MainActivity)mContext).dtoUser;
@@ -178,8 +178,10 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                         ((MainActivity) mContext).historyBlank();
                     }
 
-                    new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
+                    new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, false, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                             .execute(WebserviceWrapper.WEB_CALLID.REMOVE_FROM_HISTORY.getTypeCode());
+
+                    Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully removed from History",mContext);
 
                 } else {
                     Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -206,6 +208,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     } else if (((MainActivity) mContext).historyArrayList.get(position).getIsFavourite().equals("0")) {
                         attribute.setIs_favourite("1");
                         ((MainActivity) mContext).historyArrayList.get(position).setIsFavourite("1");
+                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully added to favourite",mContext);
                     }
 
                     attribute.setAccess_key(encodeString);
@@ -214,7 +217,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
                     notifyDataSetChanged();
 
-                    new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, true, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
+                    new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, false, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                             .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
 
                 } else {

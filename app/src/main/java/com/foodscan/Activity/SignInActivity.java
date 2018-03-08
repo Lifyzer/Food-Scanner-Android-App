@@ -44,6 +44,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
         mContext = SignInActivity.this;
         tinyDB = new TinyDB(mContext);
@@ -71,6 +72,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         txt_signin.setOnClickListener(this);
         img_back.setOnClickListener(this);
+        txt_forgotpass.setOnClickListener(this);
 
     }
 
@@ -92,6 +94,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
             }
             break;
+
+            case R.id.txt_forgotpass:{
+                startActivity(new Intent(mContext, ForgotPasswordActivity.class));
+            }
+                break;
 
         }
     }
@@ -156,7 +163,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (Utility.validateEmail(edt_email)) {
                     return true;
                 } else {
-                    //password blank
+                    //email not valid
                     Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_valid_email), SignInActivity.this);
                     return false;
                 }
@@ -223,8 +230,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             setResult(Activity.RESULT_OK, intent);
             finish();
         }
-
-
     }
 
 }

@@ -214,25 +214,29 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
      * sending the request.
      */
     private void requestCameraPermission() {
-        Log.w(TAG, "Camera permission is not granted. Requesting permission");
 
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
+        requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.CAMERA)) {
-            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
-            return;
-        }
-
-        final Activity thisActivity = getActivity();
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(thisActivity, permissions,
-                        RC_HANDLE_CAMERA_PERM);
-            }
-        };
+//        Log.w(TAG, "Camera permission is not granted. Requesting permission");
+//
+//        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+//
+//        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                Manifest.permission.CAMERA)) {
+//            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
+//            return;
+//        }
+//
+//        final Activity thisActivity = getActivity();
+//
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ActivityCompat.requestPermissions(thisActivity, permissions,
+//                        RC_HANDLE_CAMERA_PERM);
+//            }
+//        };
 
 //        Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
 //                Snackbar.LENGTH_INDEFINITE)
@@ -365,9 +369,14 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
                 if (Utility.validateStringPresence(edt_detected_text)) {
 
+
+                    productName = edt_detected_text.getText().toString();
+
                     if (((MainActivity)mContext).dtoUser != null) {
 
                         productName = edt_detected_text.getText().toString();
+
+
 
                         wsCallProductDetails();
                     } else {
