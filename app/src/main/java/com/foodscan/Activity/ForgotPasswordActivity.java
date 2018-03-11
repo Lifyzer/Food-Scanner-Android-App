@@ -2,6 +2,7 @@ package com.foodscan.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foodscan.Fragment.FavouriteTabFragment;
 import com.foodscan.R;
@@ -157,9 +157,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             }
         };
 
-        ((SimpleDialog.Builder) builder).message(getString(R.string.forget_password_success))
-                .title(getString(R.string.app_name))
-                .negativeAction("OK");
+        Snackbar.make(rl_parent, getString(R.string.forget_password_success), Snackbar.LENGTH_LONG);
 
         DialogFragment fragment = DialogFragment.newInstance(builder);
         fragment.show(getSupportFragmentManager(), null);
