@@ -21,10 +21,8 @@ import com.rey.material.app.ThemeManager;
 public class SplashActivity extends AppCompatActivity implements WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
-
-    private Context mContext;
-
     private final int SPLASH_DURATION_MILI = 1000;
+    private Context mContext;
     private TinyDB tinyDB;
 
     @Override
@@ -55,9 +53,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 if (tinyDB.getBoolean(UserDefaults.IS_LOGIN)) {
-
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
@@ -65,7 +61,6 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                 } else {
                     wsCallRefreshToken();
                 }
-
             }
         }, SPLASH_DURATION_MILI);
     }
@@ -78,15 +73,14 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                 Attribute attribute = new Attribute();
                 attribute.setAccess_key(UserDefaults.DEFAULT_ACCESS_KEY);
 
-                new WebserviceWrapper(mContext, attribute, SplashActivity.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                new WebserviceWrapper(mContext, attribute, SplashActivity.this,
+                        true, getString(R.string.Loading_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.REFRESH_TOKEN.getTypeCode());
-
 
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "" + e.getMessage());
             }
-
         } else {
             noInternetconnection(getString(R.string.no_internet_connection));
         }
@@ -145,7 +139,6 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                     Log.e(TAG, "" + e.getMessage());
                 }
             }
-
         }
     }
 }

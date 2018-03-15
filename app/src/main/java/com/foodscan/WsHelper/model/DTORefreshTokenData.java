@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by c157 on 25/01/18.
  */
@@ -11,13 +13,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DTORefreshTokenData {
-
+public class DTORefreshTokenData implements Serializable {
 
     @JsonProperty("data")
     private DTOData data;
+
     @JsonProperty("status")
     private String status;
+
     @JsonProperty("message")
     private String message;
 
@@ -98,8 +101,10 @@ public class DTORefreshTokenData {
 
         @JsonProperty("globalPassword")
         private String globalPassword;
+
         @JsonProperty("userAgent")
         private String userAgent;
+
         @JsonProperty("tempToken")
         private String tempToken;
 
@@ -135,10 +140,5 @@ public class DTORefreshTokenData {
         public void setTempToken(String tempToken) {
             this.tempToken = tempToken;
         }
-
     }
-
-
-
-
-    }
+}

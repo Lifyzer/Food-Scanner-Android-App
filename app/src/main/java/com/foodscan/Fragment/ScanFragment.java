@@ -505,7 +505,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Multitracker sample")
+        builder.setTitle(R.string.app_name)
                 .setMessage(R.string.no_camera_permission)
                 .setPositiveButton(R.string.ok, listener)
                 .show();
@@ -558,7 +558,8 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
 
-                new WebserviceWrapper(mContext, attribute, ScanFragment.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                new WebserviceWrapper(mContext, attribute, ScanFragment.this, true, getString(R.string.Loading_msg))
+                        .new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode());
 
             } catch (Exception e) {

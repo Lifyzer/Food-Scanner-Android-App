@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     private DTOProduct dtoProduct;
     private FoodDetailsAdapter foodDetailsAdapter;
     private boolean isChangeMade = false;
+    private RelativeLayout rl_parent;
 
 
     @Override
@@ -62,6 +64,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
     private void initView() {
 
+        rl_parent = findViewById(R.id.rl_parent);
         img_back = findViewById(R.id.img_back);
         rv_details = findViewById(R.id.rv_details);
         txt_product_name = findViewById(R.id.txt_product_name);
@@ -204,9 +207,15 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
             if (object != null) {
                 try {
+
                     DTOResponse dtoResponse = (DTOResponse) object;
                     if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
                         tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, true);
+                    }
+                    try {
+                        Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ProductDetailsActivity.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

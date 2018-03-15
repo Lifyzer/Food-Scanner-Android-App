@@ -117,7 +117,6 @@ public class WebserviceConnector {
                 statusCode = conn.getResponseCode();
                 String json;
                 if (statusCode == HttpURLConnection.HTTP_OK) {
-
                     String line;
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -158,9 +157,7 @@ public class WebserviceConnector {
                         + " Exception thrown: " + ex.getMessage());
             ret = null;
         }
-
         return ret;
-
     }
 
 
