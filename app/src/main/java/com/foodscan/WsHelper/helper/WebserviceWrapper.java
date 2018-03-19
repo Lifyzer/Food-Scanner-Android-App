@@ -22,7 +22,7 @@ public class WebserviceWrapper {
 
     private static final String TAG = WebserviceWrapper.class.getSimpleName();
 
-    private Attribute attribute;
+    private Attribute   attribute;
     private WebserviceResponse webserviceResponse;
     private Context mContext;
     private ContentValues contentValues;

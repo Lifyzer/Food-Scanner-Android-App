@@ -44,7 +44,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
     //private DTOUser dtoUser;
     //private Realm realm;
 
-    private Fragment fragment;
+//    private Fragment fragment;
 
 
     //private ArrayList<DTOProduct> arrayList = new ArrayList<>();
@@ -145,15 +145,12 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             public void onClick(View v) {
 
 
-                if (fragment instanceof HistoryTabFragment) {
-
+//                if (fragment instanceof HistoryTabFragment) {
                     Intent intent = new Intent(mContext, ProductDetailsActivity.class);
                     intent.putExtra("productDetails", dtoProduct);
                     ((MainActivity) mContext).startActivityForResult(intent, UserDefaults.REQ_DETAILS);
 
-                }
-
-
+//                }
             }
         });
 

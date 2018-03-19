@@ -5,20 +5,24 @@ package com.foodscan.WsHelper.helper;
  */
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.foodscan.Utility.Utility;
 
 import org.apache.http.conn.ConnectTimeoutException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,15 +45,37 @@ import java.util.concurrent.locks.ReentrantLock;
 public class WebserviceConnector {
 
     private static final String LOG_TAG = "WebserviceConnector";
-    private String TAG = WebserviceConnector.class.getSimpleName();
     private static final Lock lock = new ReentrantLock();
     private static ObjectMapper mapper = null;
+    private String TAG = WebserviceConnector.class.getSimpleName();
     private String url;
     private Context mContext;
 
     public WebserviceConnector(String url, Context mContext) {
         this.url = url;
         this.mContext = mContext;
+    }
+
+    public static String convertStreamToString(InputStream is) {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append((line + "\n"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
     }
 
     @SuppressLint("NewApi")
@@ -96,11 +122,19 @@ public class WebserviceConnector {
                     Log.e(LOG_TAG, "The Response is:::" + json);
                     ret = getMapper().readValue(json, responseType);
 
+                } catch (FileNotFoundException fe) {
+                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                        public void run() {
+                            Utility.noInternetconnection(
+                                    (AppCompatActivity) mContext,
+                                    "Opps..Connection Error, Please Check your Internet connection..!!"
+                            );
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(LOG_TAG, "Error converting result " + e.getLocalizedMessage());
                 }
-
             } else if (nameValuePairs != null) {
                 HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
                 conn.setRequestMethod("POST");
@@ -117,7 +151,6 @@ public class WebserviceConnector {
                 statusCode = conn.getResponseCode();
                 String json;
                 if (statusCode == HttpURLConnection.HTTP_OK) {
-
                     String line;
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -158,11 +191,8 @@ public class WebserviceConnector {
                         + " Exception thrown: " + ex.getMessage());
             ret = null;
         }
-
         return ret;
-
     }
-
 
     protected synchronized ObjectMapper getMapper() {
         if (mapper != null) {
@@ -184,7 +214,6 @@ public class WebserviceConnector {
 
         return mapper;
     }
-
 
     /**
      * this method is for upload media realted to multipart utility for media upload.
@@ -238,29 +267,6 @@ public class WebserviceConnector {
 
     }
 
-    public static String convertStreamToString(InputStream is) {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append((line + "\n"));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sb.toString();
-    }
-
-
     private String getPostDataString(ContentValues values) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
@@ -300,7 +306,7 @@ public class WebserviceConnector {
             List<String> response = multipart.finish();
             for (String line : response) {
                 responseString = line;
-                Log.e(TAG, "Response :"+responseString);
+                Log.e(TAG, "Response :" + responseString);
             }
 
             ret = getMapper().readValue(responseString, responseType);

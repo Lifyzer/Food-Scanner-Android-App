@@ -144,7 +144,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                         //************* update main array of favourite and history **************//
                         ((MainActivity)mContext).favouriteBlank();
 
-                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully removed from favourite",mContext);
+                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main,
+                                "Product is successfully removed from favourite",mContext);
 
 
                     } else {
