@@ -114,7 +114,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-
     public void wsCallRegistration() {
         if (Utility.isNetworkAvailable(mContext)) {
 
@@ -144,7 +143,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void noInternetconnection(String message) {
-
         com.rey.material.app.Dialog.Builder builder = null;
         boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
 
@@ -171,7 +169,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
 
     private boolean isInputsValid() {
-
         if (Utility.validateStringPresence(edt_full_name)) {
             if (Utility.validateStringPresence(edt_email_id)) {
                 if (Utility.validateStringPresence(edt_password)) {
@@ -248,11 +245,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                             }
                         }
-
                     } else {
                         Utility.showLongSnackBar(rl_parent, dtoLoginData.getMessage(), RegistrationActivity.this);
                     }
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -261,7 +256,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
-
 
     private void setResult(DTOUser dtoUser) {
 
@@ -273,7 +267,4 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
     }
-
-
-
 }

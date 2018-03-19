@@ -151,7 +151,6 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
             txt_content_name = itemView.findViewById(R.id.txt_content_name);
             txt_content_comments = itemView.findViewById(R.id.txt_content_comments);
             txt_content_amount = itemView.findViewById(R.id.txt_content_amount);
-
         }
     }
 
