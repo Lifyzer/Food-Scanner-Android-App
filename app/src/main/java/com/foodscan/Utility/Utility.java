@@ -22,7 +22,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -33,13 +33,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import com.foodscan.R;
 import com.foodscan.WsHelper.helper.AES_Helper_new;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
+import com.rey.material.app.ThemeManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,26 +48,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -374,7 +364,6 @@ public class Utility {
     }
 
 
-
     public static String removeLastComma(String str) {
         if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
             str = str.substring(0, str.length() - 1);
@@ -580,7 +569,6 @@ public class Utility {
     }
 
 
-
     @SuppressWarnings("deprecation")
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
@@ -613,7 +601,7 @@ public class Utility {
     }
 
 
-    public static String encode(String keyString, String stringToEncode){
+    public static String encode(String keyString, String stringToEncode) {
         return AES_Helper_new.encrypt(stringToEncode, keyString);
     }
 
@@ -679,6 +667,29 @@ public class Utility {
         return key;
     }
 
+    public static void noInternetconnection(final AppCompatActivity mContext, String message) {
+        try {
+            com.rey.material.app.Dialog.Builder builder = null;
+            boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
 
+            builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
+
+                @Override
+                public void onNegativeActionClicked(DialogFragment fragment) {
+                    super.onNegativeActionClicked(fragment);
+                    mContext.finish();
+                }
+            };
+
+            ((SimpleDialog.Builder) builder).message(message)
+                    .title(mContext.getString(R.string.app_name))
+                    .negativeAction("Exit");
+
+            DialogFragment fragment = DialogFragment.newInstance(builder);
+            fragment.show(mContext.getSupportFragmentManager(), null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

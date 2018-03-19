@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,6 @@ import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
-import com.foodscan.WsHelper.helper.AES_Helper_new;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOHistoryData;
@@ -43,30 +43,26 @@ import io.realm.Realm;
 public class HistoryTabFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = HistoryTabFragment.class.getSimpleName();
-
+    private static int REQ_DETAILS = 100;
+    public boolean isViewShown = false, isHistoryLoadingFirstTime = true;
     private Context mContext;
+    //public DTOUser dtoUser;
     private TinyDB tinyDB;
     private Realm realm;
-    //public DTOUser dtoUser;
-
     private View viewFragment;
-
     private RelativeLayout rl_parent, rl_no_data;
     private RecyclerView rv_history;
+    //private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
     //private TextView txt_no_history;
     private ProgressBar load_more_progressbar;
-
     private HistoryAdapter historyAdapter;
-    //private ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
-
-    public boolean isViewShown = false, isHistoryLoadingFirstTime = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount, firstVisibleItemIndex;
     private LinearLayoutManager mLayoutManager;
-
     private int offset = 0;
     private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
     private boolean mIsLoading = false;
     private boolean isMoreData = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -175,13 +171,20 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     }
 
     private void initView() {
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         rl_parent = viewFragment.findViewById(R.id.rl_parent);
         rv_history = viewFragment.findViewById(R.id.rv_history);
         //txt_no_history = viewFragment.findViewById(R.id.txt_no_history);
         rl_no_data = viewFragment.findViewById(R.id.rl_no_data);
         load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
     }
 
     private void initGlobals() {
@@ -290,7 +293,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
 
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -308,9 +310,6 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         }
     }
 
-    private static int REQ_DETAILS = 100;
-
-
     public void productDetails(DTOProduct dtoProduct, int pos) {
 
         Intent intent = new Intent(mContext, ProductDetailsActivity.class);
@@ -323,7 +322,12 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
-
+        try {
+            if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.HISTORY.getTypeCode()) {
 
@@ -399,9 +403,9 @@ public class HistoryTabFragment extends Fragment implements WebserviceWrapper.We
         wsCallGetUSerHistiory(false, false);
     }
 
-    public void UpdateData(){
+    public void UpdateData() {
 
-        if(viewFragment != null){
+        if (viewFragment != null) {
 
             if (historyAdapter != null) {
                 historyAdapter.setArrayList(((MainActivity) mContext).historyArrayList);
