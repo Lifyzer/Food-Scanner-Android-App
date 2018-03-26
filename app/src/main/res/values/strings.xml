@@ -51,7 +51,9 @@
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="ok">OK</string>
-    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.</string>
+    <string name="no_camera_permission_showSetting">This application cannot run because it does not have the camera permission.
+            Do you want to Allow Permission ?</string>
 
     <string name="please_enter_password">Please enter password</string>
     <string name="please_enter_confirm_password">Please enter confirm password</string>
@@ -95,5 +97,6 @@
     <string name="Current_Password">Current Password</string>
     <string name="New_Password">New Password</string>
     <string name="The_Product_Name">The Product Name</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
