@@ -21,7 +21,6 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
     public FoodDetailsAdapter(Context context, DTOProduct dtoProduct) {
         this.mContext = context;
         this.dtoProduct = dtoProduct;
-
     }
 
     @Override
@@ -34,9 +33,7 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
 
         if (dtoProduct != null) {
-
             if (position == 0) {
-
                 //************** Organic  **************//
 
                 String isOrganic = dtoProduct.getIsOrganic();
@@ -153,6 +150,5 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
             txt_content_amount = itemView.findViewById(R.id.txt_content_amount);
         }
     }
-
 
 }

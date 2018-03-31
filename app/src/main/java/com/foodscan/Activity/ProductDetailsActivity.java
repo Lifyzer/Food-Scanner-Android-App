@@ -121,7 +121,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                         txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
                     }
                 }
-
             }
         }
 

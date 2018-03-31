@@ -594,8 +594,6 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
                             startActivity(intent);
 
                             //Utility.showLongSnackBar(ll_parent, dtoProductDetailsData.getMessage(), mContext);
-
-
                         } else {
                             displayNoResultDialog();
                             //Utility.showLongSnackBar(ll_parent, dtoProductDetailsData.getMessage(), mContext);
