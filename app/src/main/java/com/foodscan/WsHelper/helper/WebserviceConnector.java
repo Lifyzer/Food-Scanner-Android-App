@@ -100,6 +100,7 @@ public class WebserviceConnector {
 
                 try (OutputStream output = connection.getOutputStream()) {
                     output.write(jsonObject.getBytes());
+                    output.close();
                 } catch (Exception error) {
                     Log.i(LOG_TAG, "JSON OBJECT  Write Exception: " + error.getLocalizedMessage() + "");
                 }
