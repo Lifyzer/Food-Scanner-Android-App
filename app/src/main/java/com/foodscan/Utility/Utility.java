@@ -22,6 +22,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -681,6 +683,21 @@ public class Utility {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static final int GRANTED = 0;
+    public static final int DENIED = 1;
+    public static final int BLOCKED_OR_NEVER_ASKED = 2;
+
+
+    public static int getPermissionStatus(Activity activity, String androidPermissionName) {
+        if(ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
+            if(!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)){
+                return BLOCKED_OR_NEVER_ASKED;
+            }
+            return DENIED;
+        }
+        return GRANTED;
     }
 
 }

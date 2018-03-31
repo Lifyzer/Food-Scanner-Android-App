@@ -42,37 +42,30 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    private Context mContext;
-
-    private RelativeLayout rl_history, rl_scan_food, rl_profile;
-    private FrameLayout frame_history, frame_scan, frame_profile;
-    private ImageView img_history, img_scan, img_profile;
-    private TextView txt_history, txt_scan_food, txt_profile;
     public FrameLayout frame_main;
-
     public boolean needDialog = false;
-    private TinyDB tinyDB;
-    private Realm realm;
     public DTOUser dtoUser;
-
-    private TabLayout tabLayout;
     public ViewPager viewPager;
     public ViewPagerAdapter adapter;
-
-    private int LOGIN_REQ_CODE = 100;
-
     public int offset = 0;
     public String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
     public boolean mIsLoading = false;
     public boolean isMoreData = false;
     public boolean isFavLoaded = false;
+    public ArrayList<DTOProduct> favArrayList = new ArrayList<>();
+    public ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
+    private Context mContext;
+    private RelativeLayout rl_history, rl_scan_food, rl_profile;
+    private FrameLayout frame_history, frame_scan, frame_profile;
+    private ImageView img_history, img_scan, img_profile;
+    private TextView txt_history, txt_scan_food, txt_profile;
+    private TinyDB tinyDB;
+    private Realm realm;
     //public boolean isMoreData = false;
 
     //public String productName = "";
-
-    public ArrayList<DTOProduct> favArrayList = new ArrayList<>();
-    public ArrayList<DTOProduct> historyArrayList = new ArrayList<>();
+    private TabLayout tabLayout;
+    private int LOGIN_REQ_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -400,60 +393,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-
-    }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//
-//        if(viewPager.getCurrentItem() == 1){
-//
-//            if(adapter != null){
-//                Fragment fragment = adapter.getItem(1);
-//
-//                if(fragment instanceof ScanFragment){
-//
-//                    ScanFragment scanFragment = (ScanFragment)fragment;
-//                    return scanFragment.getTouchEvent(event);
-//
-//                }
-//
-//            }
-//        }
-//        return super.onTouchEvent(event);
-//    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 123) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof ScanFragment)
+                    fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
 
         if (requestCode == LOGIN_REQ_CODE) {
 
@@ -602,6 +551,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//
+//        if(viewPager.getCurrentItem() == 1){
+//
+//            if(adapter != null){
+//                Fragment fragment = adapter.getItem(1);
+//
+//                if(fragment instanceof ScanFragment){
+//
+//                    ScanFragment scanFragment = (ScanFragment)fragment;
+//                    return scanFragment.getTouchEvent(event);
+//
+//                }
+//
+//            }
+//        }
+//        return super.onTouchEvent(event);
+//    }
+
     public void updateFavFrag(DTOProduct dtoProduct) {
 
         for (int i = 0; i < historyArrayList.size(); i++) {
@@ -633,7 +602,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void updateinHistoryFrag() {
 
     }
-
 
     public void showLoginDialog() {
 
@@ -687,5 +655,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 profileFragment.noDataFound();
             }
         }
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+
     }
 }

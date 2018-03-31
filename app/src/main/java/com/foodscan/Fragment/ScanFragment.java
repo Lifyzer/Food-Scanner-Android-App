@@ -2,7 +2,6 @@ package com.foodscan.Fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,7 +11,9 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -44,7 +45,6 @@ import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProductDetailsData;
-import com.foodscan.WsHelper.model.DTOUser;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.text.TextBlock;
@@ -52,6 +52,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import com.rey.material.app.ThemeManager;
 
 import java.io.IOException;
+import java.text.Normalizer;
 
 import io.realm.Realm;
 
@@ -62,25 +63,20 @@ import io.realm.Realm;
 
 public class ScanFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
-    private static final String TAG = ScanFragment.class.getSimpleName();
-
-    private Context mContext;
-    private Realm realm;
-    //public DTOUser dtoUser;
-    private TinyDB tinyDB;
-
-    private View viewFragment;
-    // Intent request code to handle updating play services if needed.
-    private static final int RC_HANDLE_GMS = 9001;
-
-    // Permission request codes need to be < 256
-    private static final int RC_HANDLE_CAMERA_PERM = 2;
-
     // Constants used to pass extra data in the intent
     public static final String AutoFocus = "AutoFocus";
     public static final String UseFlash = "UseFlash";
     public static final String TextBlockObject = "String";
-
+    private static final String TAG = ScanFragment.class.getSimpleName();
+    // Intent request code to handle updating play services if needed.
+    private static final int RC_HANDLE_GMS = 9001;
+    // Permission request codes need to be < 256
+    private static final int RC_HANDLE_CAMERA_PERM = 2;
+    private Context mContext;
+    private Realm realm;
+    //public DTOUser dtoUser;
+    private TinyDB tinyDB;
+    private View viewFragment;
     private LinearLayout ll_parent;
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
@@ -90,10 +86,35 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
     private String productName = "";
+    private boolean isOnCreateCalled = false;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("!_@", "activity caalled");
+        manageCamera();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     /**
      * Initializes the UI and creates the detector pipeline.
      */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Log.e("!_@_", "---visible--");
+            isOnCreateCalled = true;
+            onResume();
+        } else {
+            Log.e("!_@_", "---not visible--");
+        }
+    }
+
 
     // Intent request code to handle updating play services if needed.
     @Nullable
@@ -102,7 +123,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         // if (viewFragment == null) {
         viewFragment = inflater.inflate(R.layout.scan_fragment, container, false);
         mContext = getActivity();
-
+        isOnCreateCalled = true;
         mContext = getActivity();
         realm = Realm.getDefaultInstance();
         tinyDB = new TinyDB(mContext);
@@ -115,26 +136,27 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         return viewFragment;
     }
 
+
     private void initView(View viewFragment) {
 
         ll_parent = (LinearLayout) viewFragment.findViewById(R.id.ll_parent);
         mPreview = (CameraSourcePreview) viewFragment.findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) viewFragment.findViewById(R.id.graphicOverlay);
 
-        // read parameters from the intent used to launch the activity.
-        boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
-        boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
-
-        // Check for the camera permission before accessing the camera.  If the
-        // permission is not granted yet, request permission.
-
-
-        int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
-        if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(autoFocus, useFlash);
-        } else {
-            requestCameraPermission();
-        }
+//        // read parameters from the intent used to launch the activity.
+//        boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
+//        boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
+//
+//        // Check for the camera permission before accessing the camera.  If the
+//        // permission is not granted yet, request permission.
+//
+//
+//        int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
+//        if (rc == PackageManager.PERMISSION_GRANTED) {
+//            createCameraSource(autoFocus, useFlash);
+//        } else {
+//            requestCameraPermission();
+//        }
 
         gestureDetector = new GestureDetector(mContext, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleListener());
@@ -213,97 +235,13 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
      * showing a "Snackbar" message of why the permission is needed then
      * sending the request.
      */
-    private void requestCameraPermission() {
+    private void requestCameraPermission(boolean showSettingScreen) {
 
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
-        requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
-
-//        Log.w(TAG, "Camera permission is not granted. Requesting permission");
-//
-//        final String[] permissions = new String[]{Manifest.permission.CAMERA};
-//
-//        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                Manifest.permission.CAMERA)) {
-//            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
-//            return;
-//        }
-//
-//        final Activity thisActivity = getActivity();
-//
-//        View.OnClickListener listener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ActivityCompat.requestPermissions(thisActivity, permissions,
-//                        RC_HANDLE_CAMERA_PERM);
-//            }
-//        };
-
-//        Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
-//                Snackbar.LENGTH_INDEFINITE)
-//                .setAction(R.string.ok, listener)
-//                .show();
-    }
-
-
-    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
-        }
-    }
-
-    private class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
-
-        /**
-         * Responds to scaling events for a gesture in progress.
-         * Reported by pointer motion.
-         *
-         * @param detector The detector reporting the event - use this to
-         *                 retrieve extended info about event state.
-         * @return Whether or not the detector should consider this event
-         * as handled. If an event was not handled, the detector
-         * will continue to accumulate movement until an event is
-         * handled. This can be useful if an application, for example,
-         * only wants to update scaling factors if the change is
-         * greater than 0.01.
-         */
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            return false;
-        }
-
-        /**
-         * Responds to the beginning of a scaling gesture. Reported by
-         * new pointers going down.
-         *
-         * @param detector The detector reporting the event - use this to
-         *                 retrieve extended info about event state.
-         * @return Whether or not the detector should continue recognizing
-         * this gesture. For example, if a gesture is beginning
-         * with a focal point outside of a region where it makes
-         * sense, onScaleBegin() may return false to ignore the
-         * rest of the gesture.
-         */
-        @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
-            return true;
-        }
-
-        /**
-         * Responds to the end of a scale gesture. Reported by existing
-         * pointers going up.
-         * <p/>
-         * Once a scale has ended, {@link ScaleGestureDetector#getFocusX()}
-         * and {@link ScaleGestureDetector#getFocusY()} will return focal point
-         * of the pointers remaining on the screen.
-         *
-         * @param detector The detector reporting the event - use this to
-         *                 retrieve extended info about event state.
-         */
-        @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
-            mCameraSource.doZoom(detector.getScaleFactor());
+        if (showSettingScreen) {
+            showErrorDialog(true);
+        } else {
+            final String[] permissions = new String[]{Manifest.permission.CAMERA};
+            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
         }
     }
 
@@ -369,15 +307,12 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
                 if (Utility.validateStringPresence(edt_detected_text)) {
 
-
                     productName = edt_detected_text.getText().toString();
 
-                    if (((MainActivity)mContext).dtoUser != null) {
+                    productName = Normalizer.normalize(productName, Normalizer.Form.NFD);
+                    productName = productName.replaceAll("[^\\p{ASCII}]", "");
 
-                        productName = edt_detected_text.getText().toString();
-
-
-
+                    if (((MainActivity) mContext).dtoUser != null) {
                         wsCallProductDetails();
                     } else {
 
@@ -418,23 +353,44 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         d.show();
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent e) {
-//        boolean b = scaleGestureDetector.onTouchEvent(e);
-//
-//        boolean c = gestureDetector.onTouchEvent(e);
-//
-//        return b || c || super.onTouchEvent(e);
-//    }
-
-
     /**
      * Restarts the camera.
      */
     @Override
     public void onResume() {
         super.onResume();
-        startCameraSource();
+        Log.e("!_@_", "Onresume call");
+        try {
+            if (isOnCreateCalled) {
+                manageCamera();
+                isOnCreateCalled = false;
+            }
+            startCameraSource();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void manageCamera() {
+        // read parameters from the intent used to launch the activity.
+        boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
+        boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
+
+        // Check for the camera permission before accessing the camera.  If the
+        // permission is not granted yet, request permission.
+
+
+        int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
+        if (rc == PackageManager.PERMISSION_GRANTED) {
+            createCameraSource(autoFocus, useFlash);
+        } else {
+            if (Utility.getPermissionStatus(getActivity(), Manifest.permission.CAMERA) == Utility.DENIED) {
+                Log.e("!_@_", "----<<<< DENIED >>>>>-------------");
+                requestCameraPermission(true);
+            } else {
+                requestCameraPermission(false);
+            }
+        }
     }
 
     /**
@@ -494,21 +450,45 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             createCameraSource(autoFocus, useFlash);
             return;
         }
-
         Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
                 " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
 
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+
+        showErrorDialog(false);
+
+    }
+
+    private void showErrorDialog(final boolean showSettingScreen) {
+        DialogInterface.OnClickListener listenerNeg = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                getActivity().finish();
+//                getActivity().finish();
+                dialog.dismiss();
+            }
+        };
+        DialogInterface.OnClickListener listenerPos = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivityForResult(intent, 123);
+                dialog.dismiss();
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(R.string.app_name)
-                .setMessage(R.string.no_camera_permission)
-                .setPositiveButton(R.string.ok, listener)
-                .show();
+        if (showSettingScreen) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle(R.string.app_name)
+                    .setMessage(R.string.no_camera_permission_showSetting)
+                    .setPositiveButton(R.string.ok, listenerPos)
+                    .setNegativeButton(R.string.cancel, listenerNeg)
+                    .show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle(R.string.app_name)
+                    .setMessage(R.string.no_camera_permission)
+                    .setNegativeButton(R.string.ok, listenerNeg)
+                    .show();
+        }
     }
 
     /**
@@ -550,10 +530,10 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             try {
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity)mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
 
                 Attribute attribute = new Attribute();
-                attribute.setUser_id(String.valueOf(((MainActivity)mContext).dtoUser.getId()));
+                attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
                 attribute.setProduct_name(productName);
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
@@ -610,6 +590,68 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
         }
 
+    }
+
+    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
+        }
+    }
+
+    private class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
+
+        /**
+         * Responds to scaling events for a gesture in progress.
+         * Reported by pointer motion.
+         *
+         * @param detector The detector reporting the event - use this to
+         *                 retrieve extended info about event state.
+         * @return Whether or not the detector should consider this event
+         * as handled. If an event was not handled, the detector
+         * will continue to accumulate movement until an event is
+         * handled. This can be useful if an application, for example,
+         * only wants to update scaling factors if the change is
+         * greater than 0.01.
+         */
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            return false;
+        }
+
+        /**
+         * Responds to the beginning of a scaling gesture. Reported by
+         * new pointers going down.
+         *
+         * @param detector The detector reporting the event - use this to
+         *                 retrieve extended info about event state.
+         * @return Whether or not the detector should continue recognizing
+         * this gesture. For example, if a gesture is beginning
+         * with a focal point outside of a region where it makes
+         * sense, onScaleBegin() may return false to ignore the
+         * rest of the gesture.
+         */
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            return true;
+        }
+
+        /**
+         * Responds to the end of a scale gesture. Reported by existing
+         * pointers going up.
+         * <p/>
+         * Once a scale has ended, {@link ScaleGestureDetector#getFocusX()}
+         * and {@link ScaleGestureDetector#getFocusY()} will return focal point
+         * of the pointers remaining on the screen.
+         *
+         * @param detector The detector reporting the event - use this to
+         *                 retrieve extended info about event state.
+         */
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            mCameraSource.doZoom(detector.getScaleFactor());
+        }
     }
 
 }
