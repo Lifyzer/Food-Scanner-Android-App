@@ -92,7 +92,6 @@ public class WebserviceConnector {
             String jsonObject = "";
 
             if (request != null) {
-
                 connection.setRequestProperty("User_Agent", "android");
                 connection.setRequestProperty("Content_Type", "application/x-www-form-urlencoded");
 
@@ -174,7 +173,7 @@ public class WebserviceConnector {
                     ret = getMapper().readValue(json, responseType);
                 } else {
                     json = "";
-                    Log.e(LOG_TAG, "Error converting result ");
+                    Log.e(LOG_TAG, "Error converting result");
                     return null;
                 }
             }
