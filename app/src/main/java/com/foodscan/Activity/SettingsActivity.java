@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.foodscan.BuildConfig;
 import com.foodscan.Fragment.ProfileFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
@@ -32,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private DTOUser dtoUser;
 
     private RelativeLayout rl_edit_profile, rl_change_pass, rl_privacy, rl_terms;
-    private TextView txt_logout;
+    private TextView txt_logout, versionName;
     private ImageView img_back;
 
 
@@ -61,6 +62,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         txt_logout = findViewById(R.id.txt_logout);
         img_back = findViewById(R.id.img_back);
 
+        versionName = findViewById(R.id.version_number);
+        versionName.setText("v" + BuildConfig.VERSION_NAME);
     }
 
     private void initGlobals() {
