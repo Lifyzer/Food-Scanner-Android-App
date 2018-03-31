@@ -157,7 +157,10 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             }
         };
 
-        Snackbar.make(rl_parent, getString(R.string.forget_password_success), Snackbar.LENGTH_LONG);
+        //Snackbar.make(rl_parent, getString(R.string.forget_password_success), Snackbar.LENGTH_LONG);
+        ((SimpleDialog.Builder) builder).message(getString(R.string.forget_password_success))
+                .title(getString(R.string.app_name))
+                .negativeAction("OK");
 
         DialogFragment fragment = DialogFragment.newInstance(builder);
         fragment.show(getSupportFragmentManager(), null);
