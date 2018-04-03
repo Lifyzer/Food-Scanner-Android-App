@@ -18,8 +18,6 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
-import com.foodscan.Fragment.FavouriteTabFragment;
-import com.foodscan.Fragment.ProfileFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -71,7 +69,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
         final DTOProduct dtoProduct = ((MainActivity) mContext).favArrayList.get(position);
         if (dtoProduct != null) {
 
-            Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+            if (dtoProduct.getProductImage() != null) {
+                Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+            }
 
             viewHolder.txt_product_name.setText(((MainActivity) mContext).favArrayList.get(position).getProductName());
             String isHealthy = dtoProduct.getIsHealthy();
@@ -142,10 +142,10 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                                 .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
 
                         //************* update main array of favourite and history **************//
-                        ((MainActivity)mContext).favouriteBlank();
+                        ((MainActivity) mContext).favouriteBlank();
 
-                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main,
-                                "Product is successfully removed from favourite",mContext);
+                        Utility.showLongSnackBar(((MainActivity) mContext).frame_main,
+                                "Product is successfully removed from favourite", mContext);
 
 
                     } else {
@@ -183,8 +183,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                                 .execute(WebserviceWrapper.WEB_CALLID.FAVOURITE.getTypeCode());
 
                         //************* update main array of favourite and history **************//
-                        ((MainActivity)mContext).favouriteBlank();
-
+                        ((MainActivity) mContext).favouriteBlank();
 
 
                     } else {
