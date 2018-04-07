@@ -57,21 +57,17 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void initView() {
-
         rl_parent = findViewById(R.id.rl_parent);
         img_back = findViewById(R.id.img_back);
         edt_email = findViewById(R.id.edt_email);
         txt_send = findViewById(R.id.txt_send);
-
     }
 
     private void initGlobals() {
-
         img_back.setOnClickListener(this);
         txt_send.setOnClickListener(this);
 
     }
-
 
     @Override
     public void onClick(View v) {
@@ -97,7 +93,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         if (Utility.isNetworkAvailable(mContext)){
 
             try {
-
                 Attribute attribute = new Attribute();
                 attribute.setEmail_id(edt_email.getText().toString().trim());
                 attribute.setSecret_key(tinyDB.getString(UserDefaults.TEMP_TOKEN));
@@ -106,12 +101,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 new WebserviceWrapper(mContext, attribute, ForgotPasswordActivity.this, true, getString(R.string.Processing_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.FORGET_PASSWORD.getTypeCode());
 
-            }catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
                 Log.e(TAG, "" + e.getMessage());
             }
-
-        }else {
+        } else {
             noInternetconnection(getString(R.string.no_internet_connection));
         }
     }
@@ -141,7 +135,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         fragment.show(getSupportFragmentManager(), null);
 
     }
-
 
     private void SuccessForgetPass() {
 
@@ -177,7 +170,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_valid_email), ForgotPasswordActivity.this);
                 return false;
             }
-
         } else {
             //email blank
             Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_email), ForgotPasswordActivity.this);
