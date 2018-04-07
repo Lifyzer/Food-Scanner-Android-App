@@ -182,12 +182,12 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                     viewHolder.setVisibility(false);
                 }
             } else if (position == 10) {
-                //************** Dietry Fiber  **************//
-                String Dietry_Fiber = dtoProduct.getDietaryFiber();
-                if (Dietry_Fiber != null && Dietry_Fiber.length() > 0 && !Dietry_Fiber.equals("0")) {
+                //************** Dietary Fiber  **************//
+                String Dietary_Fiber = dtoProduct.getDietaryFiber();
+                if (Dietary_Fiber != null && Dietary_Fiber.length() > 0 && !Dietary_Fiber.equals("0")) {
 
                     viewHolder.img_content.setImageResource(R.drawable.img_fiber);
-                    viewHolder.txt_content_name.setText(mContext.getString(R.string.dietry_fiber));
+                    viewHolder.txt_content_name.setText(mContext.getString(R.string.dietary_fiber));
                     viewHolder.txt_content_amount.setText(dtoProduct.getDietaryFiber() + "g");
 
                     viewHolder.setVisibility(true);
