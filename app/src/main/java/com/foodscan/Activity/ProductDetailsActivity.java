@@ -85,7 +85,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             dtoProduct = bundle.getParcelable("productDetails");
             if (dtoProduct != null) {
 
-                Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
+                if (dtoProduct.getProductImage() != null) {
+                    Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
+                }
+
 
                 txt_product_name.setText(dtoProduct.getProductName());
                 foodDetailsAdapter = new FoodDetailsAdapter(mContext, dtoProduct);

@@ -4,7 +4,6 @@ package com.foodscan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,7 +19,6 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
-import com.foodscan.Fragment.HistoryTabFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -76,7 +74,13 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
         final DTOProduct dtoProduct = ((MainActivity) mContext).historyArrayList.get(position);
         if (dtoProduct != null) {
 
-            Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+            if (dtoProduct.getProductImage() != null) {
+                Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+
+//                String Image = null;
+//                Picasso.with(mContext).load(Image).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+            }
+
 
             viewHolder.txt_product_name.setText(dtoProduct.getProductName());
 
@@ -146,9 +150,9 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
 
 //                if (fragment instanceof HistoryTabFragment) {
-                    Intent intent = new Intent(mContext, ProductDetailsActivity.class);
-                    intent.putExtra("productDetails", dtoProduct);
-                    ((MainActivity) mContext).startActivityForResult(intent, UserDefaults.REQ_DETAILS);
+                Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                intent.putExtra("productDetails", dtoProduct);
+                ((MainActivity) mContext).startActivityForResult(intent, UserDefaults.REQ_DETAILS);
 
 //                }
             }
@@ -178,7 +182,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, false, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                             .execute(WebserviceWrapper.WEB_CALLID.REMOVE_FROM_HISTORY.getTypeCode());
 
-                    Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully removed from History",mContext);
+                    Utility.showLongSnackBar(((MainActivity) mContext).frame_main, "Product is successfully removed from History", mContext);
 
                 } else {
                     Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -205,7 +209,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     } else if (((MainActivity) mContext).historyArrayList.get(position).getIsFavourite().equals("0")) {
                         attribute.setIs_favourite("1");
                         ((MainActivity) mContext).historyArrayList.get(position).setIsFavourite("1");
-                        Utility.showLongSnackBar(((MainActivity)mContext).frame_main, "Product is successfully added to favourite",mContext);
+                        Utility.showLongSnackBar(((MainActivity) mContext).frame_main, "Product is successfully added to favourite", mContext);
                     }
 
                     attribute.setAccess_key(encodeString);
