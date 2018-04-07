@@ -276,7 +276,6 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
         notifyDataSetChanged();
     }
 
-
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
@@ -297,6 +296,5 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
         }
 
     }
-
 
 }
