@@ -100,12 +100,11 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
             } else if (position == 4) {
                 //************** Ingredients  **************//
 
-                String Ingrediants = dtoProduct.getIngrediants();
-                if (Ingrediants != null && Ingrediants.length() > 0) {
-
-                    viewHolder.img_content.setImageResource(R.drawable.img_ingrediants);
-                    viewHolder.txt_content_name.setText(mContext.getString(R.string.Ingrediants));
-                    viewHolder.txt_content_comments.setText(dtoProduct.getIngrediants());
+                String Ingredients = dtoProduct.getIngredients();
+                if (Ingredients != null && Ingredients.length() > 0) {
+                    viewHolder.img_content.setImageResource(R.drawable.img_ingredients);
+                    viewHolder.txt_content_name.setText(mContext.getString(R.string.Ingredients));
+                    viewHolder.txt_content_comments.setText(dtoProduct.getIngredients());
 
                     viewHolder.setVisibility(true);
                 } else {

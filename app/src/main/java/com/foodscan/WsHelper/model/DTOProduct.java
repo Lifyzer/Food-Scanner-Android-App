@@ -26,8 +26,8 @@ public class DTOProduct implements Parcelable {
     private String productImage;
     @JsonProperty("barcode_id")
     private String barcodeId;
-    @JsonProperty("ingrediants")
-    private String ingrediants;
+    @JsonProperty("ingredients")
+    private String ingredients;
     @JsonProperty("protein_amount")
     private String proteinAmount;
     @JsonProperty("fat_amount")
@@ -86,7 +86,7 @@ public class DTOProduct implements Parcelable {
         companyName = in.readString();
         productImage = in.readString();
         barcodeId = in.readString();
-        ingrediants = in.readString();
+        ingredients = in.readString();
         proteinAmount = in.readString();
         fatAmount = in.readString();
         calories = in.readString();
@@ -127,7 +127,7 @@ public class DTOProduct implements Parcelable {
         dest.writeString(companyName);
         dest.writeString(productImage);
         dest.writeString(barcodeId);
-        dest.writeString(ingrediants);
+        dest.writeString(ingredients);
         dest.writeString(proteinAmount);
         dest.writeString(fatAmount);
         dest.writeString(calories);
@@ -230,14 +230,14 @@ public class DTOProduct implements Parcelable {
         this.barcodeId = barcodeId;
     }
 
-    @JsonProperty("ingrediants")
-    public String getIngrediants() {
-        return ingrediants;
+    @JsonProperty("ingredients")
+    public String getIngredients() {
+        return ingredients;
     }
 
-    @JsonProperty("ingrediants")
-    public void setIngrediants(String ingrediants) {
-        this.ingrediants = ingrediants;
+    @JsonProperty("ingredients")
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     @JsonProperty("protein_amount")
