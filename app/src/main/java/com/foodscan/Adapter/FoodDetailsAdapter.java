@@ -15,6 +15,8 @@ import com.foodscan.WsHelper.model.DTOProduct;
 
 public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.SimpleViewHolder> {
 
+    private static final int TOTAL_ITEMS = 11;
+
     private Context mContext;
     private DTOProduct dtoProduct;
 
@@ -54,86 +56,69 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                     viewHolder.txt_content_comments.setText(mContext.getString(R.string.Not_Natural_Product));
                 }
                 viewHolder.img_content.setImageResource(R.drawable.img_organic);
-
             } else if (position == 1) {
-
                 //************** Protein  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_protein);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Protein));
                 viewHolder.txt_content_amount.setText(dtoProduct.getProtein() + "g");
 
             } else if (position == 2) {
-
                 //************** Sugar  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_sugar);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Sugar));
                 viewHolder.txt_content_amount.setText(dtoProduct.getSugar() + "g");
-
             } else if (position == 3) {
-
                 //************** Salt  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_salt);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Salt));
                 viewHolder.txt_content_amount.setText(dtoProduct.getSalt() + "g");
 
             } else if (position == 4) {
-
                 //************** Ingrediants  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_ingrediants);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Ingrediants));
                 viewHolder.txt_content_comments.setText(dtoProduct.getIngrediants());
-
             } else if (position == 5) {
-
                 //************** Fat  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_fat);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Fat));
                 viewHolder.txt_content_amount.setText(dtoProduct.getFatAmount() + "g");
 
             } else if (position == 6) {
-
                 //************** Calories  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_calories);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Calories));
                 viewHolder.txt_content_amount.setText(dtoProduct.getCalories() + "g");
 
             } else if (position == 7) {
-
                 //************** vitamin  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_vitamin);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Vitamin));
                 viewHolder.txt_content_comments.setText(dtoProduct.getVitamin() );
-
-            }else if (position == 8) {
-
+            } else if (position == 8) {
                 //************** Saturated Fats  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_saturated_fats);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Saturated_fat));
                 viewHolder.txt_content_amount.setText(dtoProduct.getSaturatedFats() + "g" );
-
-            }else if (position == 9) {
-
+            } else if (position == 9) {
                 //************** Carbohydrate  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_carbohydrate);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.Carbohydrate));
                 viewHolder.txt_content_amount.setText(dtoProduct.getCarbohydrate()+ "g" );
 
-            }else if (position == 10) {
-
+            } else if (position == 10) {
                 //************** Dietry Fiber  **************//
                 viewHolder.img_content.setImageResource(R.drawable.img_fiber);
                 viewHolder.txt_content_name.setText(mContext.getString(R.string.dietry_fiber));
                 viewHolder.txt_content_amount.setText(dtoProduct.getDietaryFiber()+ "g" );
-
             }
-
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return 11;
+        return TOTAL_ITEMS;
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
