@@ -61,10 +61,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * Created by c157 on 03/08/17.
- */
-
 public class Utility {
 
     private static final String TAG = Utility.class.getSimpleName();
@@ -92,9 +88,8 @@ public class Utility {
         if (editText.getText() == null
                 || editText.getText().toString().trim().length() == 0) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public static void showLongSnackBar(View view, String message, Context context) {
@@ -170,19 +165,16 @@ public class Utility {
     public static boolean isNetworkAvailable(Context mContext) {
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
+
+        return networkInfo != null && networkInfo.isConnected();
     }
 
     public static boolean isWhiteSpaceContains(EditText editText) {
         String str = editText.getText().toString().trim();
         if (str.contains(" ") && (!str.startsWith(" ") && !str.endsWith(" "))) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public static String convertDateStringFormat(String strDate, String fromFormat, String toFormat) {
