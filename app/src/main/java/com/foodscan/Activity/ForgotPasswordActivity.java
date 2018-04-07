@@ -2,7 +2,6 @@ package com.foodscan.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,16 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.foodscan.Fragment.FavouriteTabFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
-import com.foodscan.WsHelper.model.DTOLoginData;
 import com.foodscan.WsHelper.model.DTOResponse;
-import com.foodscan.WsHelper.model.DTOUser;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
@@ -34,7 +30,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     private Context mContext;
     private TinyDB tinyDB;
     private Realm realm;
-    public DTOUser dtoUser;
 
     private RelativeLayout rl_parent;
     private TextView txt_send;
@@ -50,7 +45,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         mContext = ForgotPasswordActivity.this;
         tinyDB = new TinyDB(mContext);
         realm = Realm.getDefaultInstance();
-       // dtoUser = realm.where(DTOUser.class).findFirst();
 
         initView();
         initGlobals();
@@ -88,9 +82,9 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         }
     }
 
-    public void wsCallForgetPassword(){
+    public void wsCallForgetPassword() {
 
-        if (Utility.isNetworkAvailable(mContext)){
+        if (Utility.isNetworkAvailable(mContext)) {
 
             try {
                 Attribute attribute = new Attribute();
@@ -101,7 +95,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 new WebserviceWrapper(mContext, attribute, ForgotPasswordActivity.this, true, getString(R.string.Processing_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.FORGET_PASSWORD.getTypeCode());
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "" + e.getMessage());
             }
@@ -181,13 +175,13 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
-        if (apiCode == WebserviceWrapper.WEB_CALLID.FORGET_PASSWORD.getTypeCode()){
+        if (apiCode == WebserviceWrapper.WEB_CALLID.FORGET_PASSWORD.getTypeCode()) {
 
-            if (object != null){
+            if (object != null) {
                 DTOResponse dtoResponse = (DTOResponse) object;
-                if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)){
+                if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
                     SuccessForgetPass();
-                }else {
+                } else {
                     Utility.showLongSnackBar(rl_parent, "Something went wrong please try again later", ForgotPasswordActivity.this);
                 }
             }
