@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,10 +35,6 @@ import com.foodscan.WsHelper.model.DTOUserFavouriteData;
 
 import java.util.ArrayList;
 
-/**
- * Created by c157 on 22/01/18.
- */
-
 public class ProfileFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, View.OnClickListener {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
@@ -49,14 +46,16 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
     private View viewFragment;
 
-    public RelativeLayout rl_parent, rl_no_data;
+    private RelativeLayout rl_parent, rl_no_data;
+    private LinearLayout ll_user;
     private RecyclerView rv_favourite;
     private TextView txt_username, txt_email;
     private ProgressBar load_more_progressbar;
     private ImageView img_settings;
 
     private FavouriteAdapter favouriteAdapter;
-    public boolean isViewShown = false, isLoadingFirstTime = true;
+    private boolean isViewShown = false;
+    public boolean isLoadingFirstTime = true;
 
     //private Fragment fragment;
 
@@ -157,6 +156,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
         rl_parent = viewFragment.findViewById(R.id.rl_parent);
         rv_favourite = viewFragment.findViewById(R.id.rv_favourite);
+        ll_user = viewFragment.findViewById(R.id.ll_user);
         txt_username = viewFragment.findViewById(R.id.txt_username);
         txt_email = viewFragment.findViewById(R.id.txt_email);
         load_more_progressbar = viewFragment.findViewById(R.id.load_more_progressbar);
@@ -170,6 +170,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
         noDataFound();
 
         img_settings.setOnClickListener(this);
+        ll_user.setOnClickListener(this);
 
         if (((MainActivity) mContext).dtoUser != null) {
             txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
@@ -384,16 +385,14 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
         switch (v.getId()) {
 
-            case R.id.img_settings: {
+            case R.id.img_settings:
+            case R.id.ll_user:
                 if (((MainActivity) mContext).dtoUser != null) {
                     Intent intent = new Intent(mContext, SettingsActivity.class);
                     startActivity(intent);
                 } else {
                     ((MainActivity) mContext).showLoginDialog();
                 }
-
-
-            }
             break;
 
         }
