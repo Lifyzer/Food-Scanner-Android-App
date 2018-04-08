@@ -178,7 +178,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 return true;
                             } else {
                                 //Password length is short
-                                Utility.showLongSnackBar(rl_parent, getString(R.string.password_lenght_six_char), RegistrationActivity.this);
+                                Utility.showLongSnackBar(rl_parent, getString(R.string.password_length_error), RegistrationActivity.this);
                                 return false;
                             }
 

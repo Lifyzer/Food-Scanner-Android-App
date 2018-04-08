@@ -124,11 +124,11 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                             return true;
                         } else {
                             //Password length is short
-                            Utility.showLongSnackBar(rl_parent, getString(R.string.password_lenght_six_char), ChangePasswordActivity.this);
+                            Utility.showLongSnackBar(rl_parent, getString(R.string.password_length_error), ChangePasswordActivity.this);
                             return false;
                         }
                     } else {
-                        //Password and confirm password is diffrent
+                        //Password and confirm password is different
                         Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confrirmpass_is_diffrent), ChangePasswordActivity.this);
                         return false;
                     }

@@ -73,7 +73,7 @@
 
     <string name="password_and_confrirmpass_is_diffrent">Password and Confirm password do not match</string>
     <string name="no_internet_connection">No Internet connection. Please try again later</string>
-    <string name="password_lenght_six_char">Password length should be at least 6 characters</string>
+    <string name="password_length_error">Password length should be at least 5 characters</string>
     <string name="Loading_msg">Loading...</string>
     <string name="Processing_msg">Processing...</string>
     <string name="OK">OK</string>

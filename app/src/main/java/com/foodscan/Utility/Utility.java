@@ -63,6 +63,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Utility {
 
+    private static final int MIN_PASSWORD_LENGTH = 5;
     private static final String TAG = Utility.class.getSimpleName();
 
     public static int getColorWrapper(Context context, int id) {
@@ -574,15 +575,7 @@ public class Utility {
     }
 
     public static boolean validatePasswordLength(String Password) {
-        if (Password.length() < 6) {
-            // setError(editText, context.getString(R.string.error_password_length));
-            //Debug.e(TAG, "pwd length validation false");
-            return false;
-
-        } else {
-            //editText.setError(null);
-            return true;
-        }
+        return Password.length() >= MIN_PASSWORD_LENGTH;
     }
 
 
