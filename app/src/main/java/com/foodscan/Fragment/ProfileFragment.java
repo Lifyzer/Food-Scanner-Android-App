@@ -305,7 +305,6 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
-
         if (apiCode == WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode()) {
 
             ((MainActivity) mContext).mIsLoading = false;
