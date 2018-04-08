@@ -125,7 +125,7 @@ public class WebserviceConnector {
                 } catch (FileNotFoundException fe) {
                     ((Activity) mContext).runOnUiThread(new Runnable() {
                         public void run() {
-                            Utility.noInternetconnection(
+                            Utility.noInternetConnection(
                                     (AppCompatActivity) mContext,
                                     "Opps..Connection Error, Please Check your Internet connection..!!"
                             );

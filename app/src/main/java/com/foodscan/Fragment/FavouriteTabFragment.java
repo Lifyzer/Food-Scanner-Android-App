@@ -257,7 +257,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
 
             } else {
-                noInternetconnection(getString(R.string.no_internet_connection));
+                noInternetConnection(getString(R.string.no_internet_connection));
             }
 
         } else {
@@ -265,7 +265,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
         }
     }
 
-    private void noInternetconnection(String message) {
+    private void noInternetConnection(String message) {
 
         com.rey.material.app.Dialog.Builder builder = null;
         boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;

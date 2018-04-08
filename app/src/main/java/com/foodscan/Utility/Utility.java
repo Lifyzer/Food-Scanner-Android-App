@@ -645,7 +645,7 @@ public class Utility {
         return key;
     }
 
-    public static void noInternetconnection(final AppCompatActivity mContext, String message) {
+    public static void noInternetConnection(final AppCompatActivity mContext, String message) {
         try {
             com.rey.material.app.Dialog.Builder builder = null;
             boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;

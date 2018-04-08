@@ -548,7 +548,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             }
 
         } else {
-            // noInternetconnection(getString(R.string.no_internet_connection));
+            // noInternetConnection(getString(R.string.no_internet_connection));
         }
 
     }

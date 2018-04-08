@@ -293,7 +293,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                         .execute(WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode());
 
             } else {
-                // noInternetconnection(getString(R.string.no_internet_connection));
+                // noInternetConnection(getString(R.string.no_internet_connection));
             }
 
         } else {
