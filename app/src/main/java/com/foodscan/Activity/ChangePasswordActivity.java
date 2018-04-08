@@ -129,7 +129,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                         }
                     } else {
                         //Password and confirm password is different
-                        Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confrirmpass_is_diffrent), ChangePasswordActivity.this);
+                        Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confirmpass_is_different), ChangePasswordActivity.this);
                         return false;
                     }
                 } else {

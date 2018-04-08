@@ -71,7 +71,7 @@
     <string name="please_login">To perform any action please login to FoodScan app</string>
     <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
 
-    <string name="password_and_confrirmpass_is_diffrent">Password and Confirm password do not match</string>
+    <string name="password_and_confirmpass_is_different">Password and Confirm password do not match</string>
     <string name="no_internet_connection">No Internet connection. Please try again later</string>
     <string name="password_length_error">Password length should be at least 5 characters</string>
     <string name="Loading_msg">Loading...</string>

@@ -184,7 +184,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                         } else {
                             //Password and confirm password is diffrent
-                            Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confrirmpass_is_diffrent), RegistrationActivity.this);
+                            Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confirmpass_is_different), RegistrationActivity.this);
                             return false;
                         }
                     } else {
