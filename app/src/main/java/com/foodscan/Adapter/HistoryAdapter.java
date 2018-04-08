@@ -85,7 +85,6 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             viewHolder.txt_product_name.setText(dtoProduct.getProductName());
 
             String isHealthy = dtoProduct.getIsHealthy();
-
             if (isHealthy != null && isHealthy.length() > 0) {
                 if (isHealthy.equals("0")) {
 

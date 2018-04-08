@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foodscan.Activity.EditProfileActivity;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.SettingsActivity;
 import com.foodscan.Adapter.FavouriteAdapter;
@@ -383,18 +384,21 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
+        if (((MainActivity) mContext).dtoUser != null) {
+            Intent intent;
 
-            case R.id.img_settings:
-            case R.id.ll_user:
-                if (((MainActivity) mContext).dtoUser != null) {
-                    Intent intent = new Intent(mContext, SettingsActivity.class);
+            switch (v.getId()) {
+                case R.id.img_settings:
+                    intent = new Intent(mContext, SettingsActivity.class);
                     startActivity(intent);
-                } else {
-                    ((MainActivity) mContext).showLoginDialog();
-                }
-            break;
-
+                    break;
+                case R.id.ll_user:
+                    intent = new Intent(mContext, EditProfileActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        } else {
+            ((MainActivity) mContext).showLoginDialog();
         }
     }
 
