@@ -22,6 +22,7 @@ public class UserDefaults {
     public static final String NEED_REFRESH_USER = "need_refresh_user" ;
     public static int REQ_DETAILS = 101;
     public static final String ENCODE_KEY = "_$(Skill)!_square@#$%_23_06_2017";
+    //public static final String ENCODE_KEY = "@#$%!@#$#$%!@#$%";
     public static final String PRIVACY_POLICY = "https://lifyzer.com/tos.txt ";
 
 }
