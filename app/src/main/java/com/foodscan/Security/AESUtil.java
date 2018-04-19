@@ -14,51 +14,50 @@ import javax.crypto.spec.SecretKeySpec;
 public enum AESUtil {
 	;
 	// 共通鍵
-	private static final String ENCRYPTION_KEY = "RwcmlVpg";
-	private static final String ENCRYPTION_IV = "4e5Wa71fYoT7MFEX";
-
-	public static String encrypt(String src) {
+	public static String encrypt(String keyString,String keyString_iv, String stringToEncode) {
 		try {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			cipher.init(Cipher.ENCRYPT_MODE, makeKey(), makeIv());
-			return Base64.encodeBytes(cipher.doFinal(src.getBytes()));
+			cipher.init(Cipher.ENCRYPT_MODE, makeKey(keyString), makeIv(keyString_iv));
+			return Base64.encodeBytes(cipher.doFinal(stringToEncode.getBytes()));
+//			return encodeString(ENCRYPTION_KEY,src);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static String decrypt(String src) {
+
+	public static String decrypt(String keyString,String keyString_iv,String src) {
 		String decrypted = "";
 		try {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			cipher.init(Cipher.DECRYPT_MODE, makeKey(), makeIv());
+			cipher.init(Cipher.DECRYPT_MODE, makeKey(keyString), makeIv(keyString_iv));
 			decrypted = new String(cipher.doFinal(Base64.decode(src)));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return decrypted;
 	}
-	
-	static AlgorithmParameterSpec makeIv() {
+
+	static AlgorithmParameterSpec makeIv(String keyString_iv) {
 		try {
-			return new IvParameterSpec(ENCRYPTION_IV.getBytes("UTF-8"));
+			return new IvParameterSpec(keyString_iv.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	static Key makeKey() {
+
+	static Key makeKey(String encr_key) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			byte[] key = md.digest(ENCRYPTION_KEY.getBytes("UTF-8"));
-			return new SecretKeySpec(key, "AES");
+			byte[] key = md.digest(encr_key.getBytes("UTF-8"));
+			return new SecretKeySpec(key, "AES-128-CBC");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 }

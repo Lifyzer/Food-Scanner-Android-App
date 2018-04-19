@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.SettingsActivity;
@@ -274,7 +273,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
                 ((MainActivity) mContext).mIsLoading = true;
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (isLoadMore) {
                     load_more_progressbar.setVisibility(View.VISIBLE);

@@ -108,6 +108,9 @@ public class DTORefreshTokenData implements Serializable {
         @JsonProperty("tempToken")
         private String tempToken;
 
+        @JsonProperty("key_iv")
+        private String key_iv;
+
         public AdminConfig() {
         }
 
@@ -139,6 +142,16 @@ public class DTORefreshTokenData implements Serializable {
         @JsonProperty("tempToken")
         public void setTempToken(String tempToken) {
             this.tempToken = tempToken;
+        }
+
+        @JsonProperty("key_iv")
+        public String getKey_iv() {
+            return key_iv;
+        }
+
+        @JsonProperty("key_iv")
+        public void setKey_iv(String key_iv) {
+            this.key_iv = key_iv;
         }
     }
 }

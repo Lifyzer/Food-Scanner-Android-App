@@ -530,7 +530,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             try {
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 Attribute attribute = new Attribute();
                 attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));

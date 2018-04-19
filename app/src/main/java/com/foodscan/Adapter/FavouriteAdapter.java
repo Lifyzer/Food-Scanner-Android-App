@@ -119,7 +119,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 public void onClick(View v) {
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                     if (Utility.isNetworkAvailable(mContext)) {
 
@@ -160,7 +160,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 public void onClick(View v) {
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                     if (Utility.isNetworkAvailable(mContext)) {
 

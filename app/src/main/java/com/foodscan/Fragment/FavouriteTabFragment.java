@@ -14,10 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.daimajia.swipe.util.Attributes;
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Adapter.FavouriteAdapter;
-import com.foodscan.Adapter.HistoryAdapter;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -239,7 +237,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                 ((MainActivity) mContext).mIsLoading = true;
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (isLoadMore) {
                     load_more_progressbar.setVisibility(View.VISIBLE);
