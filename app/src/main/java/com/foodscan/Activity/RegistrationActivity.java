@@ -167,7 +167,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-
     private boolean isInputsValid() {
         if (Utility.validateStringPresence(edt_full_name)) {
             if (Utility.validateStringPresence(edt_email_id)) {
