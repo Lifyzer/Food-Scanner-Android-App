@@ -129,6 +129,15 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
             if (object != null) {
                 try {
                     DTORefreshTokenData dtoRefreshToken = (DTORefreshTokenData) object;
+
+                    DTORefreshTokenData.AdminConfig adminConfig = dtoRefreshToken.getData().getAdminConfig();
+                    String key_iv= adminConfig.getKey_iv();
+                    if(key_iv!=null){
+                        TinyDB tinyDB = new TinyDB(SplashActivity.this);
+                        tinyDB.putString(UserDefaults.ENCODE_KEY_IV,key_iv);
+                        tinyDB.putString(UserDefaults.ENCODE_KEY,adminConfig.getGlobalPassword());
+                    }
+
                     String userToken = dtoRefreshToken.getData().getTempToken();
                     if (userToken != null && userToken.length() > 0) {
                         tinyDB.putString(UserDefaults.TEMP_TOKEN, userToken);

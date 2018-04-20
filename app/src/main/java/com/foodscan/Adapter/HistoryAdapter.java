@@ -164,7 +164,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                 if (Utility.isNetworkAvailable(mContext)) {
 
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                     Attribute attribute = new Attribute();
                     attribute.setHistory_id(dtoProduct.getHistoryId());
@@ -195,7 +195,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (Utility.isNetworkAvailable(mContext)) {
 

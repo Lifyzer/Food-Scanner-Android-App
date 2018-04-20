@@ -167,7 +167,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     private void callWsFavourite() {
 
         String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-        String encodeString = Utility.encode(UserDefaults.ENCODE_KEY, dtoUser.getGuid());
+        String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), dtoUser.getGuid());
 
         if (Utility.isNetworkAvailable(mContext)) {
 

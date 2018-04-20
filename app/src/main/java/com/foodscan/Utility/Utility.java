@@ -39,7 +39,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.foodscan.R;
-import com.foodscan.WsHelper.helper.AES_Helper_new;
+import com.foodscan.Security.AESUtil;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
@@ -579,8 +579,9 @@ public class Utility {
     }
 
 
-    public static String encode(String keyString, String stringToEncode) {
-        return AES_Helper_new.encrypt(stringToEncode, keyString);
+    public static String encode(String keyString,String keyString_iv, String stringToEncode) {
+//        return AES_Helper_new.encrypt(stringToEncode, keyString);
+        return AESUtil.encrypt( keyString, keyString_iv,  stringToEncode);
     }
 
 

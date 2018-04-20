@@ -45,11 +45,11 @@ public class AES_Helper_new {
 
 		try {
 			cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+			//cipher = Cipher.getInstance("AES/CBC/NoPadding");
 			cipher.init(Cipher.DECRYPT_MODE, skeySpec, ivParameterSpec);
 			byte[] encrypedPwdBytes = Base64.decode(text, Base64.DEFAULT);
 			byte[] decrypedValueBytes = (cipher.doFinal(encrypedPwdBytes));
 			return new String(decrypedValueBytes);
-
 		} catch (Exception e) {
 //			e.printStackTrace();
 			return text;
