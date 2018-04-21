@@ -119,8 +119,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 new WebserviceWrapper(mContext, attribute, SignInActivity.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.LOGIN.getTypeCode());
-                storeEmailToBeReused();
-
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "" + e.getMessage());
@@ -199,6 +197,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             if (dtoLoginData.getUserToken() == null) {
                                 return;
                             } else {
+                                removeOutdatedData();
 
                                 tinyDB.putBoolean(UserDefaults.IS_LOGIN, true);
                                 tinyDB.putString(UserDefaults.USER_TOKEN, dtoLoginData.getUserToken());
@@ -213,6 +212,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         }
 
                     } else {
+                        storeEmailToBeReused();
                         Utility.showLongSnackBar(rl_parent, dtoLoginData.getMessage(), SignInActivity.this);
                     }
 
@@ -238,6 +238,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void storeEmailToBeReused()
     {
         tinyDB.putString(USER_EMAIL_KEY, edt_email.getText().toString());
+    }
+
+    private void removeOutdatedData()
+    {
+        String email = tinyDB.getString(USER_EMAIL_KEY);
+        if (!email.isEmpty()) {
+            tinyDB.remove(USER_EMAIL_KEY);
+        }
     }
 
 }
