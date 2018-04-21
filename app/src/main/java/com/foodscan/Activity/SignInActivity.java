@@ -29,6 +29,8 @@ import io.realm.Realm;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, WebserviceWrapper.WebserviceResponse {
 
+    public static final String USER_EMAIL_KEY = "user_email";
+
     private static final String TAG = SignInActivity.class.getSimpleName();
 
     private Context mContext;
@@ -117,6 +119,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 new WebserviceWrapper(mContext, attribute, SignInActivity.this, true, getString(R.string.Loading_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.LOGIN.getTypeCode());
+                storeEmailToBeReused();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -230,6 +233,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             setResult(Activity.RESULT_OK, intent);
             finish();
         }
+    }
+
+    private void storeEmailToBeReused()
+    {
+        tinyDB.putString(USER_EMAIL_KEY, edt_email.getText().toString());
     }
 
 }

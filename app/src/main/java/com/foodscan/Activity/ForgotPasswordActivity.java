@@ -57,6 +57,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         img_back.setOnClickListener(this);
         txt_send.setOnClickListener(this);
 
+        retrieveUsedEmail();
     }
 
     @Override
@@ -184,5 +185,14 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         }
 
+    }
+
+    private void retrieveUsedEmail()
+    {
+        String email = tinyDB.getString(SignInActivity.USER_EMAIL_KEY);
+        if (!email.isEmpty()) {
+            edt_email.setText(email);
+            tinyDB.remove(SignInActivity.USER_EMAIL_KEY);
+        }
     }
 }

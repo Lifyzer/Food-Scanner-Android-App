@@ -130,8 +130,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                 new WebserviceWrapper(mContext, attribute, RegistrationActivity.this, true, getString(R.string.Processing_msg)).new WebserviceCaller()
                         .execute(WebserviceWrapper.WEB_CALLID.REGISTRATION.getTypeCode());
-
-
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "" + e.getMessage());
@@ -266,4 +264,5 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
     }
+
 }
