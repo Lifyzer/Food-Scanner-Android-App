@@ -21,15 +21,12 @@ import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
 
-import io.realm.Realm;
-
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener, WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = ForgotPasswordActivity.class.getSimpleName();
 
     private Context mContext;
     private TinyDB tinyDB;
-    private Realm realm;
 
     private RelativeLayout rl_parent;
     private TextView txt_send;
@@ -44,7 +41,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         mContext = ForgotPasswordActivity.this;
         tinyDB = new TinyDB(mContext);
-        realm = Realm.getDefaultInstance();
 
         initView();
         initGlobals();
