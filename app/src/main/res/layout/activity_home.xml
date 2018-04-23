@@ -82,7 +82,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/dp10"
                     android:padding="@dimen/dp5"
-                    android:text="@string/Scanfood_Inc"
+                    android:text="@string/copyright"
                     android:textSize="@dimen/sp10" />
 
             </RelativeLayout>

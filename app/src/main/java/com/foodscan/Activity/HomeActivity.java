@@ -49,8 +49,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         txt_signin.setOnClickListener(this);
         txt_create_new_account.setOnClickListener(this);
         img_back.setOnClickListener(this);
-
-        //txt_copy_right.setText("@2017 ScanFood Inc.");
     }
 
     @Override

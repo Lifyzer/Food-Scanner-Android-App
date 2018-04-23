@@ -6,12 +6,12 @@
 
     <string name="font_arial_bold">fonts/aribl_bold.ttf</string>
 
-    <string name="SCAN_FOOD">SCAN FOOD</string>
-    <string name="Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories">ScanFood is help you to get food details such as Protein, Fat, Calories</string>
+    <string name="SCAN_FOOD">Lifyzer</string>
+    <string name="Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories">Lifyzer helps you to eat well &amp; healthy and gives you food details such as Protein, Fat, Calories</string>
     <string name="Sign_In">Sign In</string>
     <string name="Create_New_Account">Create New Account</string>
-    <string name="Scanfood_Inc">\u00a9 2017 Scanfood Inc.</string>
-    <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose for ScanFood and click to Sign In</string>
+    <string name="copyright">\u00a9 Lifyzer Healthy Food</string>
+    <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose and click to Sign In</string>
     <string name="Email_Id">Email ID</string>
     <string name="Password">Password</string>
     <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
@@ -25,7 +25,7 @@
     <string name="Process">Proceed</string>
     <string name="History">History</string>
     <string name="Favourite">Favourites</string>
-    <string name="Scan_Food">Scan Food</string>
+    <string name="Scan_Food">Lifyzer</string>
     <string name="Profile">Profile</string>
     <string name="PERSONAL">PERSONAL</string>
     <string name="FAVORITE_FOOD">FAVORITE FOOD</string>
