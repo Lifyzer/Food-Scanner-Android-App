@@ -1,13 +1,21 @@
+final VERSION_MAJOR = 1 // max two digits
+final VERSION_MINOR = 1 // max two digits
+final VERSION_PATCH = 0 // max two digits
+final VERSION_BUILD = 0 // max three digits
+
+
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply from: "../utils.gradle"
+
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.foodscan"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.1"
+        versionCode getVersionCode(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_BUILD)
+        versionName getVersionName(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
         // Enabling multidex support.
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
