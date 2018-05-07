@@ -3,7 +3,7 @@ package com.foodscan.WsHelper.helper;
 
 public class WsConstants {
 
-    public static String BASE_URL = "http://lifyzer.com/api/";
+    public static String BASE_URL = "https://lifyzer.com/api/";
     public static String SERVICE_URL = BASE_URL + "WS/FoodScanAppService.php?Service=";
 
     public static String REFRESH_TOKEN = "refreshToken";
