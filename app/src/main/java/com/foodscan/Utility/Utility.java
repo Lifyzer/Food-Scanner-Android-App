@@ -661,7 +661,7 @@ public class Utility {
 
             ((SimpleDialog.Builder) builder).message(message)
                     .title(mContext.getString(R.string.app_name))
-                    .negativeAction("Exit");
+                    .negativeAction(mContext.getString(R.string.Exit));
 
             DialogFragment fragment = DialogFragment.newInstance(builder);
             fragment.show(mContext.getSupportFragmentManager(), null);
