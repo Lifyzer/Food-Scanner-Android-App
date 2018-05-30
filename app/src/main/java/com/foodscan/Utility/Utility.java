@@ -311,7 +311,6 @@ public class Utility {
             case Calendar.SATURDAY:
                 Day = "sat";
                 break;
-
         }
 
         return Day;

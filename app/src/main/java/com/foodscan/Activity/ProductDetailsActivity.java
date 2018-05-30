@@ -57,7 +57,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         realm = Realm.getDefaultInstance();
         dtoUser = realm.where(DTOUser.class).findFirst();
 
-
         initView();
         initGlobals();
     }
@@ -149,15 +148,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     @Override
     public void onBackPressed() {
 
-
         if (isChangeMade) {
 
             Intent intent = new Intent();
             intent.putExtra("productDetails", dtoProduct);
             setResult(Activity.RESULT_OK, intent);
             finish();
-
-
         }
 
         super.onBackPressed();
@@ -194,7 +190,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         } else {
             Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
         }
-
 
     }
 

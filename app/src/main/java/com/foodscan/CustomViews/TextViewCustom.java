@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.foodscan.R;
 
 
-
 @SuppressLint("AppCompatCustomView")
 public class TextViewCustom extends TextView {
 

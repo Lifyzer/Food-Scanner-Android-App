@@ -28,8 +28,6 @@ public class WebserviceWrapper {
     private ContentValues contentValues;
     private FileUploadInput fileUploadInput;
 
-    //PROFILE_1500374622.png
-
     boolean displayProgress = false;
     String dialogMessage = "";
 
@@ -49,7 +47,6 @@ public class WebserviceWrapper {
         this.dialogMessage = dialogMessage;
     }
 
-
     public WebserviceWrapper(Context context, FileUploadInput fileUploadInput, WebserviceResponse listener, boolean displayProgress, String dialogMessage) {
         this.fileUploadInput = fileUploadInput;
         this.webserviceResponse = listener;
@@ -57,7 +54,6 @@ public class WebserviceWrapper {
         this.displayProgress = displayProgress;
         this.dialogMessage = dialogMessage;
     }
-
 
     public WebserviceWrapper(Context context, Attribute attribute, WebserviceResponse listener, boolean displayProgress, String dialogMessage) {
         this.attribute = attribute;
@@ -81,7 +77,6 @@ public class WebserviceWrapper {
             return callId;
         }
     }
-
 
     public class WebserviceCaller extends AsyncTask<Integer, Void, Object> {
 
@@ -166,13 +161,12 @@ public class WebserviceWrapper {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.FORGOT_PASSWORD, mContext).execute(attribute, DTOResponse.class, null);
                     }
                     break;
-
-
                 }
             } catch (Exception e) {
                 Log.i(TAG, "WebserviceCaller Background Exception : " + e.toString());
                 exception = e;
             }
+
             return responseObject;
         }
 
