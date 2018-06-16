@@ -88,7 +88,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                     Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
                 }
 
-
                 txt_product_name.setText(dtoProduct.getProductName());
                 foodDetailsAdapter = new FoodDetailsAdapter(mContext, dtoProduct);
                 rv_details.setAdapter(foodDetailsAdapter);

@@ -30,10 +30,6 @@ import com.rey.material.app.ThemeManager;
 
 import java.util.ArrayList;
 
-/**
- * Created by c157 on 22/01/18.
- */
-
 public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = FavouriteTabFragment.class.getSimpleName();

@@ -36,10 +36,6 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-/**
- * Created by c157 on 22/01/18.
- */
-
 public class HistoryTabFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
     private static final String TAG = HistoryTabFragment.class.getSimpleName();

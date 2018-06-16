@@ -47,7 +47,6 @@
     <string name="Organic">Organic</string>
     <string name="not_Organic">Not Organic</string>
 
-
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="ok">OK</string>

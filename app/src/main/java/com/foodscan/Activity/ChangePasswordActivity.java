@@ -108,7 +108,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             new WebserviceWrapper(mContext, attribute, ChangePasswordActivity.this, true, getString(R.string.Processing_msg)).new WebserviceCaller()
                     .execute(WebserviceWrapper.WEB_CALLID.CHANGE_PASSWORD.getTypeCode());
 
-
         } else {
             Utility.showLongSnackBar(rl_parent, getString(R.string.no_internet_connection), ChangePasswordActivity.this);
         }

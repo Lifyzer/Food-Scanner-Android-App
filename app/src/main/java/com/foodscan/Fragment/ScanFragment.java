@@ -56,11 +56,6 @@ import java.text.Normalizer;
 
 import io.realm.Realm;
 
-
-/**
- * Created by c157 on 22/01/18.
- */
-
 public class ScanFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
 
     // Constants used to pass extra data in the intent

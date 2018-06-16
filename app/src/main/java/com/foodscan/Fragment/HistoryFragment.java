@@ -24,10 +24,6 @@ import com.foodscan.WsHelper.model.DTOProduct;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by c157 on 22/01/18.
- */
-
 public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
     private static final String TAG = HistoryFragment.class.getSimpleName();
