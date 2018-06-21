@@ -127,7 +127,7 @@ public class WebserviceConnector {
                         public void run() {
                             Utility.noInternetConnection(
                                     (AppCompatActivity) mContext,
-                                    "Opps..Connection Error, Please Check your Internet connection..!!"
+                                    "Opps..Connection Error, Please Check your Internet connection..!"
                             );
                         }
                     });
@@ -180,7 +180,7 @@ public class WebserviceConnector {
             }
         } catch (@SuppressWarnings("deprecation") ConnectTimeoutException e) {
 
-            Toast.makeText(mContext, "Opps..Connection timeout, Please try again later..!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Opps..Connection timeout, Please try again later..!", Toast.LENGTH_SHORT).show();
 
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
