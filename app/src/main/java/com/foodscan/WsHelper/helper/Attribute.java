@@ -64,6 +64,9 @@ public class Attribute {
     @JsonProperty("new_password")
     private String new_password;
 
+    @JsonProperty("GUID")
+    private String GUID;
+
 
     // *************************************//
     // *********  getter setter  *********** //
@@ -217,6 +220,16 @@ public class Attribute {
     @JsonProperty("new_password")
     public void setNew_password(String new_password) {
         this.new_password = new_password;
+    }
+
+    @JsonProperty("GUID")
+    public String getGUID() {
+        return GUID;
+    }
+
+    @JsonProperty("GUID")
+    public void setGUID(String GUID) {
+        this.GUID = GUID;
     }
 
 }

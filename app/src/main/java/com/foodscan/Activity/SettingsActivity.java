@@ -131,8 +131,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private void logOut() {
 
         //String refreshedToken = t
-        // inyDB.getString(UserDefaults.DEVICE_TOKEN);
+        //TinyDB.getString(UserDefaults.DEVICE_TOKEN);
         String tempToken = tinyDB.getString(UserDefaults.TEMP_TOKEN);
+        String Key_IV = tinyDB.getString(UserDefaults.ENCODE_KEY_IV);
+        String encode_key = tinyDB.getString(UserDefaults.ENCODE_KEY);
 
         realm.beginTransaction();
         realm.deleteAll();
@@ -144,6 +146,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         //tinyDB.putString(UserDefaults.DEVICE_TOKEN, refreshedToken);
         tinyDB.putString(UserDefaults.TEMP_TOKEN, tempToken);
+        tinyDB.putString(UserDefaults.ENCODE_KEY_IV, Key_IV);
+        tinyDB.putString(UserDefaults.ENCODE_KEY, encode_key);
 
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

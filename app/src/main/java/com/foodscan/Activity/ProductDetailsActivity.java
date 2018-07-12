@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,8 +85,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             dtoProduct = bundle.getParcelable("productDetails");
             if (dtoProduct != null) {
 
-                if (dtoProduct.getProductImage() != null) {
+                if (dtoProduct.getProductImage() != null && dtoProduct.getProductImage().length() > 0) {
                     Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
+                }else {
+                    img_product.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.img_food_placeholder_small));
                 }
 
                 txt_product_name.setText(dtoProduct.getProductName());

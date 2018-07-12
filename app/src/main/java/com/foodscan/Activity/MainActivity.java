@@ -20,8 +20,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.foodscan.Barcode.BarcodeGraphicTracker;
+import com.foodscan.Fragment.BarcodeScannerFragment;
 import com.foodscan.Fragment.HistoryFragment;
+import com.foodscan.Fragment.LifyzerFragment;
 import com.foodscan.Fragment.ProfileFragment;
 import com.foodscan.Fragment.ScanFragment;
 import com.foodscan.R;
@@ -30,6 +34,7 @@ import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.model.DTOProduct;
 import com.foodscan.WsHelper.model.DTOUser;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
@@ -39,7 +44,7 @@ import java.util.List;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener,  BarcodeGraphicTracker.BarcodeUpdateListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public FrameLayout frame_main;
@@ -177,7 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void createViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HistoryFragment(), getString(R.string.History));
-        adapter.addFrag(new ScanFragment(), getString(R.string.Scan_Food));
+        //adapter.addFrag(new ScanFragment(), getString(R.string.Scan_Food));
+        adapter.addFrag(new LifyzerFragment(), getString(R.string.Scan_Food));
         adapter.addFrag(new ProfileFragment(), getString(R.string.Profile));
 
         viewPager.setAdapter(adapter);
@@ -399,7 +405,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (requestCode == 123) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof ScanFragment)
+                //if (fragment instanceof ScanFragment)
+                if (fragment instanceof LifyzerFragment)
                     fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
@@ -426,10 +433,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         } else if (currentIndex == 1) {
 
-                            if (fragment instanceof ScanFragment) {
-                                ScanFragment scanFragment = (ScanFragment) fragment;
-                                //scanFragment.dtoUser = dtoUser;
-                                scanFragment.wsCallProductDetails();
+                            //if (fragment instanceof ScanFragment) {
+                            if (fragment instanceof LifyzerFragment) {
+                                LifyzerFragment lifyzerFragment = (LifyzerFragment) fragment;
+                                lifyzerFragment.getCurrentFrag();
+                                //scanFragment.wsCallProductDetails();
                             }
 
                         } else if (currentIndex == 2) {
@@ -655,6 +663,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 profileFragment.noDataFound();
             }
         }
+    }
+
+    @Override
+    public void onBarcodeDetected(Barcode barcode) {
+
+        if(barcode != null){
+
+            Log.e(TAG, "detected");
+            if(viewPager.getCurrentItem() == 1){
+                Fragment fragment = adapter.getItem(1);
+                if(fragment instanceof LifyzerFragment){
+                    LifyzerFragment lifyzerFragment = (LifyzerFragment)fragment;
+                    lifyzerFragment.displayDialog(barcode);
+                }
+            }
+
+        }
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

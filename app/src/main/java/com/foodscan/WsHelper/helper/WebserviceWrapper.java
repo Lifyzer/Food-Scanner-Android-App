@@ -11,6 +11,7 @@ import com.foodscan.WsHelper.model.DTOLoginData;
 import com.foodscan.WsHelper.model.DTOProductDetailsData;
 import com.foodscan.WsHelper.model.DTORefreshTokenData;
 import com.foodscan.WsHelper.model.DTOResponse;
+import com.foodscan.WsHelper.model.DTOUpdateToken;
 import com.foodscan.WsHelper.model.DTOUserFavouriteData;
 
 import dmax.dialog.SpotsDialog;
@@ -32,7 +33,7 @@ public class WebserviceWrapper {
     String dialogMessage = "";
 
     private final int LOGIN = 0, REFRESH_TOKEN = 1, REGISTRATION = 2, PRODUCT_DETAILS = 3, HISTORY = 4, REMOVE_FROM_HISTORY = 5, FAVOURITE = 6, USER_FAVOURITE = 7,
-            EDIT_PROFILE = 8, CHANGE_PASSWORD = 9, FORGET_PASSWORD = 10;
+            EDIT_PROFILE = 8, CHANGE_PASSWORD = 9, FORGET_PASSWORD = 10, UPDATE_TOKEN = 11;
 
 
     public interface WebserviceResponse {
@@ -65,7 +66,7 @@ public class WebserviceWrapper {
 
     public enum WEB_CALLID {
         LOGIN(0), REFRESH_TOKEN(1), REGISTRATION(2), PRODUCT_DETAILS(3), HISTORY(4), REMOVE_FROM_HISTORY(5), FAVOURITE(6), USER_FAVOURITE(7),
-        EDIT_PROFILE(8), CHANGE_PASSWORD(9), FORGET_PASSWORD(10);
+        EDIT_PROFILE(8), CHANGE_PASSWORD(9), FORGET_PASSWORD(10), UPDATE_TOKEN(11);
 
         int callId;
 
@@ -161,6 +162,10 @@ public class WebserviceWrapper {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.FORGOT_PASSWORD, mContext).execute(attribute, DTOResponse.class, null);
                     }
                     break;
+                    case UPDATE_TOKEN: {
+                        responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.UPDATE_TOKEN, mContext).execute(attribute, DTOUpdateToken.class, null);
+                    }
+                        break;
                 }
             } catch (Exception e) {
                 Log.i(TAG, "WebserviceCaller Background Exception : " + e.toString());

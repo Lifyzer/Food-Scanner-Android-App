@@ -1,46 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:keepScreenOn="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!--  OCR  -->
-        <com.foodscan.OCR.CameraSourcePreview
-            android:id="@+id/preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.foodscan.OCR.GraphicOverlay
-                android:id="@+id/graphicOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.foodscan.OCR.CameraSourcePreview>
-
-        <!--&lt;!&ndash;  Barcode  &ndash;&gt;-->
-        <com.foodscan.OCR.CameraSourcePreview
-            android:id="@+id/preview_barcode"
+        <FrameLayout
+            android:id="@+id/frame_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <com.foodscan.OCR.GraphicOverlay
-                android:id="@+id/graphicOverlay_barcode"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.foodscan.OCR.CameraSourcePreview>
-
-
-    </LinearLayout>
-
+            />
+    <!--android:background="@color/colorPrimary"-->
 
     <LinearLayout
         android:layout_width="@dimen/dp200"
@@ -49,8 +20,7 @@
         android:layout_marginTop="@dimen/dp20"
         android:background="@drawable/rounded_green_border"
         android:orientation="horizontal"
-        android:weightSum="1"
-        >
+        android:weightSum="1">
         <!--app:cardBackgroundColor="@android:color/transparent"-->
         <!--app:cardCornerRadius="@dimen/dp5"-->
         <!--app:cardPreventCornerOverlap="true"-->
@@ -61,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Product"
+            android:text="@string/Product"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
 
@@ -76,13 +46,11 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Barcode"
+            android:text="@string/Barcode"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
 
+
     </LinearLayout>
-
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>

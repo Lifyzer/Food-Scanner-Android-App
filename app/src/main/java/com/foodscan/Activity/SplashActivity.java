@@ -14,9 +14,13 @@ import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTORefreshTokenData;
+import com.foodscan.WsHelper.model.DTOUpdateToken;
+import com.foodscan.WsHelper.model.DTOUser;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
+
+import io.realm.Realm;
 
 public class SplashActivity extends AppCompatActivity implements WebserviceWrapper.WebserviceResponse {
 
@@ -24,6 +28,8 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
     private final int SPLASH_DURATION_MILI = 1000;
     private Context mContext;
     private TinyDB tinyDB;
+    private Realm realm;
+    DTOUser dtoUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,9 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
         mContext = SplashActivity.this;
         tinyDB = new TinyDB(mContext);
+
+        realm = Realm.getDefaultInstance();
+
     }
 
     @Override
@@ -54,15 +63,42 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
             @Override
             public void run() {
                 if (tinyDB.getBoolean(UserDefaults.IS_LOGIN)) {
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
-                    SplashActivity.this.finish();
+
+                    updateToken();
+
 
                 } else {
                     wsCallRefreshToken();
                 }
             }
         }, SPLASH_DURATION_MILI);
+    }
+
+    public void updateToken() {
+
+        if (Utility.isNetworkAvailable(mContext)) {
+
+            try {
+
+                dtoUser = realm.where(DTOUser.class).findFirst();
+
+                Attribute attribute = new Attribute();
+                attribute.setUser_id(String.valueOf(dtoUser.getId()));
+                attribute.setGUID(dtoUser.getGuid());
+
+                new WebserviceWrapper(mContext, attribute, SplashActivity.this,
+                        true, getString(R.string.Loading_msg)).new WebserviceCaller()
+                        .execute(WebserviceWrapper.WEB_CALLID.UPDATE_TOKEN.getTypeCode());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "" + e.getMessage());
+            }
+
+        } else {
+            //noInternetConnection(getString(R.string.no_internet_connection));
+        }
+
     }
 
     public void wsCallRefreshToken() {
@@ -131,11 +167,11 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                     DTORefreshTokenData dtoRefreshToken = (DTORefreshTokenData) object;
 
                     DTORefreshTokenData.AdminConfig adminConfig = dtoRefreshToken.getData().getAdminConfig();
-                    String key_iv= adminConfig.getKey_iv();
-                    if(key_iv!=null){
+                    String key_iv = adminConfig.getKey_iv();
+                    if (key_iv != null) {
                         TinyDB tinyDB = new TinyDB(SplashActivity.this);
-                        tinyDB.putString(UserDefaults.ENCODE_KEY_IV,key_iv);
-                        tinyDB.putString(UserDefaults.ENCODE_KEY,adminConfig.getGlobalPassword());
+                        tinyDB.putString(UserDefaults.ENCODE_KEY_IV, key_iv);
+                        tinyDB.putString(UserDefaults.ENCODE_KEY, adminConfig.getGlobalPassword());
                     }
 
                     String userToken = dtoRefreshToken.getData().getTempToken();
@@ -148,6 +184,25 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                     Log.e(TAG, "" + e.getMessage());
                 }
             }
+        } else if (apiCode == WebserviceWrapper.WEB_CALLID.UPDATE_TOKEN.getTypeCode()) {
+            if (object != null) {
+                try {
+                    DTOUpdateToken dtoUpdateToken =  (DTOUpdateToken)object;
+                    if (dtoUpdateToken != null) {
+                        tinyDB.putString(UserDefaults.USER_TOKEN, dtoUpdateToken.getUserToken());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "" + e.getMessage());
+                }
+            }
+
+            Intent intent = new Intent(mContext, MainActivity.class);
+            startActivity(intent);
+            SplashActivity.this.finish();
+
+
         }
     }
 }
