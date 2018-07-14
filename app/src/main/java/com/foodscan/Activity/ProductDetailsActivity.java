@@ -87,7 +87,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
                 if (dtoProduct.getProductImage() != null && dtoProduct.getProductImage().length() > 0) {
                     Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_placeholder_large).into(img_product);
-                }else {
+                } else {
                     img_product.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.img_food_placeholder_small));
                 }
 

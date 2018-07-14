@@ -72,7 +72,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
             if (dtoProduct.getProductImage() != null && dtoProduct.getProductImage().length() > 0) {
                 Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
-            }else {
+            } else {
                 viewHolder.img_food.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.img_food_placeholder_small));
             }
 

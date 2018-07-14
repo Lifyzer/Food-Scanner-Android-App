@@ -301,7 +301,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                 ((MainActivity) mContext).showLoginDialog();
             }
 
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
