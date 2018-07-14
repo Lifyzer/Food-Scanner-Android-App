@@ -27,12 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
+import com.foodscan.Barcode.BarcodeGraphic;
+import com.foodscan.Barcode.BarcodeTrackerFactory;
 import com.foodscan.OCR.CameraSource;
 import com.foodscan.OCR.CameraSourcePreview;
 import com.foodscan.OCR.GraphicOverlay;
@@ -47,6 +49,8 @@ import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProductDetailsData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.vision.MultiProcessor;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.rey.material.app.ThemeManager;
@@ -72,21 +76,23 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
     //public DTOUser dtoUser;
     private TinyDB tinyDB;
     private View viewFragment;
-    private LinearLayout ll_parent;
+    private RelativeLayout ll_parent;
     private CameraSource mCameraSource;
-    private CameraSourcePreview mPreview;
+    private CameraSourcePreview mPreview, preview_barcode;
     private GraphicOverlay<OcrGraphic> mGraphicOverlay;
 
     // Helper objects for detecting taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
     private String productName = "";
-    private boolean isOnCreateCalled = false;
+    //private boolean isOnCreateCalled = false;
+
+    private TextView txt_product, txt_barcode;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("!_@", "activity caalled");
+        Log.e("!_@", "activity called");
         manageCamera();
     }
 
@@ -98,35 +104,32 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
     /**
      * Initializes the UI and creates the detector pipeline.
      */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            Log.e("!_@_", "---visible--");
-            isOnCreateCalled = true;
-            onResume();
-        } else {
-            Log.e("!_@_", "---not visible--");
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            Log.e("!_@_", "---visible--");
+//            isOnCreateCalled = true;
+//            onResume();
+//        } else {
+//            Log.e("!_@_", "---not visible--");
+//        }
+//    }
 
 
     // Intent request code to handle updating play services if needed.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        // if (viewFragment == null) {
+
         viewFragment = inflater.inflate(R.layout.scan_fragment, container, false);
         mContext = getActivity();
-        isOnCreateCalled = true;
+      //  isOnCreateCalled = true;
         mContext = getActivity();
         realm = Realm.getDefaultInstance();
         tinyDB = new TinyDB(mContext);
-        //dtoUser = realm.where(DTOUser.class).findFirst();
-
         initView(viewFragment);
         initGlobals();
-        // }
 
         return viewFragment;
     }
@@ -134,32 +137,43 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
     private void initView(View viewFragment) {
 
-        ll_parent = (LinearLayout) viewFragment.findViewById(R.id.ll_parent);
+        ll_parent = viewFragment.findViewById(R.id.ll_parent);
         mPreview = (CameraSourcePreview) viewFragment.findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) viewFragment.findViewById(R.id.graphicOverlay);
-
-//        // read parameters from the intent used to launch the activity.
-//        boolean autoFocus = getActivity().getIntent().getBooleanExtra(AutoFocus, true);
-//        boolean useFlash = getActivity().getIntent().getBooleanExtra(UseFlash, false);
-//
-//        // Check for the camera permission before accessing the camera.  If the
-//        // permission is not granted yet, request permission.
-//
-//
-//        int rc = ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
-//        if (rc == PackageManager.PERMISSION_GRANTED) {
-//            createCameraSource(autoFocus, useFlash);
-//        } else {
-//            requestCameraPermission();
-//        }
 
         gestureDetector = new GestureDetector(mContext, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleListener());
 
-        //wsCallProductDetails("Quaker Oats");
+//        graphicOverlay_barcode = (GraphicOverlay<BarcodeGraphic>) viewFragment.findViewById(R.id.graphicOverlay_barcode);
+
+        txt_product = viewFragment.findViewById(R.id.txt_product);
+        txt_barcode = viewFragment.findViewById(R.id.txt_barcode);
+
+        preview_barcode = viewFragment.findViewById(R.id.preview_barcode);
+
     }
 
     private void initGlobals() {
+
+        txt_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mPreview.setVisibility(View.VISIBLE);
+                preview_barcode.setVisibility(View.GONE);
+            }
+        });
+
+        txt_barcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mPreview.setVisibility(View.GONE);
+                preview_barcode.setVisibility(View.VISIBLE);
+
+            }
+        });
+
         viewFragment.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent e) {
 
@@ -169,7 +183,6 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
             }
         });
-
     }
 
     /**
@@ -190,7 +203,20 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
         textRecognizer.setProcessor(new OcrDetectorProcessor(mGraphicOverlay));
 
-        if (!textRecognizer.isOperational()) {
+//        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
+//        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(graphicOverlay_barcode, mContext);
+//        barcodeDetector.setProcessor(
+//                new MultiProcessor.Builder<>(barcodeFactory).build());
+////
+//        MultiDetector multiDetector = new MultiDetector.Builder()
+//                .add(textRecognizer)
+//                .add(barcodeDetector)
+//                .build();
+
+
+        if (!textRecognizer.isOperational())
+        //if (!multiDetector.isOperational())
+        {
             // Note: The first time that an app using a Vision API is installed on a
             // device, GMS will download a native libraries to the device in order to do detection.
             // Usually this completes before the app is run for the first time.  But if that
@@ -213,6 +239,12 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             }
         }
 
+
+        // A barcode detector is created to track barcodes.  An associated multi-processor instance
+        // is set to receive the barcode detection results, track the barcodes, and maintain
+        // graphics for each barcode on screen.  The factory is used by the multi-processor to
+        // create a separate tracker instance for each barcode.
+
         // Creates and starts the camera.  Note that this uses a higher resolution in comparison
         // to other detection examples to enable the text recognizer to detect small pieces of text.
         mCameraSource =
@@ -231,7 +263,6 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
      * sending the request.
      */
     private void requestCameraPermission(boolean showSettingScreen) {
-
         if (showSettingScreen) {
             showErrorDialog(true);
         } else {
@@ -264,12 +295,12 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         } else {
             Log.d(TAG, "no text detected");
         }
+
         return text != null;
     }
 
     private void showTextDialog(String detectedText) {
 
-        //detectedText = detectedText.replace("\n", "").replace("\r", " ");
         detectedText = detectedText.replaceAll("[\\t\\n\\r]+", " ");
 
         final Dialog d = new Dialog(mContext);
@@ -303,9 +334,11 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
                 if (Utility.validateStringPresence(edt_detected_text)) {
 
                     productName = edt_detected_text.getText().toString();
+                  //  LifyzerFragment.productName = edt_detected_text.getText().toString();
 
                     productName = Normalizer.normalize(productName, Normalizer.Form.NFD);
                     productName = productName.replaceAll("[^\\p{ASCII}]", "");
+                 //   LifyzerFragment.productName = LifyzerFragment.productName.replaceAll("[^\\p{ASCII}]", "");
 
                     if (((MainActivity) mContext).dtoUser != null) {
                         wsCallProductDetails();
@@ -356,9 +389,10 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         super.onResume();
         Log.e("!_@_", "Onresume call");
         try {
-            if (isOnCreateCalled) {
+            //if (isOnCreateCalled)
+            {
                 manageCamera();
-                isOnCreateCalled = false;
+            //    isOnCreateCalled = false;
             }
             startCameraSource();
         } catch (Exception e) {
@@ -525,7 +559,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             try {
 
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 Attribute attribute = new Attribute();
                 attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
@@ -554,6 +588,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         if (apiCode == WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode()) {
 
             productName = "";
+            //LifyzerFragment.productName = "";
 
             if (object != null) {
                 try {

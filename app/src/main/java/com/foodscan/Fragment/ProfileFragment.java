@@ -269,34 +269,40 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
     }
 
     public void wsCallGetUserFavourite(boolean isProgress, boolean isLoadMore) {
-        if (((MainActivity) mContext).dtoUser != null) {
+        try {
 
-            if (Utility.isNetworkAvailable(mContext)) {
+            if (((MainActivity) mContext).dtoUser != null) {
 
-                ((MainActivity) mContext).mIsLoading = true;
-                String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
+                if (Utility.isNetworkAvailable(mContext)) {
 
-                if (isLoadMore) {
-                    load_more_progressbar.setVisibility(View.VISIBLE);
+                    ((MainActivity) mContext).mIsLoading = true;
+                    String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
+                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
+
+                    if (isLoadMore) {
+                        load_more_progressbar.setVisibility(View.VISIBLE);
+                    }
+
+                    Attribute attribute = new Attribute();
+                    attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
+                    attribute.setTo_index(((MainActivity) mContext).noOfRecords);
+                    attribute.setFrom_index(String.valueOf(((MainActivity) mContext).offset));
+                    attribute.setAccess_key(encodeString);
+                    attribute.setSecret_key(userToken);
+
+                    new WebserviceWrapper(mContext, attribute, ProfileFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
+                            .execute(WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode());
+
+                } else {
+                    // noInternetConnection(getString(R.string.no_internet_connection));
                 }
 
-                Attribute attribute = new Attribute();
-                attribute.setUser_id(String.valueOf(((MainActivity) mContext).dtoUser.getId()));
-                attribute.setTo_index(((MainActivity) mContext).noOfRecords);
-                attribute.setFrom_index(String.valueOf(((MainActivity) mContext).offset));
-                attribute.setAccess_key(encodeString);
-                attribute.setSecret_key(userToken);
-
-                new WebserviceWrapper(mContext, attribute, ProfileFragment.this, isProgress, getString(R.string.Loading_msg)).new WebserviceCaller()
-                        .execute(WebserviceWrapper.WEB_CALLID.USER_FAVOURITE.getTypeCode());
-
             } else {
-                // noInternetConnection(getString(R.string.no_internet_connection));
+                ((MainActivity) mContext).showLoginDialog();
             }
 
-        } else {
-            ((MainActivity) mContext).showLoginDialog();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

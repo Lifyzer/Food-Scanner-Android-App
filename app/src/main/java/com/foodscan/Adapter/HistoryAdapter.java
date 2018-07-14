@@ -4,6 +4,7 @@ package com.foodscan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,11 +75,10 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
         final DTOProduct dtoProduct = ((MainActivity) mContext).historyArrayList.get(position);
         if (dtoProduct != null) {
 
-            if (dtoProduct.getProductImage() != null) {
+            if (dtoProduct.getProductImage() != null && dtoProduct.getProductImage().length() > 0) {
                 Picasso.with(mContext).load(dtoProduct.getProductImage()).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
-
-//                String Image = null;
-//                Picasso.with(mContext).load(Image).placeholder(R.drawable.img_food_placeholder_small).into(viewHolder.img_food);
+            }else {
+                viewHolder.img_food.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.img_food_placeholder_small));
             }
 
 
