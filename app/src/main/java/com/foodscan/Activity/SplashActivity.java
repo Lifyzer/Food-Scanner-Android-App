@@ -96,7 +96,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
             }
 
         } else {
-            //noInternetConnection(getString(R.string.no_internet_connection));
+            noInternetConnection(getString(R.string.no_internet_connection));
         }
 
     }
@@ -132,7 +132,13 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
             @Override
             public void onNegativeActionClicked(DialogFragment fragment) {
                 super.onNegativeActionClicked(fragment);
-                wsCallRefreshToken();
+                //wsCallRefreshToken();
+                if (tinyDB.getBoolean(UserDefaults.IS_LOGIN)) {
+                    updateToken();
+                } else {
+                    wsCallRefreshToken();
+                }
+
             }
         };
 
@@ -187,7 +193,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
         } else if (apiCode == WebserviceWrapper.WEB_CALLID.UPDATE_TOKEN.getTypeCode()) {
             if (object != null) {
                 try {
-                    DTOUpdateToken dtoUpdateToken =  (DTOUpdateToken)object;
+                    DTOUpdateToken dtoUpdateToken = (DTOUpdateToken) object;
                     if (dtoUpdateToken != null) {
                         tinyDB.putString(UserDefaults.USER_TOKEN, dtoUpdateToken.getUserToken());
                     }
