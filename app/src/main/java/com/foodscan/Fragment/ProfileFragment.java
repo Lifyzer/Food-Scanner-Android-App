@@ -70,9 +70,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
             mContext = getActivity();
             tinyDB = new TinyDB(mContext);
 
-
             //realm = Realm.getDefaultInstance();
-
             //dtoUser = realm.where(DTOUser.class).findFirst();
         }
 
@@ -105,8 +103,6 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                     favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
                                 } else {
                                     //favouriteAdapter = new FavouriteAdapter(mContext, ((MainActivity)mContext).favArrayList);
-
-
 
                                     favouriteAdapter = new FavouriteAdapter(mContext);
                                     rv_favourite.setAdapter(favouriteAdapter);
