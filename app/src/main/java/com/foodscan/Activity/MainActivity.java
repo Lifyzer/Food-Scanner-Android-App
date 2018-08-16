@@ -672,8 +672,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (viewPager.getCurrentItem() == 1) {
                 Fragment fragment = adapter.getItem(1);
                 if (fragment instanceof LifyzerFragment) {
-
-
                     LifyzerFragment lifyzerFragment = (LifyzerFragment) fragment;
                     lifyzerFragment.displayDialog(barcode);
                 }
