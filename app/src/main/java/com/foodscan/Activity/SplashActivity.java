@@ -138,7 +138,6 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                 } else {
                     wsCallRefreshToken();
                 }
-
             }
         };
 

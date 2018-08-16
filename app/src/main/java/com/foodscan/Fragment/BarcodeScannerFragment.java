@@ -227,8 +227,8 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
             boolean hasLowStorage = mContext.registerReceiver(null, lowstorageFilter) != null;
 
             if (hasLowStorage) {
-                Toast.makeText(mContext, R.string.low_storage_error, Toast.LENGTH_LONG).show();
-                Log.w(TAG, getString(R.string.low_storage_error));
+                Toast.makeText(mContext, R.string.barcode_low_storage_error, Toast.LENGTH_LONG).show();
+                Log.w(TAG, getString(R.string.barcode_low_storage_error));
             }
         }
 

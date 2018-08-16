@@ -96,6 +96,7 @@ public class WebserviceConnector {
                 connection.setRequestProperty("Content_Type", "application/x-www-form-urlencoded");
 
                 jsonObject = writer.writeValueAsString(request);
+                Log.d(LOG_TAG, "URL : " + url + "");
                 Log.d(LOG_TAG, "REQUEST JSON OBJECT : " + jsonObject + "");
 
                 try (OutputStream output = connection.getOutputStream()) {
