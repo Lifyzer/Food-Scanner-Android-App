@@ -1,3 +1,0 @@
-Add barcode support as well. Fetch barcode field if a barcode is shown instead of the product name on the camera
-
-- https://stackoverflow.com/questions/32999813/preview-size-for-barcode-scanner-from-vision-api/34156158

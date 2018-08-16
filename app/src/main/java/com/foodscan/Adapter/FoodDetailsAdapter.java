@@ -40,6 +40,7 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
             if (position == 0) {
                 //************** Organic  **************//
 
+/*
                 String isOrganic = dtoProduct.getIsOrganic();
                 if (isOrganic != null && isOrganic.length() > 0) {
                     if (isOrganic.equals("1")) {
@@ -55,8 +56,10 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                     viewHolder.img_content.setImageResource(R.drawable.img_organic);
                     viewHolder.setVisibility(true);
                 } else {
+//*/
                     viewHolder.setVisibility(false);
-                }
+//              }
+
             } else if (position == 1) {
                 //************** Protein  **************//
 

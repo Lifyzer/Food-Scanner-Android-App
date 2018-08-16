@@ -96,6 +96,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                 }
             }
 
+/*
             String isOrganic = dtoProduct.getIsOrganic();
             if (isOrganic != null && isOrganic.length() > 0) {
                 if (isOrganic.equals("0")) {
@@ -107,6 +108,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                     viewHolder.txt_product_type.setText(mContext.getString(R.string.Natural_Product));
                 }
             }
+//*/
 
             String createdDate = dtoProduct.getFavouriteCreatedDate();
             if (createdDate != null && createdDate.length() > 0) {

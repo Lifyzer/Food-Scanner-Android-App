@@ -102,6 +102,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                 }
             }
 
+/*
             String isOrganic = dtoProduct.getIsOrganic();
             if (isOrganic != null && isOrganic.length() > 0) {
                 if (isOrganic.equals("0")) {
@@ -112,8 +113,8 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     //Natural product
                     viewHolder.txt_product_type.setText(mContext.getString(R.string.Natural_Product));
                 }
-
             }
+//*/
 
             String createdDate = dtoProduct.getHistoryCreatedDate();
             if (createdDate != null && createdDate.length() > 0) {
