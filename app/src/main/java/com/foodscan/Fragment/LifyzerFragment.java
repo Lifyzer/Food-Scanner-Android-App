@@ -78,7 +78,6 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                 }
             }
         }
-
     }
 
 
@@ -98,7 +97,14 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
         txt_product.setOnClickListener(this);
         txt_barcode.setOnClickListener(this);
 
-        createViewPager();
+        int currentFrag = tinyDB.getInt(UserDefaults.CURRENT_FRAG);
+        if (currentFrag == UserDefaults.CAM_STATE.SCANNING) {
+            createViewPager();
+        } else {
+            replaceBarcode();
+        }
+
+
     }
 
     private void createViewPager() {
@@ -106,10 +112,10 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
         txt_product.setTextColor(Utility.getColorWrapper(mContext, R.color.colorPrimary));
         txt_barcode.setTextColor(Utility.getColorWrapper(mContext, R.color.white));
 
-        ScanFragment detailsFragment = new ScanFragment();
+        ScanFragment scanFragment = new ScanFragment();
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_fragment, detailsFragment);
+        fragmentTransaction.replace(R.id.frame_fragment, scanFragment);
         fragmentTransaction.commit();
 
     }
@@ -133,6 +139,8 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
     public void onResponse(int apiCode, Object object, Exception error) {
 
         if (apiCode == WebserviceWrapper.WEB_CALLID.PRODUCT_DETAILS.getTypeCode()) {
+
+            detectedBarcode = "";
 
             productName = "";
 
@@ -203,6 +211,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
 
                 if (!(f instanceof ScanFragment)) {
+                    tinyDB.putInt(UserDefaults.CURRENT_FRAG, UserDefaults.CAM_STATE.SCANNING);
                     createViewPager();
                 }
 
@@ -213,6 +222,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
 
                 if (!(f instanceof BarcodeScannerFragment)) {
+                    tinyDB.putInt(UserDefaults.CURRENT_FRAG, UserDefaults.CAM_STATE.BARCODE);
                     replaceBarcode();
                 }
 
@@ -253,6 +263,9 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
     }
 
+
+    public String detectedBarcode = "";
+
     public void displayDialog(final Barcode barcode) {
 
         if (barcode != null) {
@@ -261,7 +274,10 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                 @Override
                 public void run() {
 
-                    showTextDialog(barcode.displayValue);
+                    if (!detectedBarcode.equalsIgnoreCase(barcode.displayValue)) {
+                        detectedBarcode = barcode.displayValue;
+                        showTextDialog(barcode.displayValue);
+                    }
                 }
             });
         }
@@ -336,6 +352,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
             try {
 
+
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
@@ -360,13 +377,24 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
     }
 
     public void getCurrentFrag() {
-
         Fragment f = getFragmentManager().findFragmentById(R.id.frame_fragment);
         if (f instanceof ScanFragment) {
             ScanFragment scanFragment = (ScanFragment) f;
             scanFragment.wsCallProductDetails();
         } else if (f instanceof BarcodeScannerFragment) {
             wsCallProductDetails();
+        }
+    }
+
+    public void saveCurrentTab() {
+
+        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.frame_fragment);
+        if (currentFragment != null) {
+            if (currentFragment instanceof BarcodeScannerFragment) {
+                tinyDB.putInt(UserDefaults.CURRENT_FRAG, UserDefaults.CAM_STATE.BARCODE);
+            } else if (currentFragment instanceof ScanFragment) {
+                tinyDB.putInt(UserDefaults.CURRENT_FRAG, UserDefaults.CAM_STATE.SCANNING);
+            }
         }
     }
 

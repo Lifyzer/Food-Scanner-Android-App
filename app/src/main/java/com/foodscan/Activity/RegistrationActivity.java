@@ -104,7 +104,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
             break;
 
-            case R.id.txt_terms_and_condition:{
+            case R.id.txt_terms_and_condition: {
 
                 Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
                 startActivity(intent);
@@ -222,6 +222,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                             DTOUser dtoUser = dtoLoginData.getUser().get(0);
                             if (dtoLoginData.getUserToken() == null) {
+                                Utility.showLongSnackBar(rl_parent, getString(R.string.something_went_wrong), RegistrationActivity.this);
                                 return;
                             } else {
 
@@ -231,7 +232,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 realm.beginTransaction();
                                 realm.copyToRealmOrUpdate(dtoUser);
                                 realm.commitTransaction();
-
 
                                 setResult(dtoUser);
 

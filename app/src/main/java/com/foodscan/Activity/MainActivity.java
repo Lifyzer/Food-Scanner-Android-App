@@ -20,14 +20,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foodscan.Barcode.BarcodeGraphicTracker;
-import com.foodscan.Fragment.BarcodeScannerFragment;
 import com.foodscan.Fragment.HistoryFragment;
 import com.foodscan.Fragment.LifyzerFragment;
 import com.foodscan.Fragment.ProfileFragment;
-import com.foodscan.Fragment.ScanFragment;
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
@@ -44,7 +41,7 @@ import java.util.List;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener,  BarcodeGraphicTracker.BarcodeUpdateListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, BarcodeGraphicTracker.BarcodeUpdateListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public FrameLayout frame_main;
@@ -665,16 +662,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     @Override
     public void onBarcodeDetected(Barcode barcode) {
 
-        if(barcode != null){
+        if (barcode != null) {
 
             Log.e(TAG, "detected");
-            if(viewPager.getCurrentItem() == 1){
+            if (viewPager.getCurrentItem() == 1) {
                 Fragment fragment = adapter.getItem(1);
-                if(fragment instanceof LifyzerFragment){
-                    LifyzerFragment lifyzerFragment = (LifyzerFragment)fragment;
+                if (fragment instanceof LifyzerFragment) {
+
+
+                    LifyzerFragment lifyzerFragment = (LifyzerFragment) fragment;
                     lifyzerFragment.displayDialog(barcode);
                 }
             }
@@ -712,4 +712,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//
+//        //Toast.makeText(mContext, "On back press", Toast.LENGTH_SHORT).show();
+//
+//        if(viewPager != null && (viewPager.getCurrentItem() == 1)){
+//
+//            Fragment fragment = adapter.getItem(1);
+//            if(fragment != null && (fragment instanceof  LifyzerFragment)){
+//
+//                LifyzerFragment lifyzerFragment = (LifyzerFragment)fragment;
+//                lifyzerFragment.saveCurrentTab();
+//            }
+//        }
+//    }
 }

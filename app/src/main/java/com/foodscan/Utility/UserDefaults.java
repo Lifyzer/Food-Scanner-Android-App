@@ -20,5 +20,13 @@ public class UserDefaults {
     public static final String ENCODE_KEY = "key_global_pwd";
     public static final String ENCODE_KEY_IV = "key_iv";
     public static final String PRIVACY_POLICY = "https://lifyzer.com/tos.txt ";
+    public static final String CURRENT_FRAG = "currentFrag";
+
+    public class CAM_STATE{
+
+        public static final int SCANNING  = 0;
+        public static final int BARCODE  = 1;
+
+    }
 
 }

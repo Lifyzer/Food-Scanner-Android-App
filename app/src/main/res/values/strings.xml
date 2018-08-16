@@ -48,6 +48,7 @@
     <string name="not_Organic">Not Organic</string>
 
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="barcode_low_storage_error">Barcode dependencies cannot be downloaded due to low device storage</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="ok">OK</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.</string>
@@ -71,6 +72,7 @@
     <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
 
     <string name="password_and_confirmpass_is_different">Password and Confirm password do not match</string>
+    <string name="something_went_wrong">Something went wrong. Please try again later</string>
     <string name="no_internet_connection">No Internet connection. Please try again later</string>
     <string name="password_length_error">Password length should be at least 5 characters</string>
     <string name="Loading_msg">Loading...</string>
