@@ -234,7 +234,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             boolean hasLowStorage = mContext.registerReceiver(null, lowstorageFilter) != null;
 
             if (hasLowStorage) {
-                //ow storage
+                //low storage
                 Toast.makeText(mContext, R.string.low_storage_error, Toast.LENGTH_LONG).show();
                 Log.w(TAG, getString(R.string.low_storage_error));
 
