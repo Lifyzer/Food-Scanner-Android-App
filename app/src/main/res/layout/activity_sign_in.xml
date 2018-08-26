@@ -36,8 +36,7 @@
                     android:text="@string/Sign_In"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18"
-                    android:textStyle="normal"
-                     />
+                    android:textStyle="normal" />
 
             </RelativeLayout>
 
@@ -55,8 +54,7 @@
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp40"
                     android:gravity="left"
-                    android:text="@string/Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in"
-                     />
+                    android:text="@string/Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in" />
 
 
                 <com.foodscan.CustomViews.EditTextCustom
@@ -69,8 +67,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/gray"
-                    android:textColorHint="@color/light_gray"
-                     />
+                    android:textColorHint="@color/light_gray" />
 
                 <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_password"
@@ -83,8 +80,7 @@
                     android:inputType="textPassword"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
-                    android:textStyle="normal"
-                     />
+                    android:textStyle="normal" />
 
                 <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_signin"
@@ -94,8 +90,7 @@
                     android:background="@drawable/tv_button_green"
                     android:gravity="center"
                     android:text="@string/Sign_In"
-                    android:textStyle="normal"
-                     />
+                    android:textStyle="normal" />
 
                 <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_forgotpass"
@@ -106,8 +101,7 @@
                     android:layout_marginTop="@dimen/dp30"
                     android:padding="@dimen/dp5"
                     android:text="@string/can_not_sign_in_forgot_password"
-                    android:textStyle="normal"
-                     />
+                    android:textStyle="normal" />
 
 
             </RelativeLayout>

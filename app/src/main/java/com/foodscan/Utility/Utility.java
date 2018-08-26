@@ -578,9 +578,9 @@ public class Utility {
     }
 
 
-    public static String encode(String keyString,String keyString_iv, String stringToEncode) {
+    public static String encode(String keyString, String keyString_iv, String stringToEncode) {
 //        return AES_Helper_new.encrypt(stringToEncode, keyString);
-        return AESUtil.encrypt( keyString, keyString_iv,  stringToEncode);
+        return AESUtil.encrypt(keyString, keyString_iv, stringToEncode);
     }
 
 
@@ -676,8 +676,8 @@ public class Utility {
 
 
     public static int getPermissionStatus(Activity activity, String androidPermissionName) {
-        if(ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
-            if(!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)){
+        if (ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)) {
                 return BLOCKED_OR_NEVER_ASKED;
             }
             return DENIED;

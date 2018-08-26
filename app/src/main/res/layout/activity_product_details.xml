@@ -57,7 +57,7 @@
                     android:layout_height="@dimen/dp200"
                     android:background="@color/dark_white"
                     android:src="@drawable/img_placeholder_large"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -100,8 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_product_name"
                     android:layout_toLeftOf="@+id/txt_is_healthy"
-                    android:layout_marginRight="@dimen/dp10"
-                     />
+                    android:layout_marginRight="@dimen/dp10" />
 
                 <TextView
                     android:id="@+id/txt_is_healthy"
@@ -141,12 +140,11 @@
 
 
             <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="@dimen/dp20"-->
-                <!--android:background="@color/dark_white"-->
-                <!--android:layout_below="@+id/rl_name_details"></LinearLayout>-->
-
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/dp20"-->
+            <!--android:background="@color/dark_white"-->
+            <!--android:layout_below="@+id/rl_name_details"></LinearLayout>-->
 
 
         </RelativeLayout>

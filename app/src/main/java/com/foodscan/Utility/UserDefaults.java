@@ -14,18 +14,18 @@ public class UserDefaults {
     public static final String REQ_NO_OF_RECORD = "5";
     public static final int NO_OF_RECORD = 5;
     public static final String NEED_REFRESH_HISTORY = "need_refresh_history";
-    public static final String NEED_REFRESH_FAVOURITE = "need_refresh_favourite" ;
-    public static final String NEED_REFRESH_USER = "need_refresh_user" ;
+    public static final String NEED_REFRESH_FAVOURITE = "need_refresh_favourite";
+    public static final String NEED_REFRESH_USER = "need_refresh_user";
     public static int REQ_DETAILS = 101;
     public static final String ENCODE_KEY = "key_global_pwd";
     public static final String ENCODE_KEY_IV = "key_iv";
     public static final String PRIVACY_POLICY = "https://lifyzer.com/tos.txt ";
     public static final String CURRENT_FRAG = "currentFrag";
 
-    public class CAM_STATE{
+    public class CAM_STATE {
 
-        public static final int SCANNING  = 0;
-        public static final int BARCODE  = 1;
+        public static final int SCANNING = 0;
+        public static final int BARCODE = 1;
 
     }
 

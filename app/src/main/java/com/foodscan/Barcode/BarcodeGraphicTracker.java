@@ -19,7 +19,7 @@ import android.content.Context;
 import android.support.annotation.UiThread;
 
 import com.foodscan.Barcode.GraphicOverlay;
-import  com.foodscan.Barcode.BarcodeGraphic;
+import com.foodscan.Barcode.BarcodeGraphic;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;

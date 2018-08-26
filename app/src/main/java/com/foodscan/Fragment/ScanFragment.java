@@ -124,7 +124,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
         viewFragment = inflater.inflate(R.layout.scan_fragment, container, false);
         mContext = getActivity();
-      //  isOnCreateCalled = true;
+        //  isOnCreateCalled = true;
         mContext = getActivity();
         realm = Realm.getDefaultInstance();
         tinyDB = new TinyDB(mContext);
@@ -336,11 +336,11 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
                 if (Utility.validateStringPresence(edt_detected_text)) {
 
                     productName = edt_detected_text.getText().toString();
-                  //  LifyzerFragment.productName = edt_detected_text.getText().toString();
+                    //  LifyzerFragment.productName = edt_detected_text.getText().toString();
 
                     productName = Normalizer.normalize(productName, Normalizer.Form.NFD);
                     productName = productName.replaceAll("[^\\p{ASCII}]", "");
-                 //   LifyzerFragment.productName = LifyzerFragment.productName.replaceAll("[^\\p{ASCII}]", "");
+                    //   LifyzerFragment.productName = LifyzerFragment.productName.replaceAll("[^\\p{ASCII}]", "");
 
                     if (((MainActivity) mContext).dtoUser != null) {
                         wsCallProductDetails();
@@ -394,7 +394,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
             //if (isOnCreateCalled)
             {
                 manageCamera();
-            //    isOnCreateCalled = false;
+                //    isOnCreateCalled = false;
             }
             startCameraSource();
         } catch (Exception e) {

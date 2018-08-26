@@ -319,5 +319,4 @@ public class HistoryFragment extends Fragment implements ViewPager.OnPageChangeL
     }
 
 
-
 }

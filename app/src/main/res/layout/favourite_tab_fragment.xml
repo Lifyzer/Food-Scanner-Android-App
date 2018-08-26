@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        />
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
     <RelativeLayout
         android:id="@+id/rl_no_data"
@@ -20,8 +19,7 @@
         android:layout_centerInParent="true"
         android:background="@color/white"
         android:gravity="center"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img_no_fav"

@@ -110,9 +110,9 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                                 noDataFound();
                             } else {
                                 wsCallGetUserFavourite(true, false);
-                                if(((MainActivity)mContext).dtoUser != null){
-                                    txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
-                                    txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName());
+                                if (((MainActivity) mContext).dtoUser != null) {
+                                    txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
+                                    txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName());
                                 }
                             }
 
@@ -273,7 +273,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
 
                     ((MainActivity) mContext).mIsLoading = true;
                     String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
+                    String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                     if (isLoadMore) {
                         load_more_progressbar.setVisibility(View.VISIBLE);
@@ -297,7 +297,7 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
                 ((MainActivity) mContext).showLoginDialog();
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -402,10 +402,10 @@ public class ProfileFragment extends Fragment implements WebserviceWrapper.Webse
         }
     }
 
-    public void userDataChanges(){
+    public void userDataChanges() {
 
-        txt_username.setText(((MainActivity)mContext).dtoUser.getFirstName());
-        txt_email.setText(((MainActivity)mContext).dtoUser.getEmail());
+        txt_username.setText(((MainActivity) mContext).dtoUser.getFirstName());
+        txt_email.setText(((MainActivity) mContext).dtoUser.getEmail());
 
     }
 

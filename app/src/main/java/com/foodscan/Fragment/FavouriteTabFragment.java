@@ -40,7 +40,6 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
     private View viewFragment;
 
 
-
     public boolean isViewShown = false, isLoadingFirstTime = true;
 //    private int offset = 0;
 //    private String noOfRecords = UserDefaults.REQ_NO_OF_RECORD;
@@ -134,8 +133,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
                         refreshData();
                         tinyDB.putBoolean(UserDefaults.NEED_REFRESH_FAVOURITE, false);
 
-                    }
-                    else if (((MainActivity) mContext).isFavLoaded) {
+                    } else if (((MainActivity) mContext).isFavLoaded) {
                         if (favouriteAdapter != null) {
                             favouriteAdapter.setArrayList(((MainActivity) mContext).favArrayList);
                         } else {
@@ -233,7 +231,7 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
 
                 ((MainActivity) mContext).mIsLoading = true;
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
+                String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), ((MainActivity) mContext).dtoUser.getGuid());
 
                 if (isLoadMore) {
                     load_more_progressbar.setVisibility(View.VISIBLE);
@@ -361,9 +359,9 @@ public class FavouriteTabFragment extends Fragment implements WebserviceWrapper.
         wsCallGetUserFavourite(false, false);
     }
 
-    public void UpdateData(){
+    public void UpdateData() {
 
-        if(viewFragment != null){
+        if (viewFragment != null) {
 
             if (favouriteAdapter != null) {
                 favouriteAdapter.setArrayList(((MainActivity) mContext).historyArrayList);

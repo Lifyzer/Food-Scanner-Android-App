@@ -49,8 +49,7 @@
         android:layout_marginTop="@dimen/dp20"
         android:background="@drawable/rounded_green_border"
         android:orientation="horizontal"
-        android:weightSum="1"
-        >
+        android:weightSum="1">
         <!--app:cardBackgroundColor="@android:color/transparent"-->
         <!--app:cardCornerRadius="@dimen/dp5"-->
         <!--app:cardPreventCornerOverlap="true"-->

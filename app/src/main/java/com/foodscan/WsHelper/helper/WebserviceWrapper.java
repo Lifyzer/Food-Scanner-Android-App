@@ -23,7 +23,7 @@ public class WebserviceWrapper {
 
     private static final String TAG = WebserviceWrapper.class.getSimpleName();
 
-    private Attribute   attribute;
+    private Attribute attribute;
     private WebserviceResponse webserviceResponse;
     private Context mContext;
     private ContentValues contentValues;
@@ -153,19 +153,19 @@ public class WebserviceWrapper {
                     }
                     break;
 
-                    case CHANGE_PASSWORD:{
+                    case CHANGE_PASSWORD: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.CHANGE_PASSWORD, mContext).execute(attribute, DTOResponse.class, null);
                     }
                     break;
 
-                    case FORGET_PASSWORD:{
+                    case FORGET_PASSWORD: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.FORGOT_PASSWORD, mContext).execute(attribute, DTOResponse.class, null);
                     }
                     break;
                     case UPDATE_TOKEN: {
                         responseObject = new WebserviceConnector(WsConstants.SERVICE_URL + WsConstants.UPDATE_TOKEN, mContext).execute(attribute, DTOUpdateToken.class, null);
                     }
-                        break;
+                    break;
                 }
             } catch (Exception e) {
                 Log.i(TAG, "WebserviceCaller Background Exception : " + e.toString());

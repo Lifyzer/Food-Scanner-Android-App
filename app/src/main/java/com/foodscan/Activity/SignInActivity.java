@@ -97,10 +97,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
             break;
 
-            case R.id.txt_forgotpass:{
+            case R.id.txt_forgotpass: {
                 startActivity(new Intent(mContext, ForgotPasswordActivity.class));
             }
-                break;
+            break;
 
         }
     }
@@ -235,13 +235,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void storeEmailToBeReused()
-    {
+    private void storeEmailToBeReused() {
         tinyDB.putString(USER_EMAIL_KEY, edt_email.getText().toString());
     }
 
-    private void removeOutdatedData()
-    {
+    private void removeOutdatedData() {
         String email = tinyDB.getString(USER_EMAIL_KEY);
         if (!email.isEmpty()) {
             tinyDB.remove(USER_EMAIL_KEY);

@@ -187,8 +187,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     }
 
-    private void retrieveUsedEmail()
-    {
+    private void retrieveUsedEmail() {
         String email = tinyDB.getString(SignInActivity.USER_EMAIL_KEY);
         if (!email.isEmpty()) {
             edt_email.setText(email);

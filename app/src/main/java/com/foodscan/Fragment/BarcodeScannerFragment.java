@@ -49,7 +49,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class BarcodeScannerFragment extends Fragment implements WebserviceWrapper.WebserviceResponse , BarcodeGraphicTracker.BarcodeUpdateListener {
+public class BarcodeScannerFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, BarcodeGraphicTracker.BarcodeUpdateListener {
 
     private static final String TAG = BarcodeScannerFragment.class.getSimpleName();
 
@@ -83,7 +83,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
 
         viewFragment = inflater.inflate(R.layout.barcode_scan_fragment, container, false);
         mContext = getActivity();
-      //  isOnCreateCalled = true;
+        //  isOnCreateCalled = true;
         initView(viewFragment);
 
         return viewFragment;
@@ -127,7 +127,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
         super.onResume();
         Log.e("!_@_", "Onresume call");
         try {
-          //  if (isOnCreateCalled)
+            //  if (isOnCreateCalled)
             {
                 manageCamera();
                 isOnCreateCalled = false;
@@ -190,7 +190,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
      * Creates and starts the camera.  Note that this uses a higher resolution in comparison
      * to other detection examples to enable the barcode detector to detect small barcodes
      * at long distances.
-     *
+     * <p>
      * Suppressing InlinedApi since there is a check that the minimum version is met before using
      * the constant.
      */
@@ -251,9 +251,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
                 .build();
 
 
-
     }
-
 
 
     /**
@@ -327,8 +325,6 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
     }
 
 
-
-
     @Override
     public void onResponse(int apiCode, Object object, Exception error) {
 
@@ -337,7 +333,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
     @Override
     public void onBarcodeDetected(Barcode barcode) {
 
-        Toast.makeText(mContext, "" +barcode,Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "" + barcode, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -438,8 +434,6 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
             mCameraSource.doZoom(detector.getScaleFactor());
         }
     }
-
-
 
 
 }

@@ -14,21 +14,21 @@ import com.foodscan.Utility.Typeface;
 @SuppressLint("AppCompatCustomView")
 public class ButtonCustom extends Button {
 
-	private static final String TAG = ButtonCustom.class.getSimpleName();
+    private static final String TAG = ButtonCustom.class.getSimpleName();
 
-	public ButtonCustom(Context context) {
-		super(context);
-	}
+    public ButtonCustom(Context context) {
+        super(context);
+    }
 
-	public ButtonCustom(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		//setCustomFont(context, attrs);
-	}
+    public ButtonCustom(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        //setCustomFont(context, attrs);
+    }
 
-	public ButtonCustom(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		//setCustomFont(context, attrs);
-	}
+    public ButtonCustom(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        //setCustomFont(context, attrs);
+    }
 
 //	private void setCustomFont(Context context, AttributeSet attrs) {
 //		try {

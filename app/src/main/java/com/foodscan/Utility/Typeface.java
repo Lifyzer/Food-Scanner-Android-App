@@ -13,33 +13,33 @@ import java.util.Hashtable;
  */
 public class Typeface {
 
-	private static final String TAG = Typeface.class.getSimpleName();
+    private static final String TAG = Typeface.class.getSimpleName();
 
-	private static Hashtable<String, android.graphics.Typeface> hashTypeface = new Hashtable<>();
+    private static Hashtable<String, android.graphics.Typeface> hashTypeface = new Hashtable<>();
 
-	public static android.graphics.Typeface getTypeface(Context context, String fontAssetPath) {
-	    try {
-		    android.graphics.Typeface typeface = hashTypeface.get(fontAssetPath);
+    public static android.graphics.Typeface getTypeface(Context context, String fontAssetPath) {
+        try {
+            android.graphics.Typeface typeface = hashTypeface.get(fontAssetPath);
 
-		    if (typeface == null) {
-			    typeface = android.graphics.Typeface.createFromAsset(context.getAssets(), fontAssetPath);
-			    hashTypeface.put(fontAssetPath, typeface);
-		    }
+            if (typeface == null) {
+                typeface = android.graphics.Typeface.createFromAsset(context.getAssets(), fontAssetPath);
+                hashTypeface.put(fontAssetPath, typeface);
+            }
 
-		    return typeface;
-	    } catch (Exception e) {
-		    Log.e(TAG, "getTypeface Exception : " + e.toString());
-		    return null;
-	    }
-	}
+            return typeface;
+        } catch (Exception e) {
+            Log.e(TAG, "getTypeface Exception : " + e.toString());
+            return null;
+        }
+    }
 
-	public static android.graphics.Typeface arialRegular(Context context) {
-		return getTypeface(context, context.getString(R.string.font_arial_regular));
+    public static android.graphics.Typeface arialRegular(Context context) {
+        return getTypeface(context, context.getString(R.string.font_arial_regular));
 
-	}
+    }
 
-	public static android.graphics.Typeface arialbold(Context context) {
-		return getTypeface(context, context.getString(R.string.font_arial_bold));
-	}
+    public static android.graphics.Typeface arialbold(Context context) {
+        return getTypeface(context, context.getString(R.string.font_arial_bold));
+    }
 
 }

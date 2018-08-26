@@ -51,9 +51,9 @@
     </style>
 
     <!--<style name="DialogAnimation">-->
-        <!--<item name="android:windowFullscreen">false</item>-->
-        <!--<item name="android:windowEnterAnimation">@anim/slide_up</item>-->
-        <!--<item name="android:windowExitAnimation">@anim/slide_bottom</item>-->
+    <!--<item name="android:windowFullscreen">false</item>-->
+    <!--<item name="android:windowEnterAnimation">@anim/slide_up</item>-->
+    <!--<item name="android:windowExitAnimation">@anim/slide_bottom</item>-->
     <!--</style>-->
 
     <style name="AppTheme.WhiteAccent">
@@ -77,7 +77,6 @@
         <item name="di_inAnimation">@anim/anim_scale_in</item>
         <item name="di_outAnimation">@anim/anim_scale_out</item>
     </style>
-
 
 
 </resources>

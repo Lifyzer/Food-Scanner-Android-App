@@ -137,8 +137,7 @@
                         android:layout_centerInParent="true"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/dp100"
-                        android:visibility="gone"
-                        >
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/img_no_fav"

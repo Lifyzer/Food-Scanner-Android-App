@@ -46,22 +46,21 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp45"
             android:paddingLeft="@dimen/dp10"
-            android:paddingRight="@dimen/dp10"
-            >
+            android:paddingRight="@dimen/dp10">
 
             <com.foodscan.CustomViews.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Edit_profile"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp14"/>
+                android:textSize="@dimen/sp14" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_arror_right"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
@@ -70,8 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0_2"
             android:layout_below="@+id/rl_edit_profile"
-            android:background="@color/black"
-            />
+            android:background="@color/black" />
 
 
         <!--Change Pass-->
@@ -81,22 +79,21 @@
             android:layout_height="@dimen/dp45"
             android:paddingLeft="@dimen/dp10"
             android:paddingRight="@dimen/dp10"
-            android:layout_below="@+id/view1"
-            >
+            android:layout_below="@+id/view1">
 
             <com.foodscan.CustomViews.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Change_password"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp14"/>
+                android:textSize="@dimen/sp14" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_arror_right"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
@@ -105,8 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0_2"
             android:layout_below="@+id/rl_change_pass"
-            android:background="@color/black"
-            />
+            android:background="@color/black" />
 
         <!--Privacy-->
 
@@ -117,22 +113,21 @@
             android:paddingLeft="@dimen/dp10"
             android:paddingRight="@dimen/dp10"
             android:layout_below="@+id/view2"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <com.foodscan.CustomViews.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Privacy"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp14"/>
+                android:textSize="@dimen/sp14" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_arror_right"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
@@ -142,8 +137,7 @@
             android:layout_height="@dimen/dp0_2"
             android:layout_below="@+id/rl_privacy"
             android:background="@color/black"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <!--Terms and Conditions-->
 
@@ -153,22 +147,21 @@
             android:layout_height="@dimen/dp45"
             android:paddingLeft="@dimen/dp10"
             android:paddingRight="@dimen/dp10"
-            android:layout_below="@+id/view3"
-            >
+            android:layout_below="@+id/view3">
 
             <com.foodscan.CustomViews.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Terms_and_Condition"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp14"/>
+                android:textSize="@dimen/sp14" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_arror_right"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
@@ -177,8 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0_2"
             android:layout_below="@+id/rl_terms"
-            android:background="@color/black"
-            />
+            android:background="@color/black" />
 
     </RelativeLayout>
 
@@ -191,8 +183,7 @@
         android:text="@string/Logout"
         android:textStyle="normal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp40"
-        />
+        android:layout_marginBottom="@dimen/dp40" />
 
     <TextView
         android:id="@+id/version_number"

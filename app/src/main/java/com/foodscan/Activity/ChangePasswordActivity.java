@@ -96,7 +96,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         if (Utility.isNetworkAvailable(mContext)) {
 
             String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
-            String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY),tinyDB.getString(UserDefaults.ENCODE_KEY_IV), dtoUser.getGuid());
+            String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), dtoUser.getGuid());
 
             Attribute attribute = new Attribute();
             attribute.setUser_id(String.valueOf(dtoUser.getId()));

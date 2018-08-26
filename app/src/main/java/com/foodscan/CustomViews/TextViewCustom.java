@@ -34,7 +34,7 @@ public class TextViewCustom extends TextView {
 
     private void init() {
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/arial.ttf");
-        setTypeface(tf ,0);
+        setTypeface(tf, 0);
 
     }
 

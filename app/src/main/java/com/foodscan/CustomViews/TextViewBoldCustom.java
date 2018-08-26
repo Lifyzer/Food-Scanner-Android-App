@@ -30,7 +30,7 @@ public class TextViewBoldCustom extends TextView {
 
     private void init() {
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/aribl_bold.ttf");
-        setTypeface(tf ,0);
+        setTypeface(tf, 0);
 
     }
 

@@ -57,7 +57,7 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
                     viewHolder.setVisibility(true);
                 } else {
 //*/
-                    viewHolder.setVisibility(false);
+                viewHolder.setVisibility(false);
 //              }
 
             } else if (position == 1) {

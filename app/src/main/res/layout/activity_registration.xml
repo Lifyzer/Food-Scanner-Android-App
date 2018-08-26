@@ -54,9 +54,7 @@
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
                     android:inputType="text"
-                    android:imeOptions="actionNext"
-                    />
-
+                    android:imeOptions="actionNext" />
 
 
                 <com.foodscan.CustomViews.EditTextCustom
@@ -69,8 +67,7 @@
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
                     android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
 
                 <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_password"
@@ -82,8 +79,7 @@
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
                     android:inputType="textPassword"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
 
                 <com.foodscan.CustomViews.EditTextCustom
                     android:id="@+id/edt_confirm_password"
