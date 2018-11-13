@@ -2,7 +2,7 @@
 
 *The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer).*
 
-![Healthy Food, Healthy Tomato](extras/assets/broccoli-healthy-food.svg)
+[![Get Lifyzer, Healthy Food on Google Play](extras/assets/googleplay-badge.svg)](https://play.google.com/store/apps/details?id=com.lifyzer "Get It on Google Play")
 
 
 ## About The App 🤔
