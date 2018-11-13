@@ -7,9 +7,9 @@
 
 ## Features
 
-This Food Scanner Android app lets you:
+This Food Scanner Android App lets you:
 
-- Scan any items with QR codes, barcoes, Optical Character Recognition (OCR).
+- Scan any items with QR codes, barcodes, Optical Character Recognition (OCR).
 - Favorite the good products you want to highlight.
 - See all scanned products in the history section.
 - See all information about the item (with lovely icons).
