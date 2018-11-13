@@ -20,7 +20,7 @@ public enum AESUtil {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, makeKey(keyString), makeIv(keyString_iv));
             return Base64.encodeBytes(cipher.doFinal(stringToEncode.getBytes()));
-//			return encodeString(ENCRYPTION_KEY,src);
+//            return encodeString(ENCRYPTION_KEY,src);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

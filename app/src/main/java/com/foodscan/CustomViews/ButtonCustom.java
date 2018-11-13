@@ -30,16 +30,16 @@ public class ButtonCustom extends Button {
         //setCustomFont(context, attrs);
     }
 
-//	private void setCustomFont(Context context, AttributeSet attrs) {
-//		try {
-//			TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomFont);
-//			String customFont = typedArray.getString(R.styleable.CustomFont_font);
-//			if (customFont != null && customFont.length() > 0) {
-//				setTypeface(Typeface.getTypeface(context, customFont));
-//			}
-//			typedArray.recycle();
-//		} catch (Exception e) {
-//			Log.e(TAG, "setCustomFont Exception : " + e.toString());
-//		}
-//	}
+//    private void setCustomFont(Context context, AttributeSet attrs) {
+//        try {
+//            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomFont);
+//            String customFont = typedArray.getString(R.styleable.CustomFont_font);
+//            if (customFont != null && customFont.length() > 0) {
+//                setTypeface(Typeface.getTypeface(context, customFont));
+//            }
+//            typedArray.recycle();
+//        } catch (Exception e) {
+//            Log.e(TAG, "setCustomFont Exception : " + e.toString());
+//        }
+//    }
 }
