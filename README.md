@@ -27,5 +27,10 @@ This Food Scanner Android App lets you:
 🍓 [Pierre-Henry, App Founder](http://pierrehenry.be), Passionate about healthy food, healthy life, and programming.  🍍
 
 
-## 
+## Yummy Screenshots 😍
 
+![Scan a bottle of juice](extras/assets/screenshots/scan-healthy-juice-bottle.jpg)
+
+![List of scanned items](extras/assets/screenshots/lifyzer-history-scanned-food-items.png)
+
+![Details of an food product scanned](extras/assets/screenshots/lifyzer-food-product-details.png)
