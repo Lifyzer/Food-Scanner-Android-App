@@ -1,8 +1,9 @@
 # Android Food Scanner App
 
-*The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer).*
+*The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝*
 
 ![Healthy Food, Healthy Tomato](extras/assets/broccoli-healthy-food.svg)
+
 
 ## About The App 🤔
 
@@ -22,9 +23,11 @@ This Food Scanner Android App lets you:
 - Directly be able to see if the product is **good** (healthy) or **bad** (unhealthy).
 
 
+<!--
 ## The Founder
 
 🍓 [Pierre-Henry, App Founder](http://pierrehenry.be), Passionate about healthy food, healthy life, and programming.  🍍
+-->
 
 
 ## Yummy Screenshots 😍
