@@ -23,11 +23,9 @@ This Food Scanner Android App lets you:
 - Directly be able to see if the product is **good** (healthy) or **bad** (unhealthy).
 
 
-<!--
 ## The Founder
 
 🍓 [Pierre-Henry, App Founder](http://pierrehenry.be), Passionate about healthy food, healthy life, and programming.  🍍
--->
 
 
 ## Yummy Screenshots 😍
