@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
 
+
         frame_main = findViewById(R.id.frame_main);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);

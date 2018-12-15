@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.foodscan.Activity.MainActivity">
 
     <FrameLayout
+        android:id="@+id/frame_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frame_main">
+        android:layout_height="match_parent">
         <!--android:layout_below="@+id/container_toolbar"-->
 
         <com.foodscan.CustomViews.NonSwipeableViewPager
@@ -29,10 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
             android:layout_below="@+id/viewpager"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="@color/white"
             app:tabGravity="fill"
-            android:layout_alignParentBottom="true"
             app:tabMode="fixed" />
         <!--app:tabIndicatorColor="@android:color/white"-->
 

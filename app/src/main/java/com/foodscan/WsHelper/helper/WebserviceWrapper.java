@@ -19,6 +19,7 @@ import dmax.dialog.SpotsDialog;
 /**
  * WebserviceWrapper class to make calls for all the api.
  */
+
 public class WebserviceWrapper {
 
     private static final String TAG = WebserviceWrapper.class.getSimpleName();
