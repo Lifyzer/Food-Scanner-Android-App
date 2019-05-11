@@ -97,6 +97,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
             }
 
 /*
+            /* Shows if the product is organic or not */
             String isOrganic = dtoProduct.getIsOrganic();
             if (isOrganic != null && isOrganic.length() > 0) {
                 if (isOrganic.equals("0")) {
