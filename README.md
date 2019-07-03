@@ -25,7 +25,11 @@ This Food Scanner Android App lets you:
 
 ## The Founder 👨‍🍳
 
-🍓 [Pierre-Henry, App Founder](http://pierrehenry.be), Passionate about healthy food, healthy life, and programming.  🍍
+[![Pierre-Henry Soria](https://avatars0.githubusercontent.com/u/1325411?s=200)](https://ph7.me "Pierre-Henry Soria: Software Engineer")
+
+🍓 [Pierre-Henry, App Founder](https://pierrehenry.be), passionate about healthy food, healthy life, and IT! 🍍
+
+You can reach me at: *pierre {(AT)} soria {(D0T)} email*
 
 
 ## Yummy Screenshots 😍
