@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-            Log.e(TAG, "" + e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                         } catch (Exception e) {
-                            Log.e(TAG, "" + e.getMessage());
+                            Log.e(TAG, e.getMessage());
 
                         }
                     }
@@ -502,7 +502,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
 
                             } catch (Exception e) {
-                                Log.e(TAG, "" + e.getMessage());
+                                Log.e(TAG, e.getMessage());
                             }
 
                             break;
@@ -543,7 +543,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //
 //                            } catch (Exception e) {
-//                                Log.e(TAG, "" + e.getMessage());
+//                                Log.e(TAG, e.getMessage());
 //                            }
 //
 //                        }
@@ -597,7 +597,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                 } catch (Exception e) {
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
 
                 break;

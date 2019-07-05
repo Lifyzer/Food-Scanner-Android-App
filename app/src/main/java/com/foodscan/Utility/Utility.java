@@ -220,7 +220,7 @@ public class Utility {
             return time;
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e(TAG, "" + e.getMessage());
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }

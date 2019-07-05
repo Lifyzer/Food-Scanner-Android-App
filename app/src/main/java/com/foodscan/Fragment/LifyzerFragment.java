@@ -168,7 +168,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
 
@@ -368,7 +368,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         } else {

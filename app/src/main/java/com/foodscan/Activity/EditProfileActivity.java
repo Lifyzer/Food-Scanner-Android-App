@@ -133,7 +133,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         } else {
@@ -220,7 +220,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }

@@ -216,7 +216,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }

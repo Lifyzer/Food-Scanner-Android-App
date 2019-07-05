@@ -132,7 +132,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         .execute(WebserviceWrapper.WEB_CALLID.REGISTRATION.getTypeCode());
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         } else {
@@ -248,7 +248,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }

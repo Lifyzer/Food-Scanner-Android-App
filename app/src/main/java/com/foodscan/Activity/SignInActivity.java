@@ -121,7 +121,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         .execute(WebserviceWrapper.WEB_CALLID.LOGIN.getTypeCode());
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         } else {
@@ -216,10 +216,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         Utility.showLongSnackBar(rl_parent, dtoLoginData.getMessage(), SignInActivity.this);
                     }
 
-
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }

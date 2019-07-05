@@ -92,7 +92,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         } else {
@@ -115,7 +115,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "" + e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         } else {
             noInternetConnection(getString(R.string.no_internet_connection));
@@ -186,7 +186,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         } else if (apiCode == WebserviceWrapper.WEB_CALLID.UPDATE_TOKEN.getTypeCode()) {
@@ -199,7 +199,7 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, "" + e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
 
