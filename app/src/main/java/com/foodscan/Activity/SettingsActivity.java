@@ -179,7 +179,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         }
-        // The directory is now empty so delete it
+
+        // The directory is now empty, so delete it
         return dir.delete();
     }
 
