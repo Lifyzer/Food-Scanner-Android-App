@@ -9,11 +9,11 @@ apply plugin: 'realm-android'
 apply from: "../utils.gradle"
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.lifyzer"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode getVersionCode(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_BUILD)
         versionName getVersionName(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
         // Enabling multidex support.
@@ -30,11 +30,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
     implementation 'com.squareup.picasso:picasso:2.5.2'
