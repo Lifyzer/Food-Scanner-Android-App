@@ -67,6 +67,11 @@ public class Attribute {
     @JsonProperty("GUID")
     private String GUID;
 
+    @JsonProperty("is_barcode_scanned")
+    private int is_barcode_scanned;
+
+
+
 
     // *************************************//
     // *********  getter setter  *********** //
@@ -232,5 +237,14 @@ public class Attribute {
         this.GUID = GUID;
     }
 
+    @JsonProperty("is_barcode_scanned")
+    public int getIs_barcode_scanned() {
+        return is_barcode_scanned;
+    }
+
+    @JsonProperty("is_barcode_scanned")
+    public void setIs_barcode_scanned(int is_barcode_scanned) {
+        this.is_barcode_scanned = is_barcode_scanned;
+    }
 }
 

@@ -103,8 +103,6 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
         } else {
             replaceBarcode();
         }
-
-
     }
 
     private void createViewPager() {
@@ -361,6 +359,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                 attribute.setProduct_name(productName);
                 attribute.setAccess_key(encodeString);
                 attribute.setSecret_key(userToken);
+                attribute.setIs_barcode_scanned(1);
 
                 new WebserviceWrapper(mContext, attribute, LifyzerFragment.this, true, getString(R.string.Loading_msg))
                         .new WebserviceCaller()
