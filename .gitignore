@@ -7,6 +7,11 @@
 /captures
 .externalNativeBuild
 
+# Built application files
+*.apk
+*.ap_
+*.aab
+
 # Java class files
 *.class
 

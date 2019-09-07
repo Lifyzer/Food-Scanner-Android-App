@@ -119,7 +119,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 String userToken = tinyDB.getString(UserDefaults.USER_TOKEN);
                 String encodeString = Utility.encode(tinyDB.getString(UserDefaults.ENCODE_KEY), tinyDB.getString(UserDefaults.ENCODE_KEY_IV), dtoUser.getGuid());
 
-
                 Attribute attribute = new Attribute();
                 attribute.setFirst_name(edt_full_name.getText().toString());
                 attribute.setEmail_id(edt_email_id.getText().toString());
