@@ -38,27 +38,18 @@ public class FoodDetailsAdapter extends RecyclerView.Adapter<FoodDetailsAdapter.
         if (dtoProduct != null) {
 
             if (position == 0) {
-                //************** Organic  **************//
-
-/*
+                //************** Organic **************//
                 String isOrganic = dtoProduct.getIsOrganic();
-                if (isOrganic != null && isOrganic.length() > 0) {
-                    if (isOrganic.equals("1")) {
-                        viewHolder.txt_content_amount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_bg_green_small, 0);
-                        viewHolder.txt_content_name.setText(mContext.getString(R.string.Organic));
-                        viewHolder.txt_content_comments.setText(mContext.getString(R.string.Natural_Product));
-                    } else { // not organic :(
-                        viewHolder.txt_content_amount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_bg_red_small, 0);
-                        viewHolder.txt_content_name.setText(mContext.getString(R.string.not_Organic));
-                        viewHolder.txt_content_comments.setText(mContext.getString(R.string.Not_Natural_Product));
-                    }
+                if (isOrganic != null && isOrganic.length() > 0 && isOrganic.equals("1")) {
+                    viewHolder.txt_content_amount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_bg_green_small, 0);
+                    viewHolder.txt_content_name.setText(mContext.getString(R.string.Organic));
+                    viewHolder.txt_content_comments.setText(mContext.getString(R.string.Natural_Product));
 
                     viewHolder.img_content.setImageResource(R.drawable.img_organic);
                     viewHolder.setVisibility(true);
                 } else {
-//*/
-                viewHolder.setVisibility(false);
-//              }
+                    viewHolder.setVisibility(false);
+                }
 
             } else if (position == 1) {
                 //************** Protein  **************//
