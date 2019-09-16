@@ -19,7 +19,8 @@ public class UserDefaults {
     public static int REQ_DETAILS = 101;
     public static final String ENCODE_KEY = "key_global_pwd";
     public static final String ENCODE_KEY_IV = "key_iv";
-    public static final String PRIVACY_POLICY = "https://lifyzer.com/tos.txt ";
+    public static final String PRIVACY_POLICY = "https://lifyzer.com/privacy.txt";
+    public static final String TERMS_CONDITION = "https://lifyzer.com/tos.txt";
     public static final String CURRENT_FRAG = "currentFrag";
 
     public class CAM_STATE {

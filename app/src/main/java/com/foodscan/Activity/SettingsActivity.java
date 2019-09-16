@@ -108,7 +108,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.rl_terms: {
 
-                Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
+                Intent intent = new Intent(mContext, TermsConditionActivity.class);
                 startActivity(intent);
 
             }
