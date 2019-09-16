@@ -8,7 +8,6 @@
     tools:context="com.foodscan.Activity.SettingsActivity">
 
     <!--Toolbar-->
-
     <RelativeLayout
         android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
@@ -28,10 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/img_back_white"
-            android:padding="@dimen/dp10" />
-
-
+            android:padding="@dimen/dp10"
+            android:src="@drawable/img_back_white" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -163,19 +160,18 @@
             android:layout_height="@dimen/dp0_2"
             android:layout_below="@+id/rl_terms"
             android:background="@color/black" />
-
     </RelativeLayout>
 
     <com.foodscan.CustomViews.TextViewCustom
         android:id="@+id/txt_logout"
         style="@style/EditInputField"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/dp40"
+        android:layout_marginBottom="@dimen/dp40"
         android:background="@drawable/tv_button_green"
         android:gravity="center"
         android:text="@string/Logout"
-        android:textStyle="normal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp40" />
+        android:textStyle="normal" />
 
     <TextView
         android:id="@+id/version_number"
