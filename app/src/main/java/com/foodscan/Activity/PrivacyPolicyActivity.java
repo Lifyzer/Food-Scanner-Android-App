@@ -58,8 +58,6 @@ public class PrivacyPolicyActivity extends AppCompatActivity implements View.OnC
             }
             break;
 
-
         }
-
     }
 }
