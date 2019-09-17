@@ -107,21 +107,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 }
 
                 String isHealthy = dtoProduct.getIsHealthy();
-                if (isHealthy != null && isHealthy.length() > 0) {
-                    if (isHealthy.equals("0")) {
-
-                        //Not healthy
-                        txt_is_healthy.setText(mContext.getString(R.string.Poor));
-                        txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_red_small, 0, 0, 0);
-                        txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.red));
-
-                    } else if (isHealthy.equals("1")) {
-
-                        //Healthy
-                        txt_is_healthy.setText(mContext.getString(R.string.Excellent));
-                        txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_green_small, 0, 0, 0);
-                        txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
-                    }
+                if (isHealthy != null && isHealthy.length() > 0 && isHealthy.equals("1")) {
+                    txt_is_healthy.setText(mContext.getString(R.string.Healthy));
+                    txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_green_small, 0, 0, 0);
+                    txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
                 }
             }
         }
