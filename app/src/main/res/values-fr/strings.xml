@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">Lifyzer</string>
+
+    <string name="font_arial_regular">fonts/arial.ttf</string>
+
+    <string name="font_arial_bold">fonts/aribl_bold.ttf</string>
+
+    <string name="SCAN_FOOD">Lifyzer</string>
+    <string name="Scanfood_is_help_you_to_get_food_details_such_as_protein_fat_calories">Lifyzer helps you to eat well &amp; healthy and gives you food details such as Protein, Fat, Calories</string>
+    <string name="Sign_In">Sign In</string>
+    <string name="Create_New_Account">Créer un nouveau compte</string>
+    <string name="copyright">\u00a9 Lifyzer Healthy Food</string>
+    <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose and click to Sign In</string>
+    <string name="Email_Id">Email ID</string>
+    <string name="Password">Password</string>
+    <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
+    <string name="Forgot_Password">Mot de passe oublié</string>
+    <string name="Forgotpassword_instruction">Pas de problème ! Il suffit de donner votre identifiant email et nous vous enverrons un nouveau mot de passe sur votre identifiant</string>
+    <string name="Send">Send</string>
+    <string name="First_name">Prénom</string>
+    <string name="Last_Name">Nom de famille</string>
+    <string name="Confirm_Password">Confirmez mot de passe</string>
+    <string name="Terms_and_condition"><![CDATA[By Creating Account, You are automatically accepting all the Terms & Condition]]></string>
+    <string name="Process">Proceed</string>
+    <string name="History">Historique</string>
+    <string name="Favourite">Favoris</string>
+    <string name="Scan_Food">Lifyzer</string>
+    <string name="Profile">Profile</string>
+    <string name="PERSONAL">PERSONAL</string>
+    <string name="FAVORITE_FOOD">NOURRITURE FAVORITE</string>
+    <string name="Create_Account">Créer un compte</string>
+    <string name="Full_name">Nom</string>
+    <string name="Protein">Protein</string>
+    <string name="Fiber">Fibre</string>
+    <string name="Sugar">Sugar</string>
+    <string name="Salt">Salt</string>
+    <string name="Ingredients">Ingrédients</string>
+    <string name="Fat">Gras</string>
+    <string name="Calories">Calories</string>
+    <string name="Vitamin">Vitamin</string>
+    <string name="Saturated_fat">Saturated Fat</string>
+    <string name="Carbohydrate">Glucides</string>
+    <string name="dietary_fiber">Dietary Fiber</string>
+    <string name="Healthy">Bon ! &#129382;</string>
+    <string name="Excellent">Excellent</string>
+    <string name="Poor">Poor</string>
+    <string name="Organic">Organic</string>
+    <string name="not_Organic">Not Organic</string>
+
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="barcode_low_storage_error">Barcode dependencies cannot be downloaded due to low device storage</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="ok">OK</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.</string>
+    <string name="no_camera_permission_showSetting">This application cannot run because it does not have the camera permission.
+            Do you want to Allow Permission ?</string>
+
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_email">Please enter email ID</string>
+
+    <string name="please_enter_current_password">Please enter current password</string>
+    <string name="please_enter_new_password">Please enter new password</string>
+    <string name="please_enter_first_name">Please enter first name</string>
+    <string name="please_enter_full_name">Please enter full name</string>
+    <string name="please_enter_valid_email">Please enter valid email address</string>
+    <string name="forget_password_success">Please check your email to get password</string>
+    <string name="password_change_success">Your Password has been changed successfully</string>
+    <string name="profile_change_success">Your Profile is updated successfully</string>
+    <string name="please_login">To perform any action please login to FoodScan app</string>
+    <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
+
+    <string name="password_and_confirmpass_is_different">Password and Confirm password do not match</string>
+    <string name="something_went_wrong">Something went wrong. Please try again later</string>
+    <string name="no_internet_connection">No Internet connection. Please try again later</string>
+    <string name="password_length_error">Password length should be at least 5 characters</string>
+    <string name="Loading_msg">Loading...</string>
+    <string name="Processing_msg">Processing...</string>
+    <string name="OK">OK</string>
+    <string name="Thank_You">Thank You!</string>
+    <string name="You_have_successfully_login">You have successfully registered</string>
+    <string name="Food_Details">DÉTAILS</string>
+    <string name="View_Product">View Product</string>
+    <string name="No_Result">No Result</string>
+    <string name="Sorry_no_product_available_in_database">We are really sorry. In our database this product is not available</string>
+    <string name="Natural_Product">Natural Product</string>
+    <string name="Not_Natural_Product">Not Natural Product</string>
+    <string name="No_Data_Available">No Data Available</string>
+    <string name="Settings">Settings</string>
+    <string name="Edit_profile">Editer le profil</string>
+    <string name="Change_password">Changer mot de passe</string>
+    <string name="Privacy">Privacy</string>
+    <string name="Terms_and_Condition"><![CDATA[Terms & Conditions]]></string>
+    <string name="Logout">Logout</string>
+    <string name="Save">Save</string>
+    <string name="Change">Changement</string>
+    <string name="Current_Password">Mot de passe actuel</string>
+    <string name="New_Password">New Password</string>
+    <string name="The_Product_Name">The Product Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="Exit">Sortir</string>
+    <string name="Product">Product</string>
+    <string name="Barcode">Code barre</string>
+
+</resources>
