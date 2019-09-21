@@ -6,8 +6,8 @@
     tools:context="com.foodscan.Activity.SplashActivity">
 
     <ImageView
+        android:id="@+id/img_splash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img_splash_bg" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

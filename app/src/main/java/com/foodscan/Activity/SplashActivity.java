@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.foodscan.R;
 import com.foodscan.Utility.TinyDB;
@@ -19,6 +20,7 @@ import com.foodscan.WsHelper.model.DTOUser;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
+import com.squareup.picasso.Picasso;
 
 import io.realm.Realm;
 
@@ -39,9 +41,14 @@ public class SplashActivity extends AppCompatActivity implements WebserviceWrapp
 
         mContext = SplashActivity.this;
         tinyDB = new TinyDB(mContext);
-
         realm = Realm.getDefaultInstance();
 
+        ImageView img_splash = findViewById(R.id.img_splash);
+        Picasso.with(mContext)
+                .load(R.drawable.img_splash_bg)
+                .resize(Utility.getScreenWidth(mContext),Utility.getScreenHeight())
+                .centerCrop()
+                .into(img_splash);
     }
 
     @Override

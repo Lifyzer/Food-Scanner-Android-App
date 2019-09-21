@@ -3,24 +3,30 @@ package com.foodscan.Fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
+import com.foodscan.Barcode.CameraSource;
 import com.foodscan.R;
+import com.foodscan.Utility.FlashlightProvider;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
@@ -42,7 +48,9 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
     private Context mContext;
     private View viewFragment;
     private FrameLayout frame_fragment;
-
+    Toolbar toolbar;
+    private static boolean isFlashOn;
+    FlashlightProvider flashlightProvider;
 //    public ViewPagerAdapter viewPagerAdapter;
 
     public RelativeLayout rl_parent;
@@ -51,6 +59,9 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
     private TinyDB tinyDB;
 
     public boolean isViewShown = false, isLoadingFirstTime = true;
+    private CameraSource mCameraSource;
+    BarcodeScannerFragment detailsFragment;
+
 
     @Nullable
     @Override
@@ -78,6 +89,8 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                 }
             }
         }
+
+        flashlightProvider = new FlashlightProvider(getContext());
     }
 
 
@@ -88,8 +101,27 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
         txt_product = rootView.findViewById(R.id.txt_product);
         txt_barcode = rootView.findViewById(R.id.txt_barcode);
         frame_fragment = rootView.findViewById(R.id.frame_fragment);
+        toolbar = rootView.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.flash_light_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
 
+                if (item.getItemId() == R.id.flashlight) {
+
+                    if (hasFlash()) {
+                        if (isFlashOn()) {
+                            flashlightProvider.turnFlashlightOff();
+                        } else {
+                            flashlightProvider.turnFlashlightOn();
+                        }
+                    }
+                    //Toast.makeText(getActivity(), "Turn on flash light", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
     }
 
     private void initGlobal() {
@@ -118,13 +150,24 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
     }
 
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.main_menu, menu);
+//
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void replaceBarcode() {
 
         txt_product.setTextColor(Utility.getColorWrapper(mContext, R.color.white));
         txt_barcode.setTextColor(Utility.getColorWrapper(mContext, R.color.colorPrimary));
 
-        BarcodeScannerFragment detailsFragment = new BarcodeScannerFragment();
+        detailsFragment = new BarcodeScannerFragment();
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_fragment, detailsFragment);
@@ -397,4 +440,12 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
         }
     }
 
+    protected boolean hasFlash() {
+        return getActivity().getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    }
+
+    protected static boolean isFlashOn() {
+        return isFlashOn;
+    }
 }
+

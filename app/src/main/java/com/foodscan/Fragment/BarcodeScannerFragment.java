@@ -2,7 +2,6 @@ package com.foodscan.Fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,14 +15,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +33,11 @@ import com.foodscan.Barcode.BarcodeTrackerFactory;
 import com.foodscan.Barcode.CameraSource;
 import com.foodscan.Barcode.CameraSourcePreview;
 import com.foodscan.Barcode.GraphicOverlay;
-import com.foodscan.OCR.OcrGraphic;
 import com.foodscan.R;
 import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
@@ -251,6 +246,10 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
                 .build();
 
 
+    }
+
+    public CameraSource getCameraSourse(){
+        return mCameraSource;
     }
 
 
