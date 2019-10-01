@@ -20,13 +20,11 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
-import com.foodscan.Barcode.CameraSource;
+import com.foodscan.Interfaces.FlashLightChangeListner;
 import com.foodscan.R;
-import com.foodscan.Utility.FlashlightProvider;
 import com.foodscan.Utility.TinyDB;
 import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
@@ -44,24 +42,18 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
     private static final String TAG = LifyzerFragment.class.getSimpleName();
     public static String productName;
-
     private Context mContext;
     private View viewFragment;
     private FrameLayout frame_fragment;
     Toolbar toolbar;
-    private static boolean isFlashOn;
-    FlashlightProvider flashlightProvider;
-//    public ViewPagerAdapter viewPagerAdapter;
-
     public RelativeLayout rl_parent;
-    //public ViewPager viewPager;
     private TextView txt_product, txt_barcode;
     private TinyDB tinyDB;
 
     public boolean isViewShown = false, isLoadingFirstTime = true;
-    private CameraSource mCameraSource;
-    BarcodeScannerFragment detailsFragment;
-
+    BarcodeScannerFragment barcodeFragment;
+    ScanFragment scanFragment;
+    FlashLightChangeListner flashLightChangeListner;
 
     @Nullable
     @Override
@@ -89,15 +81,12 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
                 }
             }
         }
-
-        flashlightProvider = new FlashlightProvider(getContext());
     }
 
 
     private void setUpControls(View rootView) {
 
         rl_parent = rootView.findViewById(R.id.rl_parent);
-        //viewPager = rootView.findViewById(R.id.viewpager);
         txt_product = rootView.findViewById(R.id.txt_product);
         txt_barcode = rootView.findViewById(R.id.txt_barcode);
         frame_fragment = rootView.findViewById(R.id.frame_fragment);
@@ -109,15 +98,29 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
             public boolean onMenuItemClick(MenuItem item) {
 
                 if (item.getItemId() == R.id.flashlight) {
-
                     if (hasFlash()) {
+                        int currentFrag = tinyDB.getInt(UserDefaults.CURRENT_FRAG);
+
                         if (isFlashOn()) {
-                            flashlightProvider.turnFlashlightOff();
+                            UserDefaults.isFLashLightOn = false;
+                            if (currentFrag == UserDefaults.CAM_STATE.SCANNING) {
+                                flashLightChangeListner = scanFragment;
+                                flashLightChangeListner.onFlashLightToggle(false);
+                            } else {
+                                flashLightChangeListner = barcodeFragment;
+                                flashLightChangeListner.onFlashLightToggle(false);
+                            }
                         } else {
-                            flashlightProvider.turnFlashlightOn();
+                            UserDefaults.isFLashLightOn = true;
+                            if (currentFrag == UserDefaults.CAM_STATE.SCANNING) {
+                                flashLightChangeListner = scanFragment;
+                                flashLightChangeListner.onFlashLightToggle(true);
+                            } else {
+                                flashLightChangeListner = barcodeFragment;
+                                flashLightChangeListner.onFlashLightToggle(true);
+                            }
                         }
                     }
-                    //Toast.makeText(getActivity(), "Turn on flash light", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -131,18 +134,18 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
         int currentFrag = tinyDB.getInt(UserDefaults.CURRENT_FRAG);
         if (currentFrag == UserDefaults.CAM_STATE.SCANNING) {
-            createViewPager();
+            replaceProductScan();
         } else {
             replaceBarcode();
         }
     }
 
-    private void createViewPager() {
+    private void replaceProductScan() {
 
         txt_product.setTextColor(Utility.getColorWrapper(mContext, R.color.colorPrimary));
         txt_barcode.setTextColor(Utility.getColorWrapper(mContext, R.color.white));
 
-        ScanFragment scanFragment = new ScanFragment();
+        scanFragment = new ScanFragment();
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_fragment, scanFragment);
@@ -150,27 +153,15 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.main_menu, menu);
-//
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
-
     private void replaceBarcode() {
 
         txt_product.setTextColor(Utility.getColorWrapper(mContext, R.color.white));
         txt_barcode.setTextColor(Utility.getColorWrapper(mContext, R.color.colorPrimary));
 
-        detailsFragment = new BarcodeScannerFragment();
+        barcodeFragment = new BarcodeScannerFragment();
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_fragment, detailsFragment);
+        fragmentTransaction.replace(R.id.frame_fragment, barcodeFragment);
         fragmentTransaction.commit();
 
     }
@@ -250,10 +241,9 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
 
             case R.id.txt_product: {
 
-
                 if (!(f instanceof ScanFragment)) {
                     tinyDB.putInt(UserDefaults.CURRENT_FRAG, UserDefaults.CAM_STATE.SCANNING);
-                    createViewPager();
+                    replaceProductScan();
                 }
 
             }
@@ -445,7 +435,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
     }
 
     protected static boolean isFlashOn() {
-        return isFlashOn;
+        return UserDefaults.isFLashLightOn;
     }
 }
 

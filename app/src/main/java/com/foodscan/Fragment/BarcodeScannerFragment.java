@@ -33,7 +33,9 @@ import com.foodscan.Barcode.BarcodeTrackerFactory;
 import com.foodscan.Barcode.CameraSource;
 import com.foodscan.Barcode.CameraSourcePreview;
 import com.foodscan.Barcode.GraphicOverlay;
+import com.foodscan.Interfaces.FlashLightChangeListner;
 import com.foodscan.R;
+import com.foodscan.Utility.UserDefaults;
 import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.google.android.gms.common.ConnectionResult;
@@ -44,26 +46,22 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class BarcodeScannerFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, BarcodeGraphicTracker.BarcodeUpdateListener {
+public class BarcodeScannerFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, BarcodeGraphicTracker.BarcodeUpdateListener, FlashLightChangeListner {
 
     private static final String TAG = BarcodeScannerFragment.class.getSimpleName();
 
     private Context mContext;
     private View viewFragment;
-
     private RelativeLayout ll_parent;
-
     private boolean isOnCreateCalled = false;
     public static final String AutoFocus = "AutoFocus";
     public static final String UseFlash = "UseFlash";
     public static final String TextBlockObject = "String";
     private static final int RC_HANDLE_GMS = 9001;
     private static final int RC_HANDLE_CAMERA_PERM = 2;
-
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
     private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
-
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
 
@@ -242,7 +240,7 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
         }
 
         mCameraSource = builder
-                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                .setFlashMode(UserDefaults.isFLashLightOn ? Camera.Parameters.FLASH_MODE_TORCH : null)
                 .build();
 
 
@@ -334,6 +332,12 @@ public class BarcodeScannerFragment extends Fragment implements WebserviceWrappe
 
         Toast.makeText(mContext, "" + barcode, Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onFlashLightToggle(boolean isFLashOn) {
+        mCameraSource.setFlashMode(isFLashOn ? Camera.Parameters.FLASH_MODE_TORCH : Camera.Parameters.FLASH_MODE_OFF);
+        startCameraSource();
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {

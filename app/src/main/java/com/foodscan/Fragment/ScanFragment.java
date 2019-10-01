@@ -33,8 +33,7 @@ import android.widget.Toast;
 
 import com.foodscan.Activity.MainActivity;
 import com.foodscan.Activity.ProductDetailsActivity;
-import com.foodscan.Barcode.BarcodeGraphic;
-import com.foodscan.Barcode.BarcodeTrackerFactory;
+import com.foodscan.Interfaces.FlashLightChangeListner;
 import com.foodscan.OCR.CameraSource;
 import com.foodscan.OCR.CameraSourcePreview;
 import com.foodscan.OCR.GraphicOverlay;
@@ -49,8 +48,6 @@ import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOProductDetailsData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.vision.MultiProcessor;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.rey.material.app.ThemeManager;
@@ -60,7 +57,7 @@ import java.text.Normalizer;
 
 import io.realm.Realm;
 
-public class ScanFragment extends Fragment implements WebserviceWrapper.WebserviceResponse {
+public class ScanFragment extends Fragment implements WebserviceWrapper.WebserviceResponse, FlashLightChangeListner {
 
     // Constants used to pass extra data in the intent
     public static final String AutoFocus = "AutoFocus";
@@ -254,7 +251,7 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
                         .setFacing(CameraSource.CAMERA_FACING_BACK)
                         .setRequestedPreviewSize(1280, 1024)
                         .setRequestedFps(2.0f)
-                        .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                        .setFlashMode(UserDefaults.isFLashLightOn ? Camera.Parameters.FLASH_MODE_TORCH : null)
                         .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null)
                         .build();
     }
@@ -624,6 +621,13 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
 
     }
 
+    @Override
+    public void onFlashLightToggle(boolean isFLashOn) {
+        mCameraSource.setFlashMode(isFLashOn ? Camera.Parameters.FLASH_MODE_TORCH : Camera.Parameters.FLASH_MODE_OFF);
+        startCameraSource();
+
+    }
+
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
@@ -684,6 +688,10 @@ public class ScanFragment extends Fragment implements WebserviceWrapper.Webservi
         public void onScaleEnd(ScaleGestureDetector detector) {
             mCameraSource.doZoom(detector.getScaleFactor());
         }
+    }
+
+    public CameraSource getCameraSourse() {
+        return mCameraSource;
     }
 
 }
