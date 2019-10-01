@@ -102,19 +102,11 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                 }
             }
 
-/*
             String isOrganic = dtoProduct.getIsOrganic();
-            if (isOrganic != null && isOrganic.length() > 0) {
-                if (isOrganic.equals("0")) {
-                    //not Natural product
-                    viewHolder.txt_product_type.setText(mContext.getString(R.string.Not_Natural_Product));
-
-                } else if (isOrganic.equals("1")) {
-                    //Natural product
-                    viewHolder.txt_product_type.setText(mContext.getString(R.string.Natural_Product));
-                }
+            if (isOrganic != null && isOrganic.length() > 0 && isOrganic.equals("1")) {
+                //Natural product
+                viewHolder.txt_product_type.setText(mContext.getString(R.string.Natural_Product));
             }
-//*/
 
             String createdDate = dtoProduct.getHistoryCreatedDate();
             if (createdDate != null && createdDate.length() > 0) {

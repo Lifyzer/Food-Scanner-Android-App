@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import com.foodscan.R;
 import com.foodscan.Utility.UserDefaults;
 
-public class PrivacyPolicyActivity extends AppCompatActivity implements View.OnClickListener {
+public class TermsConditionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = PrivacyPolicyActivity.class.getSimpleName();
+    private static final String TAG = TermsConditionActivity.class.getSimpleName();
 
     private Context mContext;
 
@@ -23,10 +23,10 @@ public class PrivacyPolicyActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_privacy_policy);
+        setContentView(R.layout.activity_terms_condition);
         overridePendingTransition(R.anim.slide_right, R.anim.translate);
 
-        mContext = PrivacyPolicyActivity.this;
+        mContext = TermsConditionActivity.this;
 
         initView();
         initGlobals();
@@ -42,7 +42,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity implements View.OnC
     private void initGlobals() {
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(UserDefaults.PRIVACY_POLICY);
+        webView.loadUrl(UserDefaults.TERMS_CONDITION);
 
         img_back.setOnClickListener(this);
 

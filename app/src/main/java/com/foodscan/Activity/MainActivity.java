@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public FrameLayout frame_main;
-    public boolean needDialog = false;
+    public boolean needDialog = true;
     public DTOUser dtoUser;
     public ViewPager viewPager;
     public ViewPagerAdapter adapter;
