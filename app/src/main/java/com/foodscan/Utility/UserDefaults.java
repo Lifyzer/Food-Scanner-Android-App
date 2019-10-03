@@ -22,7 +22,7 @@ public class UserDefaults {
     public static final String PRIVACY_POLICY = "https://lifyzer.com/privacy.txt";
     public static final String TERMS_CONDITION = "https://lifyzer.com/tos.txt";
     public static final String CURRENT_FRAG = "currentFrag";
-    public static boolean isFLashLightOn= false;
+    public static boolean isFLashLightOn = false;
 
 
     public class CAM_STATE {
