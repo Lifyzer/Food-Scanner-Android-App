@@ -71,7 +71,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private void initGlobals() {
 
-        String text = "<font color=#5B5B5B> By Creating Account, you are automatically accepting all the </font> <font color=#44B05B> Terms & Conditions</font>";
+        String text = "<font color=#5B5B5B> By Creating Account, you are automatically accepting all the </font> <font color=#44B05B> Terms of service</font>";
         txt_terms_and_condition.setText(Html.fromHtml(text));
 
         img_back.setOnClickListener(this);
