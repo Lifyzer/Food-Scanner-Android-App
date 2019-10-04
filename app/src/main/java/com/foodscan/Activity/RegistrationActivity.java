@@ -106,7 +106,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
             case R.id.txt_terms_and_condition: {
 
-                Intent intent = new Intent(mContext, PrivacyPolicyActivity.class);
+                Intent intent = new Intent(mContext, TermsConditionActivity.class);
                 startActivity(intent);
 
             }
