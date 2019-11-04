@@ -1,4 +1,4 @@
-# Android Food Scanner App
+# Android Food Scanner App 🍌
 
 *The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝*
 
