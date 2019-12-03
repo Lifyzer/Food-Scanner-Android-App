@@ -84,6 +84,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
 
             viewHolder.txt_product_name.setText(dtoProduct.getProductName());
 
+            /*
             String isHealthy = dtoProduct.getIsHealthy();
             if (isHealthy != null && isHealthy.length() > 0) {
                 if (isHealthy.equals("0")) {
@@ -101,6 +102,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     viewHolder.txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
                 }
             }
+            //*/
 
             String isOrganic = dtoProduct.getIsOrganic();
             if (isOrganic != null && isOrganic.length() > 0 && isOrganic.equals("1")) {

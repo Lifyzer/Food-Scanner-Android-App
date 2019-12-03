@@ -106,12 +106,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                     img_favourite.setImageResource(R.drawable.img_fav_white_solid);
                 }
 
+                /*
                 String isHealthy = dtoProduct.getIsHealthy();
                 if (isHealthy != null && isHealthy.length() > 0 && isHealthy.equals("1")) {
                     txt_is_healthy.setText(mContext.getString(R.string.Healthy));
                     txt_is_healthy.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_bg_green_small, 0, 0, 0);
                     txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
                 }
+                //*/
             }
         }
 

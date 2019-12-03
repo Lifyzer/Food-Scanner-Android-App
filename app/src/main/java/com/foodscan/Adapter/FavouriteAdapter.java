@@ -79,6 +79,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
             viewHolder.txt_product_name.setText(((MainActivity) mContext).favArrayList.get(position).getProductName());
             String isHealthy = dtoProduct.getIsHealthy();
 
+            /*
             if (isHealthy != null && isHealthy.length() > 0) {
                 if (isHealthy.equals("0")) {
 
@@ -95,6 +96,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
                     viewHolder.txt_is_healthy.setTextColor(Utility.getColorWrapper(mContext, R.color.colorAccent));
                 }
             }
+            //*/
 
             /* Shows if the product is organic */
             String isOrganic = dtoProduct.getIsOrganic();
