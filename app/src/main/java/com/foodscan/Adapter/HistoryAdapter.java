@@ -81,7 +81,6 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                 viewHolder.img_food.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.img_food_placeholder_small));
             }
 
-
             viewHolder.txt_product_name.setText(dtoProduct.getProductName());
 
             /*

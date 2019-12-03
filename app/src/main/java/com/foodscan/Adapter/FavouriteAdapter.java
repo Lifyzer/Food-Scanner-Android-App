@@ -77,9 +77,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
             }
 
             viewHolder.txt_product_name.setText(((MainActivity) mContext).favArrayList.get(position).getProductName());
-            String isHealthy = dtoProduct.getIsHealthy();
 
             /*
+            String isHealthy = dtoProduct.getIsHealthy();
             if (isHealthy != null && isHealthy.length() > 0) {
                 if (isHealthy.equals("0")) {
 
