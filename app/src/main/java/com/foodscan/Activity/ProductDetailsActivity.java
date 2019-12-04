@@ -39,7 +39,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
     private ImageView img_back, img_favourite, img_product;
     private RecyclerView rv_details;
-    private TextView txt_product_name, txt_is_healthy, txt_ingradiants;
+    private TextView txt_product_name, txt_is_healthy;
 
     private DTOProduct dtoProduct;
     private FoodDetailsAdapter foodDetailsAdapter;
@@ -71,8 +71,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         img_favourite = findViewById(R.id.img_favourite);
         img_product = findViewById(R.id.img_product);
         txt_is_healthy = findViewById(R.id.txt_is_healthy);
-        txt_ingradiants = findViewById(R.id.txt_ingradiants);
-
     }
 
     private void initGlobals() {
