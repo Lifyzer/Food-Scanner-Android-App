@@ -36,7 +36,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private Realm realm;
 
     private RelativeLayout rl_parent;
-    private EditText edt_full_name, edt_email_id, edt_password, edt_confirm_password;
+    private EditText edt_full_name, edt_email_id, edt_password;
     private TextView txt_terms_and_condition, txt_proceed;
     private ImageView img_back;
 
@@ -62,7 +62,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         edt_full_name = findViewById(R.id.edt_full_name);
         edt_email_id = findViewById(R.id.edt_email_id);
         edt_password = findViewById(R.id.edt_password);
-        edt_confirm_password = findViewById(R.id.edt_confirm_password);
         txt_proceed = findViewById(R.id.txt_proceed);
         txt_terms_and_condition = findViewById(R.id.txt_terms_and_condition);
         img_back = findViewById(R.id.img_back);
@@ -169,24 +168,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (Utility.validateStringPresence(edt_full_name)) {
             if (Utility.validateStringPresence(edt_email_id)) {
                 if (Utility.validateStringPresence(edt_password)) {
-                    if (Utility.validateStringPresence(edt_confirm_password)) {
-                        if (edt_password.getText().toString().equals(edt_confirm_password.getText().toString())) {
-                            if (Utility.validatePasswordLength(edt_password.getText().toString())) {
-                                return true;
-                            } else {
-                                //Password length is short
-                                Utility.showLongSnackBar(rl_parent, getString(R.string.password_length_error), RegistrationActivity.this);
-                                return false;
-                            }
-
-                        } else {
-                            //Password and confirm password is diffrent
-                            Utility.showLongSnackBar(rl_parent, getString(R.string.password_and_confirmpass_is_different), RegistrationActivity.this);
-                            return false;
-                        }
+                    if (Utility.validatePasswordLength(edt_password.getText().toString())) {
+                        return true;
                     } else {
-                        //Confirm password blank
-                        Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_confirm_password), RegistrationActivity.this);
+                        //Password length is short
+                        Utility.showLongSnackBar(rl_parent, getString(R.string.password_length_error), RegistrationActivity.this);
                         return false;
                     }
                 } else {

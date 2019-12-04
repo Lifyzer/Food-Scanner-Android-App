@@ -81,25 +81,11 @@
                     android:inputType="textPassword"
                     android:imeOptions="actionNext" />
 
-                <com.foodscan.CustomViews.EditTextCustom
-                    android:id="@+id/edt_confirm_password"
-                    style="@style/EditInputField"
-                    android:layout_below="@+id/edt_password"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:background="@drawable/tv_button_stroke_gray"
-                    android:hint="@string/Confirm_Password"
-                    android:textColor="@color/gray"
-                    android:textColorHint="@color/light_gray"
-                    android:inputType="textPassword"
-                    android:imeOptions="actionGo"
-
-                    />
-
                 <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_terms_and_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/edt_confirm_password"
+                    android:layout_below="@+id/edt_password"
                     android:layout_marginLeft="@dimen/dp30"
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp20"
