@@ -70,7 +70,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         txt_product_name = findViewById(R.id.txt_product_name);
         img_favourite = findViewById(R.id.img_favourite);
         img_product = findViewById(R.id.img_product);
-        txt_is_healthy = findViewById(R.id.txt_is_healthy);
+        //txt_is_healthy = findViewById(R.id.txt_is_healthy);
     }
 
     private void initGlobals() {

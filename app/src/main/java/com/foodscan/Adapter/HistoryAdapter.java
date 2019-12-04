@@ -256,7 +256,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
             super(itemView);
 
             txt_product_name = itemView.findViewById(R.id.txt_product_name);
-            txt_is_healthy = itemView.findViewById(R.id.txt_is_healthy);
+            //txt_is_healthy = itemView.findViewById(R.id.txt_is_healthy);
             txt_product_type = itemView.findViewById(R.id.txt_product_type);
             txt_created_date = itemView.findViewById(R.id.txt_created_date);
             img_favourite = itemView.findViewById(R.id.img_favourite);

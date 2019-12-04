@@ -94,7 +94,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp16" />
 
-                <com.foodscan.CustomViews.TextViewCustom
+<!--                <com.foodscan.CustomViews.TextViewCustom
                     android:id="@+id/txt_ingradiants"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                     android:drawableLeft="@drawable/img_green_dot"
                     android:drawablePadding="@dimen/dp2"
                     android:text="Excellent"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorAccent" />-->
 
 
             </RelativeLayout>

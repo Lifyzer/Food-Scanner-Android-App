@@ -125,7 +125,7 @@
                         android:layout_marginTop="@dimen/dp2" />
                     <!--android:text="@string/Natural_Product"-->
 
-                    <TextView
+<!--                    <TextView
                         android:id="@+id/txt_is_healthy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp15"
                         android:textStyle="bold" />
-                    <!--android:text="@string/Excellent"-->
+                    &lt;!&ndash;android:text="@string/Excellent"&ndash;&gt;-->
 
                 </RelativeLayout>
 
