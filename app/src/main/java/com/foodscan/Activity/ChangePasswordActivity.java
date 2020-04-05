@@ -156,14 +156,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 try {
                     DTOResponse dtoResponse = (DTOResponse) object;
                     if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
-
-//                        Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ChangePasswordActivity.this);
-//
-//                        onBackPressed();
-//                        ChangePasswordActivity.this.finish();
-
-                        SuccessChangePass();
-
+                        Utility.showLongSnackBar(rl_parent, getString(R.string.password_change_success), ChangePasswordActivity.this);
+                        onBackPressed();
+                        ChangePasswordActivity.this.finish();
                     } else {
                         Utility.showLongSnackBar(rl_parent, dtoResponse.getMessage(), ChangePasswordActivity.this);
                     }
@@ -174,30 +169,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
             }
         }
-    }
-
-
-    private void SuccessChangePass() {
-
-        com.rey.material.app.Dialog.Builder builder = null;
-        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
-
-        builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
-
-            @Override
-            public void onNegativeActionClicked(DialogFragment fragment) {
-                super.onNegativeActionClicked(fragment);
-                onBackPressed();
-            }
-        };
-
-        ((SimpleDialog.Builder) builder).message(getString(R.string.password_change_success))
-                .title(getString(R.string.app_name))
-                .negativeAction("OK");
-
-        DialogFragment fragment = DialogFragment.newInstance(builder);
-        fragment.show(getSupportFragmentManager(), null);
-
     }
 
 }
