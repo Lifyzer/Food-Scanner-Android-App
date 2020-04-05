@@ -24,7 +24,7 @@
     <string name="Terms_and_condition"><![CDATA[By Creating Account, You are automatically accepting all the Terms of service]]></string>
     <string name="Process">Proceed</string>
     <string name="History">History</string>
-    <string name="Favourite">Favourites</string>
+    <string name="Favourite">Favorites</string>
     <string name="Scan_Food">Lifyzer</string>
     <string name="Profile">Profile</string>
     <string name="PERSONAL">PERSONAL</string>
@@ -103,5 +103,8 @@
     <string name="Exit">Exit</string>
     <string name="Product">Product</string>
     <string name="Barcode">Barcode</string>
+    <string name="product_removed_from_history">Product removed from history</string>
+    <string name="product_removed_from_favorite">Product removed from favourite</string>
+    <string name="product_added_to_favoite">Product added to favorite</string>
 
 </resources>

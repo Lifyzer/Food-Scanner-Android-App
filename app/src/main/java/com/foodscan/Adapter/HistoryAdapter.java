@@ -175,7 +175,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     new WebserviceWrapper(mContext, attribute, HistoryAdapter.this, false, mContext.getString(R.string.Loading_msg)).new WebserviceCaller()
                             .execute(WebserviceWrapper.WEB_CALLID.REMOVE_FROM_HISTORY.getTypeCode());
 
-                    Utility.showLongSnackBar(((MainActivity) mContext).frame_main, "Product is successfully removed from History", mContext);
+                    Utility.showLongSnackBar(((MainActivity) mContext).frame_main, mContext.getString(R.string.product_removed_from_history), mContext);
 
                 } else {
                     Toast.makeText(mContext, mContext.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -202,7 +202,7 @@ public class HistoryAdapter extends RecyclerSwipeAdapter<HistoryAdapter.SimpleVi
                     } else if (((MainActivity) mContext).historyArrayList.get(position).getIsFavourite().equals("0")) {
                         attribute.setIs_favourite("1");
                         ((MainActivity) mContext).historyArrayList.get(position).setIsFavourite("1");
-                        Utility.showLongSnackBar(((MainActivity) mContext).frame_main, "Product is successfully added to favourite", mContext);
+                        Utility.showLongSnackBar(((MainActivity) mContext).frame_main, mContext.getString(R.string.product_added_to_favoite), mContext);
                     }
 
                     attribute.setAccess_key(encodeString);

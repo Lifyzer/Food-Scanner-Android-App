@@ -102,5 +102,8 @@
     <string name="Exit">Sortir</string>
     <string name="Product">Produit</string>
     <string name="Barcode">Code barre</string>
+    <string name="product_removed_from_history">Produit supprimé de l\'historique</string>
+    <string name="product_removed_from_favorite">Produit supprimé des favoris</string>
+    <string name="product_added_to_favoite">Produit ajouté aux favoris</string>
 
 </resources>
