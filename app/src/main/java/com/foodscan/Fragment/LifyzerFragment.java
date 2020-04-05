@@ -356,7 +356,7 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
             }
 
         } else {
-            // noInternetConnection(getString(R.string.no_internet_connection));
+            Utility.showLongSnackBar(rl_parent, getString(R.string.no_internet_connection), mContext);
         }
     }
 
