@@ -70,16 +70,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
             edt_email_id.setText(dtoUser.getEmail());
             edt_full_name.setText(dtoUser.getFirstName());
-
-
-//            edt_email_id.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    edt_email_id.setSelection(edt_email_id.getText().length());
-//                }
-//            });
-
-
             edt_full_name.setSelection(edt_full_name.getText().length());
 
         }

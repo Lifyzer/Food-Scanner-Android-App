@@ -327,54 +327,6 @@ public class LifyzerFragment extends Fragment implements WebserviceWrapper.Webse
             ((MainActivity) mContext).showLoginDialog();
         }
 
-//        final Dialog d = new Dialog(mContext);
-//        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        d.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        d.setContentView(R.layout.dialog_detected_text);
-//        d.setCancelable(true);
-//        d.setCanceledOnTouchOutside(true);
-//
-//        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
-//
-//        d.getWindow().getAttributes().windowAnimations = (isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog);//R.style.DialogAnimation
-//
-//        final EditText edt_detected_text = d.findViewById(R.id.edt_detected_text);
-//        edt_detected_text.setText(detectedText);
-//
-//        edt_detected_text.setSelection(edt_detected_text.getText().length());
-//
-//        edt_detected_text.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                edt_detected_text.setCursorVisible(true);
-//            }
-//        });
-//
-//        TextView txt_viewproduct = d.findViewById(R.id.txt_viewproduct);
-//        txt_viewproduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (Utility.validateStringPresence(edt_detected_text)) {
-//
-//                    productName = edt_detected_text.getText().toString();
-//                    productName = Normalizer.normalize(productName, Normalizer.Form.NFD);
-//                    productName = productName.replaceAll("[^\\p{ASCII}]", "");
-//
-//                    if (((MainActivity) mContext).dtoUser != null) {
-//                        wsCallProductDetails();
-//                        d.dismiss();
-//                    } else {
-//                        //Toast.makeText(mContext, "Please login", Toast.LENGTH_SHORT).show();
-//                        ((MainActivity) mContext).showLoginDialog();
-//                        d.dismiss();
-//                    }
-//
-//                }
-//                d.dismiss();
-//            }
-//        });
-//        d.show();
     }
 
     public void wsCallProductDetails() {
