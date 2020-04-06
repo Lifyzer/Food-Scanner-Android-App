@@ -16,11 +16,11 @@
 
 This Food Scanner Android App lets you:
 
-- Scan any items with QR codes, barcodes, Optical Character Recognition (OCR).
-- Favorite the good products you want to highlight.
-- See all scanned products in the history section.
-- See all information about the item (with lovely icons).
-- Directly be able to see if the product is **good** (healthy) or **bad** (unhealthy).
+- Doesn't matter the way you scan, Lifyzer understands it! Scan it from QR code, barcode, or Optical Character Recognition (OCR).
+- Want to remember the best items for later on (e.g. for your shopping list)? No prob! Lifyzer gives you the simplest way to favorite any great products 😋
+- Want to track what you eat or scan? Sure! The app keeps a history of all your scanned products. And allows you to remove them too!
+- Curious? See all information about any food items (with lovely icons 🤩).
+- Whenever it's day or night, the Lifyzer's Torch will light up the items you want to check ✨
 
 
 ## The Founder 👨‍🍳
