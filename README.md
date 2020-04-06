@@ -12,7 +12,7 @@
 [![Get Lifyzer, Healthy Food on Google Play](extras/assets/googleplay-badge.svg)](https://play.google.com/store/apps/details?id=com.lifyzer "Get It on Google Play")
 
 
-## Yummy Features 😋
+## The Yummy Features! 😋
 
 This Food Scanner Android App lets you:
 
