@@ -78,6 +78,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Simp
 
             viewHolder.txt_product_name.setText(((MainActivity) mContext).favArrayList.get(position).getProductName());
 
+
+            // Disable the Healthy/Unhealthy indicator.
+            // Can be re-enabled later on when it will be fully implemented in the database.
             /*
             String isHealthy = dtoProduct.getIsHealthy();
             if (isHealthy != null && isHealthy.length() > 0) {
