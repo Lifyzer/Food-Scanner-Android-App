@@ -11,12 +11,12 @@
     <string name="Sign_In">Sign In</string>
     <string name="Create_New_Account">Create New Account</string>
     <string name="copyright">\u00a9 Lifyzer Healthy Food</string>
-    <string name="Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in">Type in your Email ID and Password you choose and click to Sign In</string>
-    <string name="Email_Id">Email ID</string>
+    <string name="welcome_back">Welcome Back to Lifyzer!</string>
+    <string name="Email_Id">Email</string>
     <string name="Password">Password</string>
     <string name="can_not_sign_in_forgot_password">Can\'t Sign In? Forgot Password</string>
     <string name="Forgot_Password">Forgot Password</string>
-    <string name="Forgotpassword_instruction">No Problem! Just give in your Email ID and we will send you a new password on your email ID</string>
+    <string name="Forgotpassword_instruction">No Problem! Just give in your email address. We will send you a new password on your email ID</string>
     <string name="Send">Send</string>
     <string name="First_name">First Name</string>
     <string name="Last_Name">Last Name</string>
@@ -59,7 +59,7 @@
     <string name="please_enter_password">Please enter password</string>
     <string name="please_enter_confirm_password">Please enter confirm password</string>
     <string name="please_enter_username">Please enter username</string>
-    <string name="please_enter_email">Please enter email ID</string>
+    <string name="please_enter_email">Please enter your email</string>
 
     <string name="please_enter_current_password">Please enter current password</string>
     <string name="please_enter_new_password">Please enter new password</string>

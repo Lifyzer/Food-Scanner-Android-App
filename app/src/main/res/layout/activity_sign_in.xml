@@ -54,7 +54,7 @@
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp40"
                     android:gravity="left"
-                    android:text="@string/Type_in_your_Email_ID_and_Password_you_choose_for_scanfood_and_click_to_sign_in" />
+                    android:text="@string/welcome_back" />
 
 
                 <com.foodscan.CustomViews.EditTextCustom
