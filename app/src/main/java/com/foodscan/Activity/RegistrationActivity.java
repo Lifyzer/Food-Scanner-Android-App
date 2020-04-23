@@ -188,7 +188,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         } else {
             //first name blank
-            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_full_name), RegistrationActivity.this);
+            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_name), RegistrationActivity.this);
             return false;
 
         }

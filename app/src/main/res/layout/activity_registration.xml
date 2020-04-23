@@ -50,7 +50,7 @@
                     style="@style/EditInputField"
                     android:layout_marginTop="@dimen/dp30"
                     android:background="@drawable/tv_button_stroke_gray"
-                    android:hint="@string/Full_name"
+                    android:hint="@string/Name"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/light_gray"
                     android:inputType="text"

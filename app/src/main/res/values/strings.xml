@@ -30,7 +30,7 @@
     <string name="PERSONAL">PERSONAL</string>
     <string name="FAVORITE_FOOD">FAVORITE FOOD</string>
     <string name="Create_Account">Create a Tasty Account!</string>
-    <string name="Full_name">Full Name</string>
+    <string name="Name">First Name</string>
     <string name="Protein">Protein</string>
     <string name="Fiber">Fiber</string>
     <string name="Sugar">Sugar</string>
@@ -64,7 +64,7 @@
     <string name="please_enter_current_password">Please enter current password</string>
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="please_enter_first_name">Please enter first name</string>
-    <string name="please_enter_full_name">Please enter full name</string>
+    <string name="please_enter_name">Please enter your name</string>
     <string name="please_enter_valid_email">Please enter valid email address</string>
     <string name="forget_password_success">Please check your email to get password</string>
     <string name="password_change_success">Your Password has been changed successfully</string>

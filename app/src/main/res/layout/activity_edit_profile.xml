@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp30"
             android:layout_marginRight="@dimen/dp30"
-            android:text="@string/Full_name"
+            android:text="@string/Name"
             android:textColor="@color/black"
             android:textSize="@dimen/sp14" />
 
@@ -57,7 +57,7 @@
             android:layout_below="@+id/lbl_fullname"
             android:layout_marginTop="@dimen/dp10"
             android:background="@drawable/tv_button_stroke_gray"
-            android:hint="@string/Full_name"
+            android:hint="@string/Name"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textColor="@color/gray"
@@ -82,7 +82,7 @@
             android:layout_below="@+id/lbl_email"
             android:layout_marginTop="@dimen/dp10"
             android:background="@drawable/tv_button_stroke_gray"
-            android:hint="@string/Full_name"
+            android:hint="@string/Name"
             android:imeOptions="actionGo"
             android:inputType="textEmailAddress"
             android:textColor="@color/gray"

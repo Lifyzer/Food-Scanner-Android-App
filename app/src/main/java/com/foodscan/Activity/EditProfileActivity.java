@@ -149,7 +149,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
         } else {
             //first name blank
-            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_full_name), EditProfileActivity.this);
+            Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_name), EditProfileActivity.this);
             return false;
         }
 

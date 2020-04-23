@@ -29,7 +29,7 @@
     <string name="PERSONAL">PERSONAL</string>
     <string name="FAVORITE_FOOD">NOURRITURE FAVORITE</string>
     <string name="Create_Account">Créer un compte gourmand</string>
-    <string name="Full_name">Nom</string>
+    <string name="Name">Prénom</string>
     <string name="Protein">Protein</string>
     <string name="Fiber">Fibre</string>
     <string name="Sugar">Sugar</string>
@@ -63,7 +63,7 @@
     <string name="please_enter_current_password">Please enter current password</string>
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="please_enter_first_name">Please enter first name</string>
-    <string name="please_enter_full_name">Please enter full name</string>
+    <string name="please_enter_name">Veuillez entrer votre nom</string>
     <string name="please_enter_valid_email">Please enter valid email address</string>
     <string name="forget_password_success">Please check your email to get password</string>
     <string name="password_change_success">Your Password has been changed successfully</string>
