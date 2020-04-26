@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (fragment instanceof HistoryFragment) {
                     HistoryFragment historyFragment = (HistoryFragment) fragment;
                     if (!tinyDB.getBoolean(UserDefaults.IS_LOGIN)) {
-
+                        // TODO Something HERE
                     }
 
                 }
