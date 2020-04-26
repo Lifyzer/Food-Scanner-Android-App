@@ -127,7 +127,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     }
 
-    private void SuccessForgetPass() {
+    private void successForgetPass() {
 
         com.rey.material.app.Dialog.Builder builder = null;
         boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
@@ -177,7 +177,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             if (object != null) {
                 DTOResponse dtoResponse = (DTOResponse) object;
                 if (dtoResponse.getStatus().equalsIgnoreCase(UserDefaults.SUCCESS_STATUS)) {
-                    SuccessForgetPass();
+                    successForgetPass();
                 } else {
                     Utility.showLongSnackBar(rl_parent, "Something went wrong please try again later", ForgotPasswordActivity.this);
                 }
