@@ -68,7 +68,7 @@
     <string name="forget_password_success">Please check your email to get password</string>
     <string name="password_change_success">Your Password has been changed successfully</string>
     <string name="profile_change_success">Your Profile is updated successfully</string>
-    <string name="please_login">To perform any action please login to FoodScan app</string>
+    <string name="please_login">Vous devez vous connecter pour continuer</string>
     <string name="logout_conformation">Are you sure you want to logout from FoodScan app?</string>
 
     <string name="password_and_confirmpass_is_different">Password and Confirm password do not match</string>
