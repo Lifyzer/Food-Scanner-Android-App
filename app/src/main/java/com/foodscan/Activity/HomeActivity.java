@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.foodscan.R;
-import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.model.DTOUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -19,8 +18,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private Context mContext;
-
-    private RelativeLayout rl_parent;
 
     private TextView txt_signin, txt_create_new_account, txt_copy_right;
     private ImageView img_back;
@@ -42,7 +39,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
 
-        rl_parent = findViewById(R.id.rl_parent);
         txt_signin = findViewById(R.id.txt_signin);
         txt_create_new_account = findViewById(R.id.txt_create_new_account);
         txt_copy_right = findViewById(R.id.txt_copy_right);
@@ -59,7 +55,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void triggerLoginNeededMessage() {
 
-        Utility.showLongSnackBar(rl_parent, getString(R.string.please_login), HomeActivity.this);
+        Snackbar.make(findViewById(R.id.rl_parent), getString(R.string.please_login), Snackbar.LENGTH_LONG)
+                .show();
 
     }
 
