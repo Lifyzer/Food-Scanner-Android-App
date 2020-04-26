@@ -53,7 +53,6 @@
                     android:layout_marginLeft="@dimen/dp30"
                     android:layout_marginRight="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp40"
-                    android:gravity="left"
                     android:text="@string/welcome_back" />
 
 

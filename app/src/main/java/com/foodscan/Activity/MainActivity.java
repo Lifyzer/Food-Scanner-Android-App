@@ -32,8 +32,6 @@ import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.model.DTOProduct;
 import com.foodscan.WsHelper.model.DTOUser;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.rey.material.app.DialogFragment;
-import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
 
 import java.util.ArrayList;
@@ -584,34 +582,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void updateinHistoryFrag() {
-
-    }
-
     public void showLoginDialog() {
 
-        com.rey.material.app.Dialog.Builder builder = null;
-        boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+        Intent intent = new Intent(mContext, HomeActivity.class);
+        startActivityForResult(intent, LOGIN_REQ_CODE);
 
-        builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
-
-            @Override
-            public void onNegativeActionClicked(DialogFragment fragment) {
-                super.onNegativeActionClicked(fragment);
-
-                Intent intent = new Intent(mContext, HomeActivity.class);
-                startActivityForResult(intent, LOGIN_REQ_CODE);
-
-            }
-        };
-
-        ((SimpleDialog.Builder) builder).message(getString(R.string.please_login))
-                .title(getString(R.string.app_name))
-                .positiveAction("CANCEL")
-                .negativeAction("LOGIN");
-
-        DialogFragment fragment = DialogFragment.newInstance(builder);
-        fragment.show(getSupportFragmentManager(), null);
     }
 
     public void historyBlank() {

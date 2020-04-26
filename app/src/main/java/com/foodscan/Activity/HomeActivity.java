@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.foodscan.R;
+import com.foodscan.Utility.Utility;
 import com.foodscan.WsHelper.model.DTOUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +19,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private Context mContext;
+
+    private RelativeLayout rl_parent;
 
     private TextView txt_signin, txt_create_new_account, txt_copy_right;
     private ImageView img_back;
@@ -33,10 +37,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         initView();
         initGlobals();
+        triggerLoginNeededMessage();
     }
 
     private void initView() {
 
+        rl_parent = findViewById(R.id.rl_parent);
         txt_signin = findViewById(R.id.txt_signin);
         txt_create_new_account = findViewById(R.id.txt_create_new_account);
         txt_copy_right = findViewById(R.id.txt_copy_right);
@@ -49,6 +55,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         txt_signin.setOnClickListener(this);
         txt_create_new_account.setOnClickListener(this);
         img_back.setOnClickListener(this);
+    }
+
+    private void triggerLoginNeededMessage() {
+
+        Utility.showLongSnackBar(rl_parent, getString(R.string.please_login), HomeActivity.this);
+
     }
 
     @Override
