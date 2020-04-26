@@ -403,7 +403,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (requestCode == 123) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                //if (fragment instanceof ScanFragment)
                 if (fragment instanceof LifyzerFragment)
                     fragment.onActivityResult(requestCode, resultCode, data);
             }
@@ -556,26 +555,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//
-//        if(viewPager.getCurrentItem() == 1){
-//
-//            if(adapter != null){
-//                Fragment fragment = adapter.getItem(1);
-//
-//                if(fragment instanceof ScanFragment){
-//
-//                    ScanFragment scanFragment = (ScanFragment)fragment;
-//                    return scanFragment.getTouchEvent(event);
-//
-//                }
-//
-//            }
-//        }
-//        return super.onTouchEvent(event);
-//    }
 
     public void updateFavFrag(DTOProduct dtoProduct) {
 
