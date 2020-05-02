@@ -18,9 +18,6 @@ import com.foodscan.WsHelper.helper.Attribute;
 import com.foodscan.WsHelper.helper.WebserviceWrapper;
 import com.foodscan.WsHelper.model.DTOResponse;
 import com.foodscan.WsHelper.model.DTOUser;
-import com.rey.material.app.DialogFragment;
-import com.rey.material.app.SimpleDialog;
-import com.rey.material.app.ThemeManager;
 
 import io.realm.Realm;
 
