@@ -132,7 +132,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                         return false;
                     }
                 } else {
-                    //confirm password blank
+                    //Confirm password blank
                     Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_confirm_password), ChangePasswordActivity.this);
                     return false;
                 }
@@ -142,7 +142,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 return false;
             }
         } else {
-            //current password blank
+            //Current password blank
             Utility.showLongSnackBar(rl_parent, getString(R.string.please_enter_current_password), ChangePasswordActivity.this);
             return false;
         }
