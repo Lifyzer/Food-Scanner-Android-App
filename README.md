@@ -10,6 +10,7 @@
 * Lifyzer App uses OCR and barcode scanner technologies.
 
 [![Get Lifyzer, Healthy Food on Google Play](extras/assets/googleplay-badge.svg)](https://play.google.com/store/apps/details?id=com.lifyzer "Get It on Google Play")
+[![Get Lifyzer, Healthy Food at IzzyOnDroid](extras/assets/izzy-on-droid_badge.png)](https://apt.izzysoft.de/fdroid/index/apk/com.lifyzer "Get It at IzzyOnDroid")
 
 
 ## The Yummy Features! 😋
