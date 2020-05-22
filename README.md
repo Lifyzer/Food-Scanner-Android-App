@@ -1,16 +1,16 @@
 # Android Food Scanner App 🍌
 
-*The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝*
+<div align="center" markdown="1">The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝*
 
-![Healthy Food, Healthy Tomato](extras/assets/broccoli-healthy-food.svg)
+![Healthy Food, Healthy Tomato](extras/assets/broccoli-healthy-food.svg)</div>
 
 
 ## About The App 🤔
 
-* Lifyzer App uses OCR and barcode scanner technologies.
+<div align="center" markdown="1">Lifyzer App uses OCR and barcode scanner technologies.
 
-[![Get Lifyzer, Healthy Food on Google Play](extras/assets/googleplay-badge.svg)](https://play.google.com/store/apps/details?id=com.lifyzer "Get It on Google Play")
-[![Get Lifyzer, Healthy Food at IzzyOnDroid](extras/assets/izzy-on-droid_badge.png)](https://apt.izzysoft.de/fdroid/index/apk/com.lifyzer "Get It at IzzyOnDroid")
+[<img src="extras/assets/googleplay-badge.svg" width="170" alt="Get Lifyzer, Healthy Food on Google Play">](https://play.google.com/store/apps/details?id=com.lifyzer "Get It on Google Play")  
+[<img src="extras/assets/izzy-on-droid_badge.png" width="195" alt="Get Lifyzer, Healthy Food at IzzyOnDroid">](https://apt.izzysoft.de/fdroid/index/apk/com.lifyzer "Get It at IzzyOnDroid")</div>
 
 
 ## The Yummy Features! 😋
@@ -35,8 +35,8 @@ You can reach me at: *pierre {(AT)} soria {(D0T)} email*
 
 ## Yummy Screenshots 😍
 
-![Scan a bottle of juice](extras/assets/screenshots/scan-healthy-juice-bottle.jpg)
+[<img src="extras/assets/screenshots/scan-healthy-juice-bottle.jpg" width="200" alt="Scan a bottle of juice">](extras/assets/screenshots/scan-healthy-juice-bottle.jpg "Scan a bottle of juice")
+[<img src="extras/assets/screenshots/lifyzer-history-scanned-food-items.png" width="200" alt="List of scanned items">](extras/assets/screenshots/lifyzer-history-scanned-food-items.png "List of scanned items")
+[<img src="extras/assets/screenshots/lifyzer-food-product-details.png" width="200" alt="Details of an food product scanned">](extras/assets/screenshots/lifyzer-food-product-details.png "Details of an food product scanned")  
 
-![List of scanned items](extras/assets/screenshots/lifyzer-history-scanned-food-items.png)
-
-![Details of an food product scanned](extras/assets/screenshots/lifyzer-food-product-details.png)
+Scan a bottle of juice / List of scanned items / Details of an food product scanned
