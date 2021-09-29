@@ -39,4 +39,4 @@ You can reach me at: *pierre {(AT)} soria {(D0T)} email*
 [<img src="extras/assets/screenshots/lifyzer-history-scanned-food-items.png" width="200" alt="List of scanned items">](extras/assets/screenshots/lifyzer-history-scanned-food-items.png "List of scanned items")
 [<img src="extras/assets/screenshots/lifyzer-food-product-details.png" width="200" alt="Details of an food product scanned">](extras/assets/screenshots/lifyzer-food-product-details.png "Details of an food product scanned")  
 
-Scan a bottle of juice / List of scanned items / Details of an food product scanned
+Scan a bottle of juice / List of scanned items / Details of the food item 😋
