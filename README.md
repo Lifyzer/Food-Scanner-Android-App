@@ -1,6 +1,6 @@
 # Android Food Scanner App 🍌
 
-<div align="center" markdown="1">The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝*
+<div align="center" markdown="1">The native, Android [Food Scanner App](https://play.google.com/store/apps/details?id=com.lifyzer) 🥝
 
 ![Healthy Food, Healthy Tomato](extras/assets/broccoli-healthy-food.svg)</div>
 
